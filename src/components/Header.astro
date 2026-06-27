@@ -1,0 +1,33 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/research/', label: 'Research' },
+  { href: '/people/', label: 'People' },
+  { href: '/papers/', label: 'Papers' },
+  { href: '/media/', label: 'Media' },
+  { href: '/gallery/', label: 'Gallery' },
+  { href: '/contact/', label: 'Contact' }
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <nav class="container nav" aria-label="Primary navigation">
+    <a class="brand" href="/" aria-label="Camsun Lab home">
+      <span>SunLab@Cambridge</span>
+    </a>
+    <div class="nav-links">
+      {
+        links.map((link) => {
+          const current = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+          return (
+            <a href={link.href} aria-current={current ? 'page' : undefined}>
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </div>
+  </nav>
+</header>

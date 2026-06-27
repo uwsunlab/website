@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+
+const research = (await getCollection('researchProjects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Research" description="Clean energy materials research using artificial intelligence and robotics.">
+  <PageHeader
+    title="Research"
+    description="Autonomous platforms for closed-loop materials discovery, from crystallisation to thin-film deposition and flexible laboratory automation."
+  />
+  <section class="section">
+    <div class="container concept-panel">
+      <h2>Closed-loop materials discovery</h2>
+      <p>
+        A closed-loop experiment links planning, synthesis, measurement, and interpretation into a
+        repeatable cycle. Scientists define the hypothesis and constraints; robotic platforms run
+        experiments; measurements return structured data; models suggest the next useful step.
+      </p>
+      <div class="concept-steps" aria-label="Closed-loop workflow">
+        <span>Plan</span>
+        <span>Make</span>
+        <span>Measure</span>
+        <span>Learn</span>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="container platform-list">
+      {
+        research.map((item) => (
+          <article class="platform-card">
+            <div class="platform-media">
+              {item.data.image && (
+                <img src={item.data.image} alt={item.data.imageAlt ?? `${item.data.title} platform photo`} loading="lazy" />
+              )}
+            </div>
+            <div class="platform-copy">
+              <h2>{item.data.area ? `${item.data.area}: ${item.data.title}` : item.data.title}</h2>
+              <p>{item.data.summary}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

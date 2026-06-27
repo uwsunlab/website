@@ -1,0 +1,1978 @@
+[
+  {
+    "loc": "https://camsunlab.com/home",
+    "slug": "home",
+    "lastmod": "2025-10-05",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f0e1b6be-8714-4a13-9038-ce6952ad6e89/1000019770.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6ea93c4c-3b0b-4a90-a0bb-117fb6080f6c/P5160009.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/eea4e7ae-b6b7-4a44-a0e5-1e77b2ae99b0/IMG_9124+%281%29.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2f6df150-03cf-4df1-8f69-90d8cbdd08ac/D3CD89A0-749E-424A-AF73-221B29C57670.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/230104d2-e7fa-4e29-8994-eca3aa3b304d/C55D9F7B-3ABE-49CE-B553-2EB177E7D6A0_1_201_a.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6ea93c4c-3b0b-4a90-a0bb-117fb6080f6c/P5160009.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0e96e308-b2c0-443d-a509-ea6e4fd99aae/IMG_4105.JPG",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3f0d4d3d-081e-405b-85f1-f8937bcfeaed/IMG_4349.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cfac5f75-e83b-47c1-bcaf-290dd2235d03/IMG_4363.JPG",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/bd3cdb08-c1aa-47b8-bd30-d2ee56d041a4/IMG-20230326-WA0006.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/9ba3761b-4019-4d7e-871a-16bdc9c0850d/1000084239.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/75b8e02c-15fb-409f-a84b-18cf669fdc23/IMG_9099D2E40A5D-1.jpeg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4387ca2c-9e7b-4068-b59c-03ae84e48581/IMG_1438.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "UW Sun Lab",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/a4f7d01d-73b1-428a-bdb2-dee5389f76fd/d03af0b81dacf2257ac3c9ae1d052f4c.JPG",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Autonomous Materials Group",
+    "textLines": 78,
+    "imageCount": 18,
+    "rawHtml": "raw-html/home.html",
+    "markdown": "pages/home.md"
+  },
+  {
+    "loc": "https://camsunlab.com/contact-v1",
+    "slug": "contact-v1",
+    "lastmod": "2025-09-26",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b3c7374c-ec0a-473e-a0b2-36205149a4ea/map.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Contact_V1 &mdash; SunLab@Cambridge",
+    "textLines": 10,
+    "imageCount": 1,
+    "rawHtml": "raw-html/contact-v1.html",
+    "markdown": "pages/contact-v1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/research-v1",
+    "slug": "research-v1",
+    "lastmod": "2024-09-24",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/49280bc6-dc87-4fb5-81fb-78e4b595c46d/Noraline_Show_me_simple_periodically_repeating_atomic_structure_8c5fd099-5b15-4cec-a2da-dbdce22e0d83.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3b9db101-54f4-46cb-83e6-15bf47630969/Noraline_Show_me_a_background_image_that_depicts_clean_energy_t_88dd81a1-89e4-4b1b-82a5-34aa1a985acb.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/25d6b4f3-796f-429c-8e35-7c6f28acf157/Noraline_Show_me_a_background_image_that_captures_the_essence_o_d72fbb76-8658-453f-9295-7d1dc13f111b.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f4834610-58f7-4b80-838d-cd28e48628b6/Noraline_Show_me_a_background_photo_that_encapsulates_the_inter_9752a725-5c3f-4366-9b3c-de9db1e43efd+%281%29.jpg",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Research &mdash; SunLab@Cambridge",
+    "textLines": 24,
+    "imageCount": 4,
+    "rawHtml": "raw-html/research-v1.html",
+    "markdown": "pages/research-v1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/join-us-v1",
+    "slug": "join-us-v1",
+    "lastmod": "2025-09-26",
+    "images": [],
+    "title": "Openings &mdash; SunLab@Cambridge",
+    "textLines": 17,
+    "imageCount": 0,
+    "rawHtml": "raw-html/join-us-v1.html",
+    "markdown": "pages/join-us-v1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/papers-v1",
+    "slug": "papers-v1",
+    "lastmod": "2025-09-26",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/aa0e1ba2-d885-4124-9558-88cbc1c0eec2/Picture+1.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/d746b5fa-f954-4d78-bd70-572afb98c754/Picture+2.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/68792c7b-4d1d-47e3-aafb-63891ba8463f/Picture+2.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/18c5103a-58c8-49d8-a00a-4805faef73be/Picture+3.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6cc51782-21b2-4792-9665-0612511c15f3/Picture+4.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/913edd7d-20cd-4bf5-93cf-1009bf3d2a39/Picture+5.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/84586bb1-beec-4824-bff1-1e358c82b9c0/Picture+6.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c805d818-c885-4130-9ed1-30f4599d0b3c/Picture+7.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3d935f75-4fd7-403b-9e7d-2609c4eb035e/Picture+9.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/eae5221d-0584-4311-96d9-c9ba9a52f244/Picture+10.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ebbaa5fc-5024-4c2f-82cc-2601c407ee23/Picture+11.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/47d1d1ec-dce0-49a4-a442-8c925c485aab/Picture+13.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b8dd462c-8510-414e-ab29-1b32771a08f9/Picture+14.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6f2bfece-999a-4cea-a12e-3627490a3969/Picture+15.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/a55dc442-73c1-49b3-ab51-1e04842325c4/Picture+16.jpg",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/32c7aa41-3753-4525-b7c8-33a4573d455b/Picture+18.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd042e8e-328f-4057-9718-c48c56c185b8/white.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f11ab228-5a94-429a-bc4c-ee14e712ce30/white.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f5a667f9-be20-49c1-b7e0-5ac6db6205db/white.png",
+        "title": "Papers_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3fe4c9e0-fb33-4d34-81fa-5c71a8a5525a/white.png",
+        "title": "Papers_V1",
+        "caption": ""
+      }
+    ],
+    "title": "Papers_V1 &mdash; SunLab@Cambridge",
+    "textLines": 41,
+    "imageCount": 20,
+    "rawHtml": "raw-html/papers-v1.html",
+    "markdown": "pages/papers-v1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/blog",
+    "slug": "blog",
+    "lastmod": "2025-10-05",
+    "images": [],
+    "title": "Blog &mdash; SunLab@Cambridge",
+    "textLines": 37,
+    "imageCount": 0,
+    "rawHtml": "raw-html/blog.html",
+    "markdown": "pages/blog.md"
+  },
+  {
+    "loc": "https://camsunlab.com/shijing",
+    "slug": "shijing",
+    "lastmod": "2023-10-05",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ba928a76-6f0f-4123-a169-857076fca7b3/d03af0b81dacf2257ac3c9ae1d052f4c.JPG",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "PI &mdash; SunLab@Cambridge",
+    "textLines": 12,
+    "imageCount": 1,
+    "rawHtml": "raw-html/shijing.html",
+    "markdown": "pages/shijing.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-v1",
+    "slug": "team-v1",
+    "lastmod": "2025-09-26",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/96671f2b-37cb-4401-9509-c5238da2bf67/ShiJing.png",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ed0a9e1a-b3ea-4a9e-b479-b3a964dfb091/unnamed.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/221e2b7c-b0ae-41ee-a420-804feff8c66e/IMG_20230324_140350%5B27184%5D+%281%29.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/592699ef-fa1a-47ad-a38c-51559d97dec8/Profile+Picture.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6d37b6b6-e583-4a97-8f99-ee61c748313f/IMG_0413.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/fa6aba2a-1411-43bc-a879-0182a8975140/clara.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/8578c955-7b02-435e-b612-b3a43f3de92c/IMG_1438.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/76dfeef4-776c-4548-899c-b6c3825e4dc6/Shuan.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/7c169620-d057-4097-a08d-92c454059022/IMG_1136.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5441846b-2271-4401-acc5-e6b77224b2ce/Picture1.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/62f70ed4-ce80-4ce2-85ea-50dfe99b3c77/IMG_7929.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b7090a09-8b33-44b8-99b9-6135fa8792c6/522A9506.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/89f1109f-ad42-4c64-a036-7997ff3ed1bf/IMG_2095.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/7a842eeb-5022-432e-bc67-2cadc564ea58/1000019770.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/eea4e7ae-b6b7-4a44-a0e5-1e77b2ae99b0/IMG_9124+%281%29.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2f6df150-03cf-4df1-8f69-90d8cbdd08ac/D3CD89A0-749E-424A-AF73-221B29C57670.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b134f763-ad0c-418c-b06f-d249842011fd/IMG_2813.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/bd3cdb08-c1aa-47b8-bd30-d2ee56d041a4/IMG-20230326-WA0006.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0cfd97d6-85f8-43c5-9e0d-793c850a7016/1000084239.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6573b8af-4342-4d72-9569-f85b877924c0/IMG_20231006_100841__01.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/934578a2-3353-4e41-8369-e237552616d5/IMG_3394.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c7057499-822e-4869-a87d-2049dd23e4c2/CROPPED+HEADSHOT.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b84675c8-dc17-4153-be45-d0ee1b51ea3d/1684565408728+%281%29.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/78ae8a54-8da3-489d-a71b-b81dc0927f2d/P5160009.JPG",
+        "title": "Team_V1",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/230104d2-e7fa-4e29-8994-eca3aa3b304d/C55D9F7B-3ABE-49CE-B553-2EB177E7D6A0_1_201_a.jpg",
+        "title": "Team_V1",
+        "caption": ""
+      }
+    ],
+    "title": "Team_V1 &mdash; SunLab@Cambridge",
+    "textLines": 46,
+    "imageCount": 25,
+    "rawHtml": "raw-html/team-v1.html",
+    "markdown": "pages/team-v1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/gallery",
+    "slug": "gallery",
+    "lastmod": "2025-06-19",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0343e9a9-b604-4266-bcbc-4b2cf5d77d61/BT_5.jpg",
+        "title": "Gallery",
+        "caption": "https://www.wcet.washington.edu/"
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ddde8ba3-b922-463a-8436-121e98ea5e60/IMG_1878.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/af72e628-251f-4ea1-a074-0a0d60256ebc/IMG_4555.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1722271158959-I353M6S1N0JEMA4LHBEF/IMG_2874.jpg",
+        "title": "Gallery - IMG_2874.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1723861956456-GQ90H3B8VN4684U03VSE/IMG_2899.jpg",
+        "title": "Gallery - IMG_2899.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e811ee57-c21a-442e-9b2c-595e0f748e9f/PA070001.JPG",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1735449404704-3BWOJYKO1WFG5WNZ8ZJP/IMG_5229.jpg",
+        "title": "Gallery - IMG_5229.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1745606340456-S0TDAOFIHQFWN3MMPO4O/IMG_8479.jpg",
+        "title": "Gallery - IMG_8479.jpg",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/fab6bfdc-e7b6-406d-bd41-20d724fd4b76/IMG_4327.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5050ea5b-d397-42b0-b513-00d0e14a5c0b/Bakar+R1+selects_SP25-065.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1c25f71e-0fe3-4b4a-892b-6848f9cd2791/IMG_6152.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b7419f80-07ff-4593-b4ce-44a581a76252/BT_4.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/25a7e9e2-f3f5-4343-888f-3cf62ba1a135/IMG_1880.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1720650709198-QHII36FSFVFQHFCKU1Q1/IMG_6515.jpg",
+        "title": "Gallery - IMG_6515.jpg",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/773bd7bf-5f0d-4e7d-9491-0cad199047ec/PA070008.JPG",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1745606421651-WEKD7T8ZDUI5I5EUARUI/IMG_20250410_115720.jpg",
+        "title": "Gallery - IMG_20250410_115720.jpg",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/a765423b-42eb-4ad3-b200-653955173289/IMG_4332.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd22f0d7-300c-486e-96ab-f306839e362b/Bakar+Symposium_Day1+R2_SP25-083.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/a8f009b5-9023-4617-b584-d37277d636ae/IMG_8836.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c176e209-f04e-4220-8c47-44053d057383/BT_6.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1720650808030-7PZ0B1S0LALC8XQZSS43/IMG_6465.jpg",
+        "title": "Gallery - IMG_6465.jpg",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1722271458675-XSRZX4CV0SOBE7ILVWTA/IMG_2284.jpg",
+        "title": "Gallery - IMG_2284.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1723861864120-2OU35N99BZFW8H0J3RZZ/IMG_2906.jpg",
+        "title": "Gallery - IMG_2906.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/bdf83958-63a9-45f4-8787-ea6ed25abb7c/IMG_5030.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/dec2f971-7d14-441e-b09e-a36f73a87990/Bakar+Symposium_Day1+R2_SP25-085.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/211f078e-916d-4e08-96ef-0b4560a67dea/IMG_8840.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3921a379-474b-4a5b-b917-e7ed95455fa8/BT_2.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1722271480905-MQUPZ8BU9RMZ7VVKA9W4/IMG_2290.jpg",
+        "title": "Gallery - IMG_2290.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e303e0e9-65d4-47cc-8f24-2775850f0fe5/IMG_5031.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3383f482-0545-402d-a47f-1d75ade1f461/Bakar+Symposium_Day1+R2_SP25-069.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/93337714-5ac5-49a0-b204-bbcb22dd5fab/IMG_8844.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/9c8e57b6-2bd4-4169-9554-d411231cae81/BT_3.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1720650977284-WC8ASPIRNTL7E9OGNV3C/IMG_6458.jpg",
+        "title": "Gallery - IMG_6458.jpg",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1722271874386-H04MBFVAM11HHVP709JY/IMG_7511.jpg",
+        "title": "Gallery - IMG_7511.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1729189870892-2HDDM48JF7OKL0VIKM7I/IMG_5029.jpg",
+        "title": "Gallery - IMG_5029.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/af55d168-b9f9-4496-8e77-3d98b70f3f50/IMG_8850.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3d258d4b-ce3a-4d7d-ba89-8d1aa7cf69d7/BT_1.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2746ae0e-b953-47b7-9d49-a550ab025eb8/IMG_8851.jpg",
+        "title": "Gallery",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1723862624985-101VY88HX5KJ5GNWUT3X/IMG_4379.jpg",
+        "title": "Gallery - IMG_4379.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1723862991913-JGYWNC65PAZTW05N7015/IMG_4437.jpg",
+        "title": "Gallery - IMG_4437.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1723863213611-YSO2KNX36MG68UMYPWNL/IMG_6994_%25281%2529.jpg",
+        "title": "Gallery - IMG_6994_%281%29.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1723863246622-EMJWWKHAAKF796CKHOSZ/IMG_6982_%25281%2529.jpg",
+        "title": "Gallery - IMG_6982_%281%29.jpg (Copy)",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/60d8c6d2-c623-4f61-bd47-93eddb651f50/IMG_0539+%281%29.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Gallery &mdash; SunLab@Cambridge",
+    "textLines": 49,
+    "imageCount": 43,
+    "rawHtml": "raw-html/gallery.html",
+    "markdown": "pages/gallery.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team_shijingsun-1",
+    "slug": "team-shijingsun-1",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/96671f2b-37cb-4401-9509-c5238da2bf67/ShiJing.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "ShiJing &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-shijingsun-1.html",
+    "markdown": "pages/team-shijingsun-1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-claratamura",
+    "slug": "team-claratamura",
+    "lastmod": "2024-08-21",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/fa6aba2a-1411-43bc-a879-0182a8975140/clara.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Clara &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-claratamura.html",
+    "markdown": "pages/team-claratamura.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-hemanth-n-r",
+    "slug": "team-hemanth-n-r",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/8578c955-7b02-435e-b612-b3a43f3de92c/IMG_1438.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Hemanth &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-hemanth-n-r.html",
+    "markdown": "pages/team-hemanth-n-r.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-shuancheng",
+    "slug": "team-shuancheng",
+    "lastmod": "2025-04-26",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/76dfeef4-776c-4548-899c-b6c3825e4dc6/Shuan.jpg",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "ShuAn &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 1,
+    "rawHtml": "raw-html/team-shuancheng.html",
+    "markdown": "pages/team-shuancheng.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-souryadeepmondal",
+    "slug": "team-souryadeepmondal",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/592699ef-fa1a-47ad-a38c-51559d97dec8/Profile+Picture.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Souryadeep &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-souryadeepmondal.html",
+    "markdown": "pages/team-souryadeepmondal.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-kshithijnandishwara",
+    "slug": "team-kshithijnandishwara",
+    "lastmod": "2024-07-11",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6573b8af-4342-4d72-9569-f85b877924c0/IMG_20231006_100841__01.jpg",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "KS &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 1,
+    "rawHtml": "raw-html/team-kshithijnandishwara.html",
+    "markdown": "pages/team-kshithijnandishwara.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-qusai-alsabia",
+    "slug": "team-qusai-alsabia",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/9220311c-9488-4484-b596-3062380d762a/IMG_9124+%281%29.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Qusai &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-qusai-alsabia.html",
+    "markdown": "pages/team-qusai-alsabia.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-sourabh-burela",
+    "slug": "team-sourabh-burela",
+    "lastmod": "2024-07-11",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ed0a9e1a-b3ea-4a9e-b479-b3a964dfb091/unnamed.jpg",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Sourabh &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 1,
+    "rawHtml": "raw-html/team-sourabh-burela.html",
+    "markdown": "pages/team-sourabh-burela.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-adithya-arvind",
+    "slug": "team-adithya-arvind",
+    "lastmod": "2024-07-11",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/43c32450-ed71-4c59-953d-04cb133b7c83/IMG_20230324_140350%5B27184%5D+%281%29.jpg",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Adithya &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 1,
+    "rawHtml": "raw-html/team-adithya-arvind.html",
+    "markdown": "pages/team-adithya-arvind.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-austin-martin",
+    "slug": "team-austin-martin",
+    "lastmod": "2024-11-16",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cb3ede9e-48af-4c5c-a4d4-90e3da814cb0/CROPPED+HEADSHOT.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Austin &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-austin-martin.html",
+    "markdown": "pages/team-austin-martin.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-emilyleung",
+    "slug": "team-emilyleung",
+    "lastmod": "2024-07-16",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b134f763-ad0c-418c-b06f-d249842011fd/IMG_2813.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Emily &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-emilyleung.html",
+    "markdown": "pages/team-emilyleung.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-victoryin",
+    "slug": "team-victoryin",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b84675c8-dc17-4153-be45-d0ee1b51ea3d/1684565408728+%281%29.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Victor &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-victoryin.html",
+    "markdown": "pages/team-victoryin.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-tristan-angeles",
+    "slug": "team-tristan-angeles",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/292ebed5-6066-4b55-a5e1-c926ffbe761e/TristanAngeles.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Tristan &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-tristan-angeles.html",
+    "markdown": "pages/team-tristan-angeles.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-thong-nguyen",
+    "slug": "team-thong-nguyen",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/298db808-2726-4588-82ad-fa8fede9682a/IMG_0413.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Thong &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-thong-nguyen.html",
+    "markdown": "pages/team-thong-nguyen.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-kaixiangarthurchong",
+    "slug": "team-kaixiangarthurchong",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/7d8b5840-06b1-4562-b742-aaf18d80f59c/IMG_1136.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Arthur &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-kaixiangarthurchong.html",
+    "markdown": "pages/team-kaixiangarthurchong.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-masonpalmer",
+    "slug": "team-masonpalmer",
+    "lastmod": "2024-07-12",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b7090a09-8b33-44b8-99b9-6135fa8792c6/522A9506.jpg",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Mason &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 1,
+    "rawHtml": "raw-html/team-masonpalmer.html",
+    "markdown": "pages/team-masonpalmer.md"
+  },
+  {
+    "loc": "https://camsunlab.com/archived-updates",
+    "slug": "archived-updates",
+    "lastmod": "2025-09-24",
+    "images": [],
+    "title": "Archived Updates &mdash; SunLab@Cambridge",
+    "textLines": 33,
+    "imageCount": 0,
+    "rawHtml": "raw-html/archived-updates.html",
+    "markdown": "pages/archived-updates.md"
+  },
+  {
+    "loc": "https://camsunlab.com/research-v2-0",
+    "slug": "research-v2-0",
+    "lastmod": "2024-08-30",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e181917c-fa87-4737-8c04-2b5584c3aed9/image+%281%29.jpg",
+        "title": "Research_2.0",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/189df8f1-905e-4cee-aafd-6fa92395772b/Picture1.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f3a600e3-0171-423d-be2f-97d9c17f2114/Picture4.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/8fbecf4a-0186-4ab6-9059-36534bd537eb/Picture2.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e1968a6b-8bee-4113-b9e6-264e7b3be2a2/method_thesis+%281%291.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f4834610-58f7-4b80-838d-cd28e48628b6/Noraline_Show_me_a_background_photo_that_encapsulates_the_inter_9752a725-5c3f-4366-9b3c-de9db1e43efd+%281%29.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/781a5c54-353b-412f-b540-a48163722ce4/IMG_2461.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5d6e007c-4145-4d6a-b3b4-f62de95fa675/IMG_2509.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3c638664-e5ea-41c1-aa20-5fd79aae1d90/Picture2.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Research &mdash; SunLab@Cambridge",
+    "textLines": 21,
+    "imageCount": 9,
+    "rawHtml": "raw-html/research-v2-0.html",
+    "markdown": "pages/research-v2-0.md"
+  },
+  {
+    "loc": "https://camsunlab.com/researchcosmos",
+    "slug": "researchcosmos",
+    "lastmod": "2024-10-11",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ff633594-9fe7-4bdb-bdb3-77fc25054ec8/Untitled+%282%29.jpeg",
+        "title": "Research_Cosmos",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/1a47c136-7512-4d24-8316-3eb3abae9234/Picture1.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Cosmos &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 2,
+    "rawHtml": "raw-html/researchcosmos.html",
+    "markdown": "pages/researchcosmos.md"
+  },
+  {
+    "loc": "https://camsunlab.com/draft-deepproject",
+    "slug": "draft-deepproject",
+    "lastmod": "2024-08-29",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c32396a4-7ebb-44c8-8f8c-c2ee15c6b4be/method_thesis+%281%29.png",
+        "title": "Draft_DeepProject",
+        "caption": ""
+      }
+    ],
+    "title": "About 3 &mdash; SunLab@Cambridge",
+    "textLines": 3,
+    "imageCount": 1,
+    "rawHtml": "raw-html/draft-deepproject.html",
+    "markdown": "pages/draft-deepproject.md"
+  },
+  {
+    "loc": "https://camsunlab.com/researchplum",
+    "slug": "researchplum",
+    "lastmod": "2024-10-16",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c32396a4-7ebb-44c8-8f8c-c2ee15c6b4be/method_thesis+%281%29.png",
+        "title": "Research_Plum",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c7afa38f-25d5-49c7-9fbf-1bb716d9653d/Picture1.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Plum &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 2,
+    "rawHtml": "raw-html/researchplum.html",
+    "markdown": "pages/researchplum.md"
+  },
+  {
+    "loc": "https://camsunlab.com/draft-ksproject",
+    "slug": "draft-ksproject",
+    "lastmod": "2024-08-29",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/d1b57666-d137-45e2-ac91-591259bddb86/Picture1.png",
+        "title": "Draft_KSProject",
+        "caption": ""
+      }
+    ],
+    "title": "About 3 &mdash; SunLab@Cambridge",
+    "textLines": 3,
+    "imageCount": 1,
+    "rawHtml": "raw-html/draft-ksproject.html",
+    "markdown": "pages/draft-ksproject.md"
+  },
+  {
+    "loc": "https://camsunlab.com/project-pnnl",
+    "slug": "project-pnnl",
+    "lastmod": "2024-08-29",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/831c3377-e69c-49c0-8b54-96e631721850/1+-+Untitled+slide.png",
+        "title": "Project_PNNL",
+        "caption": ""
+      }
+    ],
+    "title": "About 3 &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 1,
+    "rawHtml": "raw-html/project-pnnl.html",
+    "markdown": "pages/project-pnnl.md"
+  },
+  {
+    "loc": "https://camsunlab.com/project-mara",
+    "slug": "project-mara",
+    "lastmod": "2025-04-18",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b0c9151b-d12c-4110-9589-1c6052242e94/MRS.png",
+        "title": "Project_Mara",
+        "caption": "Color Mixing"
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0fb961c8-c7fb-44a8-a43f-c053eed6cee6/Picture1.png",
+        "title": "Project_Mara",
+        "caption": "Metal-Organic Frameworks"
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/8f8a2ffc-24ab-4646-996f-fb06a5dc2117/mara+%281%29.png",
+        "title": "Project_Mara",
+        "caption": "Perovskite Quantum Films"
+      }
+    ],
+    "title": "Mara &mdash; SunLab@Cambridge",
+    "textLines": 18,
+    "imageCount": 3,
+    "rawHtml": "raw-html/project-mara.html",
+    "markdown": "pages/project-mara.md"
+  },
+  {
+    "loc": "https://camsunlab.com/project-axolotl",
+    "slug": "project-axolotl",
+    "lastmod": "2025-04-18",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ebe2595a-223f-40e7-9c13-4d62e2c4a50d/workflow3.png",
+        "title": "Project_Axolotl",
+        "caption": "End-to-End Robotic Color Optimization"
+      }
+    ],
+    "title": "Axolotl &mdash; SunLab@Cambridge",
+    "textLines": 13,
+    "imageCount": 1,
+    "rawHtml": "raw-html/project-axolotl.html",
+    "markdown": "pages/project-axolotl.md"
+  },
+  {
+    "loc": "https://camsunlab.com/research-v3-0",
+    "slug": "research-v3-0",
+    "lastmod": "2024-10-16",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3c638664-e5ea-41c1-aa20-5fd79aae1d90/Picture2.png",
+        "title": "Research_3.0",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5d6e007c-4145-4d6a-b3b4-f62de95fa675/IMG_2509.jpg",
+        "title": "Research_3.0",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/781a5c54-353b-412f-b540-a48163722ce4/IMG_2461.jpg",
+        "title": "Research_3.0",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/068a2811-b731-4eab-b430-d3a35e003364/research_fig_test1.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Research_3.0 &mdash; SunLab@Cambridge",
+    "textLines": 13,
+    "imageCount": 4,
+    "rawHtml": "raw-html/research-v3-0.html",
+    "markdown": "pages/research-v3-0.md"
+  },
+  {
+    "loc": "https://camsunlab.com/project-materialvision",
+    "slug": "project-materialvision",
+    "lastmod": "2024-09-17",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/40e17a91-d12b-4d51-973a-89127ca49bfc/Picture7.png",
+        "title": "Project_MaterialVision",
+        "caption": "Understanding Perovskite Thin Film Heterogeneity Using Computer Vision"
+      }
+    ],
+    "title": "About 3 &mdash; SunLab@Cambridge",
+    "textLines": 8,
+    "imageCount": 1,
+    "rawHtml": "raw-html/project-materialvision.html",
+    "markdown": "pages/project-materialvision.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-youngjaeryu",
+    "slug": "team-youngjaeryu",
+    "lastmod": "2024-09-19",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/54a694c5-dc95-46fa-9d77-bef09a8cce2a/IMG_3394.jpeg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Young Jae Ryu &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-youngjaeryu.html",
+    "markdown": "pages/team-youngjaeryu.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-vattanarytevy",
+    "slug": "team-vattanarytevy",
+    "lastmod": "2024-09-24",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/443adf7b-e0ee-4e8b-8365-a7f535b9ec8d/D3CD89A0-749E-424A-AF73-221B29C57670.JPEG",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Vattanary Tevy &mdash; SunLab@Cambridge",
+    "textLines": 3,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-vattanarytevy.html",
+    "markdown": "pages/team-vattanarytevy.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-andrewmcdaniel",
+    "slug": "team-andrewmcdaniel",
+    "lastmod": "2024-09-30",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5441846b-2271-4401-acc5-e6b77224b2ce/Picture1.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Andrew McDaniel &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-andrewmcdaniel.html",
+    "markdown": "pages/team-andrewmcdaniel.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-estherli",
+    "slug": "team-estherli",
+    "lastmod": "2024-10-02",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/06a3bceb-c97e-4896-9473-1efbaa1342fa/IMG_7929.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Esther Li &mdash; SunLab@Cambridge",
+    "textLines": 3,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-estherli.html",
+    "markdown": "pages/team-estherli.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-marion-garabedian",
+    "slug": "team-marion-garabedian",
+    "lastmod": "2024-10-07",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ee82dc83-e9e4-411b-9bfb-e5d38623c42e/IMG_2095.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Marion Garabedian &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-marion-garabedian.html",
+    "markdown": "pages/team-marion-garabedian.md"
+  },
+  {
+    "loc": "https://camsunlab.com/research-v3-1",
+    "slug": "research-v3-1",
+    "lastmod": "2025-06-23",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5d6e007c-4145-4d6a-b3b4-f62de95fa675/IMG_2509.jpg",
+        "title": "Research",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/781a5c54-353b-412f-b540-a48163722ce4/IMG_2461.jpg",
+        "title": "Research",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ece5e684-a959-4a52-a62d-3d2d32ac4a5a/updated+logo.png",
+        "title": "Research",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e882f806-ef41-45dd-bacc-4c7fc940be36/logo.png",
+        "title": "Research",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2de158d2-058f-4552-9b50-a815e11b02b2/IMG_4037+2.jpg",
+        "title": "Research",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/068a2811-b731-4eab-b430-d3a35e003364/research_fig_test1.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Research &mdash; SunLab@Cambridge",
+    "textLines": 20,
+    "imageCount": 6,
+    "rawHtml": "raw-html/research-v3-1.html",
+    "markdown": "pages/research-v3-1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-zuyang-ye",
+    "slug": "team-zuyang-ye",
+    "lastmod": "2024-12-23",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ac18c576-10e4-4adb-adfb-c7197c34a75e/1000019770.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5413c2be-da25-4e7f-a8cd-0cb4f79ca230/googlescholar-svgrepo-com.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Zuyang Ye &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-zuyang-ye.html",
+    "markdown": "pages/team-zuyang-ye.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-junhanjiao",
+    "slug": "team-junhanjiao",
+    "lastmod": "2025-02-03",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/230104d2-e7fa-4e29-8994-eca3aa3b304d/C55D9F7B-3ABE-49CE-B553-2EB177E7D6A0_1_201_a.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Junhan &mdash; SunLab@Cambridge",
+    "textLines": 6,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-junhanjiao.html",
+    "markdown": "pages/team-junhanjiao.md"
+  },
+  {
+    "loc": "https://camsunlab.com/project-axolotl-1",
+    "slug": "project-axolotl-1",
+    "lastmod": "2025-04-17",
+    "images": [],
+    "title": "About 3 &mdash; SunLab@Cambridge",
+    "textLines": 4,
+    "imageCount": 0,
+    "rawHtml": "raw-html/project-axolotl-1.html",
+    "markdown": "pages/project-axolotl-1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/project-puffin",
+    "slug": "project-puffin",
+    "lastmod": "2025-04-25",
+    "images": [],
+    "title": "Puffin &mdash; SunLab@Cambridge",
+    "textLines": 4,
+    "imageCount": 0,
+    "rawHtml": "raw-html/project-puffin.html",
+    "markdown": "pages/project-puffin.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-aditya-prasad",
+    "slug": "team-aditya-prasad",
+    "lastmod": "2025-06-07",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/7227880d-7bdf-4d4c-84ba-74601bc6a40d/IMG-20230326-WA0006.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Aditya Prasad &mdash; SunLab@Cambridge",
+    "textLines": 3,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-aditya-prasad.html",
+    "markdown": "pages/team-aditya-prasad.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-hardik-jain",
+    "slug": "team-hardik-jain",
+    "lastmod": "2025-06-07",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0cfd97d6-85f8-43c5-9e0d-793c850a7016/1000084239.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Hardik Jain &mdash; SunLab@Cambridge",
+    "textLines": 3,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-hardik-jain.html",
+    "markdown": "pages/team-hardik-jain.md"
+  },
+  {
+    "loc": "https://camsunlab.com/papers",
+    "slug": "papers",
+    "lastmod": "2025-10-06",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/bb614111-7536-49e9-8223-dffc37e8c604/Screenshot+2025-09-22+at+9.56.27%E2%80%AFPM.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/640dd90e-01ef-4ec1-a411-53a13398fb79/d5dd00017c-f1_hi-res.gif",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5003ff50-2527-4e41-ad5f-009b31b7f7a6/Copy+of+Figures_1.2+recovered.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/98e7bd89-307b-45f8-8df5-ecbcdd8b9656/aenm202502294-fig-0001-m.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4de610f7-e0eb-4c32-8642-a2c8765c44df/Figure+1.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Papers &mdash; SunLab@Cambridge",
+    "textLines": 38,
+    "imageCount": 5,
+    "rawHtml": "raw-html/papers.html",
+    "markdown": "pages/papers.md"
+  },
+  {
+    "loc": "https://camsunlab.com/join-us",
+    "slug": "join-us",
+    "lastmod": "2025-09-26",
+    "images": [],
+    "title": "Openings &mdash; SunLab@Cambridge",
+    "textLines": 20,
+    "imageCount": 0,
+    "rawHtml": "raw-html/join-us.html",
+    "markdown": "pages/join-us.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team",
+    "slug": "team",
+    "lastmod": "2025-10-01",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e37133f1-746e-4b23-a355-7d80f1440409/IMG-20230326-WA0006.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/9ba3761b-4019-4d7e-871a-16bdc9c0850d/1000084239.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/ed0a9e1a-b3ea-4a9e-b479-b3a964dfb091/unnamed.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/43c32450-ed71-4c59-953d-04cb133b7c83/IMG_20230324_140350%5B27184%5D+%281%29.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e3c4e1f7-d268-4808-b438-7c75a3be6ce8/Profile+Picture.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/9220311c-9488-4484-b596-3062380d762a/IMG_9124+%281%29.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6573b8af-4342-4d72-9569-f85b877924c0/IMG_20231006_100841__01.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/934578a2-3353-4e41-8369-e237552616d5/IMG_3394.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/d98ebc04-fa48-4558-a20b-cfb058e58d6e/Picture1.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2f6df150-03cf-4df1-8f69-90d8cbdd08ac/D3CD89A0-749E-424A-AF73-221B29C57670.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b7090a09-8b33-44b8-99b9-6135fa8792c6/522A9506.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b134f763-ad0c-418c-b06f-d249842011fd/IMG_2813.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/c7057499-822e-4869-a87d-2049dd23e4c2/CROPPED+HEADSHOT.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b84675c8-dc17-4153-be45-d0ee1b51ea3d/1684565408728+%281%29.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6ea93c4c-3b0b-4a90-a0bb-117fb6080f6c/P5160009.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/230104d2-e7fa-4e29-8994-eca3aa3b304d/C55D9F7B-3ABE-49CE-B553-2EB177E7D6A0_1_201_a.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5d51339b-a307-4e01-a1c5-5aeeb3de5741/IMG_7929.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0efe2cfe-8dd7-4006-b2e0-9a2875585eac/IMG_2095.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/e6033086-d6fd-4516-adb1-27b5ae547cf0/Shijing+Photo.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f0e1b6be-8714-4a13-9038-ce6952ad6e89/1000019770.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6499229d-363d-421d-97a9-87a38a90e3b4/IMG_1136.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/fa6aba2a-1411-43bc-a879-0182a8975140/clara.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4387ca2c-9e7b-4068-b59c-03ae84e48581/IMG_1438.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/76dfeef4-776c-4548-899c-b6c3825e4dc6/Shuan.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6d37b6b6-e583-4a97-8f99-ee61c748313f/IMG_0413.jpg",
+        "title": "Team",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/166129ff-5d67-469f-856d-e6876a774b8b/EADC8349-19D4-4ADB-A9F7-B9E3AE922082_1_105_c.jpg",
+        "title": "Team",
+        "caption": ""
+      }
+    ],
+    "title": "Team &mdash; SunLab@Cambridge",
+    "textLines": 79,
+    "imageCount": 26,
+    "rawHtml": "raw-html/team.html",
+    "markdown": "pages/team.md"
+  },
+  {
+    "loc": "https://camsunlab.com/home-1",
+    "slug": "home-1",
+    "lastmod": "2025-09-25",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/75b8e02c-15fb-409f-a84b-18cf669fdc23/IMG_9099D2E40A5D-1.jpeg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/9ba3761b-4019-4d7e-871a-16bdc9c0850d/1000084239.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/bd3cdb08-c1aa-47b8-bd30-d2ee56d041a4/IMG-20230326-WA0006.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cfac5f75-e83b-47c1-bcaf-290dd2235d03/IMG_4363.JPG",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/3f0d4d3d-081e-405b-85f1-f8937bcfeaed/IMG_4349.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0e96e308-b2c0-443d-a509-ea6e4fd99aae/IMG_4105.JPG",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6ea93c4c-3b0b-4a90-a0bb-117fb6080f6c/P5160009.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/230104d2-e7fa-4e29-8994-eca3aa3b304d/C55D9F7B-3ABE-49CE-B553-2EB177E7D6A0_1_201_a.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4573a1b2-56f5-4b99-bae8-9f196cff6572/ShiJing.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2f6df150-03cf-4df1-8f69-90d8cbdd08ac/D3CD89A0-749E-424A-AF73-221B29C57670.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/eea4e7ae-b6b7-4a44-a0e5-1e77b2ae99b0/IMG_9124+%281%29.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/6ea93c4c-3b0b-4a90-a0bb-117fb6080f6c/P5160009.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/f0e1b6be-8714-4a13-9038-ce6952ad6e89/1000019770.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/a30a804a-a773-468c-b337-abe92836c8e3/IMG_5229.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/4d101b6e-adbd-4ed7-9b57-ca6dc9d8650e/PA070001.JPG",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5209a2bf-7140-4465-8025-99ecec29b305/IMG_0413.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/0efe2cfe-8dd7-4006-b2e0-9a2875585eac/IMG_2095.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/5d51339b-a307-4e01-a1c5-5aeeb3de5741/IMG_7929.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/d98ebc04-fa48-4558-a20b-cfb058e58d6e/Picture1.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/2f6df150-03cf-4df1-8f69-90d8cbdd08ac/D3CD89A0-749E-424A-AF73-221B29C57670.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/934578a2-3353-4e41-8369-e237552616d5/IMG_3394.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/fa15362c-bc2f-4022-bc85-9053382c51a3/www.ans.jpg",
+        "title": "Home_dup",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/a4f7d01d-73b1-428a-bdb2-dee5389f76fd/d03af0b81dacf2257ac3c9ae1d052f4c.JPG",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Autonomous Materials Group",
+    "textLines": 98,
+    "imageCount": 25,
+    "rawHtml": "raw-html/home-1.html",
+    "markdown": "pages/home-1.md"
+  },
+  {
+    "loc": "https://camsunlab.com/contact",
+    "slug": "contact",
+    "lastmod": "2025-09-26",
+    "images": [],
+    "title": "Contact &mdash; SunLab@Cambridge",
+    "textLines": 12,
+    "imageCount": 0,
+    "rawHtml": "raw-html/contact.html",
+    "markdown": "pages/contact.md"
+  },
+  {
+    "loc": "https://camsunlab.com/team-tobias-rangel-guillen",
+    "slug": "team-tobias-rangel-guillen",
+    "lastmod": "2025-09-26",
+    "images": [
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/8e7905bb-641c-438d-90f9-119aa04e3592/EADC8349-19D4-4ADB-A9F7-B9E3AE922082_1_105_c.jpg",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/b105fb70-529c-4701-8303-24079fa83e8c/linkedin-fill.1024x1024.png",
+        "title": "",
+        "caption": ""
+      },
+      {
+        "url": "https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/cd382412-2fab-4d18-ad90-98dde5a66324/envelope.1024x769.png",
+        "title": "",
+        "caption": ""
+      }
+    ],
+    "title": "Tobias Rangel Guillen &mdash; SunLab@Cambridge",
+    "textLines": 2,
+    "imageCount": 3,
+    "rawHtml": "raw-html/team-tobias-rangel-guillen.html",
+    "markdown": "pages/team-tobias-rangel-guillen.md"
+  }
+]

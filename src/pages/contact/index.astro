@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+import OpeningList from '@components/OpeningList.astro';
+
+const openings = (await getCollection('openings')).sort((a, b) => {
+  if (a.data.status !== b.data.status) return a.data.status === 'open' ? -1 : 1;
+  return a.data.order - b.data.order;
+});
+---
+
+<BaseLayout title="Contact" description="Contact SunLab@Cambridge.">
+  <PageHeader
+    title="Contact"
+    description="Enquiries, visits, collaborations, and opportunities to work with the lab."
+  />
+  <section class="section">
+    <div class="container contact-methods">
+      <article>
+        <h2>Email</h2>
+        <p>
+          For enquiries, collaboration opportunities, visiting information, and joining the lab,
+          contact Shijing Sun.
+        </p>
+        <p><a href="mailto:ss896@cam.ac.uk">ss896[at]cam.ac.uk</a></p>
+      </article>
+      <article>
+        <h2>Postal Address</h2>
+        <p>
+          Shijing Sun<br />
+          Department of Materials Science & Metallurgy<br />
+          University of Cambridge<br />
+          Office 0_023<br />
+          27 Charles Babbage Road<br />
+          Cambridge CB3 0FS<br />
+          United Kingdom
+        </p>
+      </article>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="container contact-join">
+      <div class="content-flow">
+        <h2>Work with us</h2>
+        <p>
+          We welcome new members from diverse backgrounds and value creative thinking,
+          intellectual honesty, kindness, and a growth mindset. The lab culture is guided by
+          respectful mentorship, collaboration, and care for the people doing the science.
+        </p>
+        <p>
+          Prospective postdocs, PhD students, Cambridge students, visitors, and collaborators can
+          use the email above to start a conversation.
+        </p>
+      </div>
+      <OpeningList openings={openings} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PostList from '@components/PostList.astro';
+
+const media = await getCollection('media');
+
+const latestMedia = media
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="SunLab@Cambridge">
+  <section class="hero">
+    <div class="container hero-stack">
+      <div class="hero-copy">
+        <h1>Autonomous Materials Discovery Group</h1>
+        <p class="lede">
+          We build autonomous laboratories that combine materials science, robotics, artificial
+          intelligence, and human insight.
+        </p>
+        <div class="button-row">
+          <a class="button" href="/research/">Explore research</a>
+          <a class="text-link" href="/contact/">Contact</a>
+        </div>
+      </div>
+      <figure class="hero-visual">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/781a5c54-353b-412f-b540-a48163722ce4/IMG_2461.jpg"
+          alt="Autonomous laboratory platform in SunLab"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container home-statement">
+      <h2>Closed-loop discovery for materials research</h2>
+      <p>
+        We connect robotic experiment execution, live characterization, and machine-learning-guided
+        decisions. The aim is a calmer, more reproducible way to explore complex materials spaces:
+        scientists define the questions, autonomous platforms help test them with speed and care.
+      </p>
+      <a class="text-link" href="/research/">Research platforms</a>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container news-section">
+      <div class="section-head">
+        <div>
+          <h2>Recent updates</h2>
+        </div>
+        <a class="text-link" href="/media/">All media</a>
+      </div>
+      <PostList media={latestMedia} />
+    </div>
+  </section>
+</BaseLayout>

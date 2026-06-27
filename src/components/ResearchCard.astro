@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  item: CollectionEntry<'researchProjects'>;
+}
+
+const { item } = Astro.props;
+const imageAlt = item.data.imageAlt ?? `${item.data.title} research image`;
+---
+
+<article class="research-item">
+  {
+    item.data.image && (
+      <img src={item.data.image} alt={imageAlt} loading="lazy" />
+    )
+  }
+  <h3>{item.data.title}</h3>
+  {item.data.subtitle && <p class="publication-title">{item.data.subtitle}</p>}
+  <p>{item.data.summary}</p>
+</article>

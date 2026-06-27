@@ -1,0 +1,39 @@
+---
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'SunLab@Cambridge',
+  description = 'Autonomous materials discovery research, people, papers, media, gallery, and contact information from SunLab@Cambridge.'
+} = Astro.props;
+
+const pageTitle = title === 'SunLab@Cambridge' ? title : `${title} | SunLab@Cambridge`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
+      <Header />
+      <main id="main" class="site-main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

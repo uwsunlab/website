@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+
+const gallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Gallery" description="Gallery and logo story from SunLab@Cambridge.">
+  <PageHeader
+    title="Gallery"
+    description="Moments from the lab, events, and the visual story of the group."
+  />
+  <section class="section">
+    <div class="container gallery-events">
+      {
+        gallery.map((item) => (
+          <figure class="gallery-event">
+            <img src={item.data.image} alt={item.data.title} loading="lazy" />
+            <figcaption>
+              <p class="meta">{item.data.date}</p>
+              <h3>{item.data.title}</h3>
+              <p>{item.data.caption}</p>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

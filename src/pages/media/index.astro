@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+import PostList from '@components/PostList.astro';
+
+const media = (await getCollection('media')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Media" description="Media, talks, tutorials, and articles from SunLab@Cambridge.">
+  <PageHeader
+    title="Media"
+    description="News, interviews, talks, tutorials, and external features."
+  />
+  <section class="section">
+    <div class="container">
+      <PostList media={media} />
+    </div>
+  </section>
+</BaseLayout>

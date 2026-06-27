@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Abstract research field pattern">
+  <rect width="1600" height="900" fill="#f4f0e6"/>
+  <path d="M0 660c210-96 375-117 560-54 152 52 301 38 455-14 226-77 397-54 585 56v252H0z" fill="#dce5d7"/>
+  <path d="M0 709c197-65 367-60 510 16 156 84 328 75 492 0 242-111 426-83 598 9v166H0z" fill="#c9d9d1"/>
+  <g fill="none" stroke="#28685a" stroke-width="4" opacity=".45">
+    <path d="M150 705c150-98 300-98 450 0s300 98 450 0 300-98 450 0"/>
+    <path d="M120 630c145-72 290-72 435 0s290 72 435 0 290-72 435 0"/>
+  </g>
+  <g fill="#b9832f" opacity=".55">
+    <circle cx="1260" cy="210" r="72"/>
+    <circle cx="1326" cy="210" r="18"/>
+    <circle cx="1200" cy="250" r="12"/>
+  </g>
+  <g fill="#28685a" opacity=".72">
+    <circle cx="318" cy="326" r="8"/>
+    <circle cx="475" cy="282" r="8"/>
+    <circle cx="632" cy="342" r="8"/>
+    <circle cx="789" cy="300" r="8"/>
+    <circle cx="946" cy="358" r="8"/>
+  </g>
+  <g stroke="#315f7d" stroke-width="3" opacity=".35">
+    <path d="M318 326l157-44 157 60 157-42 157 58"/>
+    <path d="M318 326l314 16 314 16"/>
+  </g>
+</svg>

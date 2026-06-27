@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  openings: CollectionEntry<'openings'>[];
+}
+
+const { openings } = Astro.props;
+---
+
+<div class="opening-list">
+  {
+    openings.map((opening) => (
+      <article class="opening-item">
+        <p class="publication-title">{opening.data.title}</p>
+        <p class="meta">
+          {opening.data.status === 'open' ? 'Open' : 'Closed'}
+          {opening.data.type ? ` · ${opening.data.type}` : ''}
+        </p>
+        <p>{opening.data.summary}</p>
+        {opening.data.applyUrl && <a class="text-link" href={opening.data.applyUrl}>Apply</a>}
+      </article>
+    ))
+  }
+</div>

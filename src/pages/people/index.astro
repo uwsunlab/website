@@ -1,0 +1,63 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+import PersonCard from '@components/PersonCard.astro';
+
+const people = await Promise.all(
+  (await getCollection('people'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (person) => ({
+      person,
+      Content: (await render(person)).Content
+    }))
+);
+
+const currentPeople = people.filter(({ person }) => person.data.status === 'current');
+const alumni = people.filter(({ person }) => person.data.status === 'alumni');
+---
+
+<BaseLayout title="People" description="Current people and alumni of SunLab@Cambridge.">
+  <PageHeader
+    title="People"
+    description="Researchers, students, collaborators, and alumni shaping the lab."
+  />
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Current people</h2>
+        </div>
+      </div>
+      <div class="grid three">
+        {
+          currentPeople.map(({ person, Content }) => (
+            <PersonCard person={person}>
+              <Content />
+            </PersonCard>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  {
+    alumni.length > 0 && (
+      <section class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Alumni</h2>
+            </div>
+          </div>
+          <div class="grid three">
+            {alumni.map(({ person, Content }) => (
+              <PersonCard person={person}>
+                <Content />
+              </PersonCard>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
