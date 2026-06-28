@@ -7,7 +7,7 @@ import PostList from '@components/PostList.astro';
 const media = (await getCollection('media')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<BaseLayout title="Media" description="Media, talks, tutorials, and articles from SunLab@Cambridge.">
+<BaseLayout title="Media" description="Media, talks, tutorials, and articles from the Autonomous Materials Discovery Group Cambridge.">
   <PageHeader
     title="Media"
     description="News, interviews, talks, tutorials, and external features."

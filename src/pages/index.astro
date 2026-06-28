@@ -1,59 +1,95 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PostList from '@components/PostList.astro';
 
-const media = await getCollection('media');
+const homeEntries = await getCollection('home');
+const overview = homeEntries.find((entry) => entry.id === 'overview');
+if (!overview) {
+  throw new Error('Missing home overview content at src/content/home/overview.md');
+}
 
-const latestMedia = media
+const { Content: OverviewContent } = await render(overview);
+const news = await getCollection('news');
+
+const latestNews = await Promise.all(news
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 10)
+  .map(async (item) => {
+    const { Content } = await render(item);
+    return { ...item, Content };
+  }));
+
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit',
+  month: '2-digit',
+  year: '2-digit'
+});
 ---
 
-<BaseLayout title="SunLab@Cambridge">
-  <section class="hero">
-    <div class="container hero-stack">
-      <div class="hero-copy">
-        <h1>Autonomous Materials Discovery Group</h1>
-        <p class="lede">
-          We build autonomous laboratories that combine materials science, robotics, artificial
-          intelligence, and human insight.
-        </p>
-        <div class="button-row">
-          <a class="button" href="/research/">Explore research</a>
-          <a class="text-link" href="/contact/">Contact</a>
-        </div>
+<BaseLayout title="Autonomous Materials Discovery Group Cambridge">
+  <section class="home-hero" aria-labelledby="home-title">
+    <video class="home-hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+      <source
+        src="https://video.squarespace-cdn.com/content/v1/624b503d11269629b387b9cc/27959d14-057c-4485-ac6a-2f21b2e42c80/playlist.m3u8"
+        type="application/vnd.apple.mpegurl"
+      />
+    </video>
+    <div class="home-hero-draw" aria-hidden="true">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <path class="draw-path draw-path-a" d="M-120 580 C 190 300, 420 720, 730 420 S 1230 210, 1740 470" />
+        <path class="draw-path draw-path-b" d="M-80 345 C 270 520, 420 170, 760 330 S 1220 680, 1680 250" />
+        <path class="draw-path draw-path-c" d="M120 930 C 270 520, 560 680, 760 390 S 1140 130, 1510 -60" />
+        <path class="draw-path draw-path-d" d="M-180 720 C 170 640, 320 160, 650 250 S 1030 610, 1780 650" />
+        <path class="draw-path draw-path-e" d="M250 -120 C 360 220, 620 240, 760 450 S 1080 690, 1380 1020" />
+        <circle class="draw-node draw-node-a" cx="730" cy="420" r="5" />
+        <circle class="draw-node draw-node-b" cx="760" cy="330" r="5" />
+        <circle class="draw-node draw-node-c" cx="760" cy="450" r="5" />
+      </svg>
+    </div>
+    <div class="container home-hero-inner">
+      <h1 id="home-title">Programmable Assembly of Functional Materials</h1>
+      <div class="home-actions" aria-label="Home page actions">
+        <a class="button" href="/research/">our research</a>
+        <a class="button button-secondary" href="/contact/">open positions</a>
       </div>
-      <figure class="hero-visual">
+    </div>
+  </section>
+
+  <section class="home-panel section" aria-label="Group overview">
+    <div class="container home-overview">
+      <figure class="home-overview-media">
         <img
-          src="https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/781a5c54-353b-412f-b540-a48163722ce4/IMG_2461.jpg"
-          alt="Autonomous laboratory platform in SunLab"
+          src={overview.data.image}
+          alt={overview.data.imageAlt}
+          loading="lazy"
         />
       </figure>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container home-statement">
-      <h2>Closed-loop discovery for materials research</h2>
-      <p>
-        We connect robotic experiment execution, live characterization, and machine-learning-guided
-        decisions. The aim is a calmer, more reproducible way to explore complex materials spaces:
-        scientists define the questions, autonomous platforms help test them with speed and care.
-      </p>
-      <a class="text-link" href="/research/">Research platforms</a>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="container news-section">
-      <div class="section-head">
-        <div>
-          <h2>Recent updates</h2>
-        </div>
-        <a class="text-link" href="/media/">All media</a>
+      <div class="home-overview-copy">
+        <OverviewContent />
       </div>
-      <PostList media={latestMedia} />
+    </div>
+  </section>
+
+  <section class="home-news section alt" aria-labelledby="news-title">
+    <div class="container news-section">
+      <h2 id="news-title">News</h2>
+      <ol class="news-list">
+        {
+          latestNews.map((item) => (
+            <li class="news-item">
+              <time datetime={item.data.date.toISOString()}>{dateFormatter.format(item.data.date)}</time>
+              <div class="news-copy">
+                <item.Content />
+              </div>
+              {item.data.image && (
+                <a class="news-thumb" href={item.data.relatedUrl ?? '/gallery/'}>
+                  <img src={item.data.image} alt={item.data.imageAlt ?? 'News image'} loading="lazy" />
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 </BaseLayout>

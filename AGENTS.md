@@ -5,7 +5,7 @@ This repo is the source of truth for the Camsun Lab website.
 ## Working Rules
 
 - Preserve the public route structure unless the user explicitly approves a URL change.
-- Keep the visible primary navigation to Home, Research, People, Papers, Media, Gallery, and Contact.
+- Keep the visible primary navigation to Research, People, Papers, Media, Gallery, and Contact. The header brand links to Home.
 - Prefer editing content files in `src/content` before changing page templates.
 - Keep content schemas in `src/content.config.ts` aligned with the Markdown frontmatter used in the repo.
 - Keep `src/data/scholarPapers.ts` reverse-chronological and DOI-focused; use Scholar/Crossref verification before changing bibliographic metadata.

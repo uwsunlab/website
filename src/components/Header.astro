@@ -1,6 +1,5 @@
 ---
 const links = [
-  { href: '/', label: 'Home' },
   { href: '/research/', label: 'Research' },
   { href: '/people/', label: 'People' },
   { href: '/papers/', label: 'Papers' },
@@ -14,8 +13,15 @@ const pathname = Astro.url.pathname;
 
 <header class="site-header">
   <nav class="container nav" aria-label="Primary navigation">
-    <a class="brand" href="/" aria-label="Camsun Lab home">
-      <span>SunLab@Cambridge</span>
+    <a class="brand" href="/" aria-label="Autonomous Materials Group home">
+      <img
+        class="brand-lockup"
+        src="/Home/Logo/svg/lockup-horizontal-ink.svg"
+        alt=""
+        width="1398"
+        height="444"
+        aria-hidden="true"
+      />
     </a>
     <div class="nav-links">
       {

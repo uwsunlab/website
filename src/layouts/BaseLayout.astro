@@ -9,11 +9,12 @@ interface Props {
 }
 
 const {
-  title = 'SunLab@Cambridge',
-  description = 'Autonomous materials discovery research, people, papers, media, gallery, and contact information from SunLab@Cambridge.'
+  title = 'Autonomous Materials Discovery Group Cambridge',
+  description = 'Autonomous materials discovery research, people, papers, media, gallery, and contact information from the Autonomous Materials Discovery Group Cambridge.'
 } = Astro.props;
 
-const pageTitle = title === 'SunLab@Cambridge' ? title : `${title} | SunLab@Cambridge`;
+const siteTitle = 'Autonomous Materials Discovery Group Cambridge';
+const pageTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 ---
 
 <!doctype html>

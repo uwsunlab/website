@@ -1,49 +1,87 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PageHeader from '@components/PageHeader.astro';
-
-const research = (await getCollection('researchProjects')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout title="Research" description="Clean energy materials research using artificial intelligence and robotics.">
-  <PageHeader
-    title="Research"
-    description="Autonomous platforms for closed-loop materials discovery, from crystallisation to thin-film deposition and flexible laboratory automation."
-  />
-  <section class="section">
-    <div class="container concept-panel">
-      <h2>Closed-loop materials discovery</h2>
+  <section class="research-summary section" aria-labelledby="research-title">
+    <div class="container research-title-block">
+      <h1 id="research-title">Research</h1>
       <p>
-        A closed-loop experiment links planning, synthesis, measurement, and interpretation into a
-        repeatable cycle. Scientists define the hypothesis and constraints; robotic platforms run
-        experiments; measurements return structured data; models suggest the next useful step.
+        Through human–AI–robot collaboration, we seek to understand and control how functional
+        inorganic materials form, transform, and give rise to function. Our application areas range
+        from photovoltaics and light-emitting devices to carbon capture, batteries, and beyond.
       </p>
-      <div class="concept-steps" aria-label="Closed-loop workflow">
-        <span>Plan</span>
-        <span>Make</span>
-        <span>Measure</span>
-        <span>Learn</span>
+    </div>
+  </section>
+
+  <section class="research-method section alt" aria-labelledby="autonomous-science-title">
+    <div class="container research-two-column">
+      <figure class="research-media research-media-unframed">
+        <img
+          src="/Research/Research.png"
+          alt="Closed-loop autonomous science workflow linking humans, AI systems, robots, and data"
+          loading="lazy"
+        />
+      </figure>
+      <div class="research-copy">
+        <h2 id="autonomous-science-title">Autonomous science</h2>
+        <p>
+          In an autonomous lab, scientists, AI systems, and robots work together in a closed loop.
+          Human and AI scientists design experiments to explore and exploit the building blocks of
+          matter; robots execute these experiments to assemble materials with targeted
+          functionality; and the resulting data provide physical-world feedback to guide the next
+          round of planning, execution, and learning.
+        </p>
       </div>
     </div>
   </section>
-  <section class="section alt">
-    <div class="container platform-list">
-      {
-        research.map((item) => (
-          <article class="platform-card">
-            <div class="platform-media">
-              {item.data.image && (
-                <img src={item.data.image} alt={item.data.imageAlt ?? `${item.data.title} platform photo`} loading="lazy" />
-              )}
-            </div>
-            <div class="platform-copy">
-              <h2>{item.data.area ? `${item.data.area}: ${item.data.title}` : item.data.title}</h2>
-              <p>{item.data.summary}</p>
-            </div>
-          </article>
-        ))
-      }
+
+  <section class="research-platforms section" aria-labelledby="platforms-title">
+    <div class="container">
+      <h2 id="platforms-title">Autonomous laboratory platforms</h2>
+      <div class="research-platform-list">
+        <article class="research-platform">
+          <figure class="research-media">
+            <img src="/Research/Cappy.jpg" alt="Cappy crystallisation platform" loading="lazy" />
+          </figure>
+          <div class="research-copy">
+            <h3>Crystallisation</h3>
+            <p>
+              Cappy is a platform that runs high-throughput crystallisation experiments, including
+              precipitation and solvothermal reactions. It is used to study phase formation,
+              polymorphism, and crystallisation pathways.
+            </p>
+          </div>
+        </article>
+
+        <article class="research-platform media-right">
+          <div class="research-copy">
+            <h3>Thin-film deposition</h3>
+            <p>
+              MARA consists of a suite of automation components that prepares thin films and
+              iteratively optimises their optoelectronic properties. It combines automated
+              deposition, characterisation, and Bayesian optimisation.
+            </p>
+          </div>
+          <figure class="research-media">
+            <img src="/Research/Mara.jpg" alt="MARA thin-film deposition platform" loading="lazy" />
+          </figure>
+        </article>
+
+        <article class="research-platform">
+          <figure class="research-media">
+            <img src="/Research/Cobra.jpg" alt="Cobra robotic sample movement platform" loading="lazy" />
+          </figure>
+          <div class="research-copy">
+            <h3>Sample movement</h3>
+            <p>
+              Cobra is a set of configurable robotic arms for moving samples between instruments and
+              workstations. It connects synthesis, characterisation, and storage into automated
+              workflows.
+            </p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 </BaseLayout>

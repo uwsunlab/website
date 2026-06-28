@@ -8,7 +8,9 @@ Current collections:
 
 - `people`: current people and alumni shown on `/people/`
 - `papers`: featured paper metadata used by `/papers/`
-- `media`: media/news items shown on `/media/` and Home
+- `media`: media, talks, tutorials, and external features shown on `/media/`
+- `home`: editable Home page overview text and image reference
+- `news`: compact group updates shown on Home
 - `gallery`: gallery entries shown on `/gallery/`
 - `research-projects`: research platform/project entries shown on `/research/`
 - `openings`: joining/recruitment content shown on `/contact/`

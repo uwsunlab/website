@@ -55,6 +55,24 @@ const media = defineCollection({
   })
 });
 
+const home = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/home' }),
+  schema: z.object({
+    image: z.string(),
+    imageAlt: z.string()
+  })
+});
+
+const news = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/news' }),
+  schema: z.object({
+    date: z.coerce.date(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+    relatedUrl: z.url().optional()
+  })
+});
+
 const gallery = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/gallery' }),
   schema: z.object({
@@ -97,6 +115,8 @@ export const collections = {
   people,
   papers,
   media,
+  home,
+  news,
   gallery,
   researchProjects,
   openings

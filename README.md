@@ -59,7 +59,7 @@ The public site follows the live Squarespace intent with updated labels:
 - `/gallery/`
 - `/contact/`
 
-The primary navigation is Home, Research, People, Papers, Media, Gallery, and Contact. Joining/recruitment information lives on Contact.
+The primary navigation is Research, People, Papers, Media, Gallery, and Contact. The header brand links to Home. Joining/recruitment information lives on Contact.
 
 Legacy or past content belongs in the top-level `Archive/` folder. That folder is outside `src/pages` and is not publicly routed by Astro.
 

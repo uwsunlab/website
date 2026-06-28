@@ -118,10 +118,9 @@ highlight. Secondary actions should usually be text links.
 
 ### Home
 
-1. Centered title and mission.
-2. Large hero photo below the title in a warm mat.
-3. Short left-aligned research statement.
-4. News list on a cream band.
+1. Full-opening viewport with centered title and right-aligned actions.
+2. Image/text overview block with a large left image and concise right prose.
+3. Compact News list on a cream band, using `DD/MM/YY` dates and thin separators.
 
 ### Research
 
