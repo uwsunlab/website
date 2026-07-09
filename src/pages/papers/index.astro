@@ -1,16 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 import { scholarPapers } from '../../data/scholarPapers';
-
-const featuredCovers = (await getCollection('papers'))
-  .filter((paper) => paper.data.featured && paper.data.image)
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 4);
-
-const isPreprint = (paper: (typeof scholarPapers)[number]) =>
-  /arxiv|chemrxiv/i.test(`${paper.title} ${paper.venue} ${paper.doi ?? ''}`);
 
 const sourceLabel = (paper: (typeof scholarPapers)[number]) => {
   const source = paper.venue
@@ -21,14 +12,23 @@ const sourceLabel = (paper: (typeof scholarPapers)[number]) => {
   return source || 'Scholar';
 };
 
-const preprints = scholarPapers.filter(isPreprint);
-const publishedPapers = scholarPapers.filter((paper) => !isPreprint(paper));
+type NumberedPaper = (typeof scholarPapers)[number] & {
+  globalIndex: number;
+  originalIndex: number;
+};
 
-const papersByYear = publishedPapers.reduce<Record<number, typeof scholarPapers>>((groups, paper) => {
+const numberedPapers = [...scholarPapers]
+  .map((paper, originalIndex) => ({ ...paper, originalIndex }))
+  .sort((a, b) => a.year - b.year || b.originalIndex - a.originalIndex)
+  .map((paper, index) => ({ ...paper, globalIndex: index + 1 }));
+
+const papersByYear = numberedPapers.reduce<Record<number, NumberedPaper[]>>((groups, paper) => {
   groups[paper.year] ??= [];
   groups[paper.year].push(paper);
   return groups;
 }, {});
+
+Object.values(papersByYear).forEach((papers) => papers.sort((a, b) => a.originalIndex - b.originalIndex));
 
 const years = Object.keys(papersByYear)
   .map(Number)
@@ -42,44 +42,18 @@ const years = Object.keys(papersByYear)
   />
   <section class="section">
     <div class="container publication-page">
-      {
-        featuredCovers.length > 0 && (
-          <div class="image-strip" aria-label="Featured publication images">
-            {featuredCovers.map((paper) => (
-              <img src={paper.data.image} alt={paper.data.imageAlt ?? `${paper.data.title} publication image`} loading="lazy" />
-            ))}
-          </div>
-        )
-      }
       <p class="scholar-link">
         <a href="https://scholar.google.co.uk/citations?user=e5fFIDkAAAAJ&hl=en">Google Scholar profile</a>
       </p>
-      {
-        preprints.length > 0 && (
-          <section class="year-section">
-            <h2>Preprints</h2>
-            <ul class="publication-list compact">
-              {preprints.map((paper) => (
-                <li>
-                  &ldquo;{paper.title}&rdquo;{' '}
-                  <a href={paper.doi ? `https://doi.org/${paper.doi}` : paper.scholarQuery}>
-                    {sourceLabel(paper)} ({paper.year})
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )
-      }
       <div class="reference-list">
         {
           years.map((year) => (
             <section class="year-section" aria-labelledby={`papers-${year}`}>
               <h2 id={`papers-${year}`}>{year}</h2>
-              <ol reversed class="publication-list compact">
+              <ol class="publication-list compact continuous">
                 {
                   papersByYear[year].map((paper) => (
-                    <li>
+                    <li value={paper.globalIndex}>
                       &ldquo;{paper.title}&rdquo;{' '}
                       <a href={paper.doi ? `https://doi.org/${paper.doi}` : paper.scholarQuery}>
                         {sourceLabel(paper)} ({paper.year})
