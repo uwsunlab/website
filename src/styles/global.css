@@ -337,11 +337,11 @@ h3 {
 
 .alumni-list {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .alumni-entry {
-  padding-top: 12px;
+  padding-top: 11px;
   border-top: 1px solid var(--line);
 }
 
@@ -366,7 +366,8 @@ h3 {
   place-items: center;
   color: var(--ink);
   font-weight: 500;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   object-fit: cover;
 }
 
