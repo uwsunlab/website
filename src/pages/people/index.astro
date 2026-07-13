@@ -29,7 +29,7 @@ const alumni = people.filter(({ person }) => person.data.status === 'alumni');
           <h2>Current people</h2>
         </div>
       </div>
-      <div class="grid three">
+      <div class="grid four">
         {
           currentPeople.map(({ person, Content }) => (
             <PersonCard person={person}>
@@ -49,7 +49,7 @@ const alumni = people.filter(({ person }) => person.data.status === 'alumni');
               <h2>Alumni</h2>
             </div>
           </div>
-          <div class="grid three">
+          <div class="grid four">
             {alumni.map(({ person, Content }) => (
               <PersonCard person={person}>
                 <Content />
