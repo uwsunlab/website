@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 import PersonCard from '@components/PersonCard.astro';
+import AlumniPerson from '@components/AlumniPerson.astro';
 
 const people = await Promise.all(
   (await getCollection('people'))
@@ -49,11 +50,9 @@ const alumni = people.filter(({ person }) => person.data.status === 'alumni');
               <h2>Alumni</h2>
             </div>
           </div>
-          <div class="grid four">
-            {alumni.map(({ person, Content }) => (
-              <PersonCard person={person}>
-                <Content />
-              </PersonCard>
+          <div class="alumni-list">
+            {alumni.map(({ person }) => (
+              <AlumniPerson person={person} />
             ))}
           </div>
         </div>
