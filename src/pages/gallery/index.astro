@@ -23,7 +23,7 @@ const gallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b
           return (
             <li class={`gallery-card ${item.data.layout === 'full' ? 'gallery-card-full' : ''}`}>
               <div class="gallery-thumb">
-                <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`}>
+                <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`} title={item.data.title}>
                   <img src={item.data.image} alt={imageAlt} loading="lazy" />
                 </a>
               </div>

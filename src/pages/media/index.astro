@@ -1,20 +1,157 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 import PostList from '@components/PostList.astro';
 
 const media = (await getCollection('media')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const newsItems = await Promise.all(
+  news.map(async (item) => {
+    const { Content } = await render(item);
+    return { ...item, Content };
+  })
+);
+
+const talkCategories = new Set(['lecture', 'tutorial', 'video']);
+
+const featureItems = media.filter((item) => item.data.category === 'article');
+const interviewItems = media.filter((item) => item.data.category === 'interview');
+const talkItems = media.filter((item) => talkCategories.has(item.data.category));
+
+const mediaTabs = [
+  { key: 'features', label: 'Features' },
+  { key: 'interviews', label: 'Interviews' },
+  { key: 'talks', label: 'Talks' },
+  { key: 'news', label: 'News' }
+] as const;
+
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
 ---
 
 <BaseLayout title="Media" description="Media, talks, tutorials, and articles from the Autonomous Materials Discovery Group Cambridge.">
   <PageHeader
     title="Media"
-    description="News, interviews, talks, tutorials, and external features."
+    description="News, interviews, talks, and external features from the group"
   />
-  <section class="section">
-    <div class="container">
-      <PostList media={media} />
+  <section class="section media-section">
+    <div class="container media-section-inner">
+      <div class="media-tabs" role="tablist" aria-label="Media sections">
+        {
+          mediaTabs.map((section, index) => (
+            <button
+              id={`media-tab-${section.key}`}
+              class="media-tab"
+              type="button"
+              role="tab"
+              aria-selected={index === 0}
+              aria-controls={`media-panel-${section.key}`}
+              data-media-tab={section.key}
+            >
+              {section.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="media-panels">
+        <section
+          id="media-panel-features"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-features"
+          data-media-panel="features"
+        >
+          <PostList media={featureItems} />
+        </section>
+
+        <section
+          id="media-panel-interviews"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-interviews"
+          data-media-panel="interviews"
+          hidden
+        >
+          <PostList media={interviewItems} />
+        </section>
+
+        <section
+          id="media-panel-talks"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-talks"
+          data-media-panel="talks"
+          hidden
+        >
+          <PostList media={talkItems} />
+        </section>
+
+        <section
+          id="media-panel-news"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-news"
+          data-media-panel="news"
+          hidden
+        >
+          <ol class="news-list media-news-list">
+            {
+              newsItems.map((item) => (
+                <li class="news-item">
+                  <time datetime={item.data.date.toISOString()}>{dateFormatter.format(item.data.date)}</time>
+                  <div class="news-copy">
+                    <item.Content />
+                  </div>
+                  {item.data.image && (
+                    <a class="news-thumb" href={item.data.relatedUrl ?? '/gallery/'}>
+                      <img src={item.data.image} alt={item.data.imageAlt ?? 'News image'} loading="lazy" />
+                    </a>
+                  )}
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+      </div>
     </div>
   </section>
+  <script type="module">
+    const mediaRoot = document.querySelector<HTMLElement>('.media-section');
+
+    if (mediaRoot) {
+      const tabs = Array.from(mediaRoot.querySelectorAll<HTMLButtonElement>('[data-media-tab]'));
+      const panels = Array.from(mediaRoot.querySelectorAll<HTMLElement>('[data-media-panel]'));
+
+      const activateTab = (tabKey) => {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.mediaTab === tabKey;
+          tab.setAttribute('aria-selected', String(isActive));
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.mediaPanel !== tabKey;
+        });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          if (tab.dataset.mediaTab) {
+            activateTab(tab.dataset.mediaTab);
+          }
+        });
+      });
+
+      const initialTab = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.dataset.mediaTab;
+      if (initialTab) {
+        activateTab(initialTab);
+      }
+    }
+  </script>
 </BaseLayout>
