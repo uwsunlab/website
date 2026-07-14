@@ -12,19 +12,41 @@ const gallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b
     description="Moments from the lab, events, and the visual story of the group."
   />
   <section class="section">
-    <div class="container gallery-events">
+    <ul class="container gallery-wall">
       {
-        gallery.map((item) => (
-          <figure class="gallery-event">
-            <img src={item.data.image} alt={item.data.title} loading="lazy" />
-            <figcaption>
-              <p class="meta">{item.data.date}</p>
-              <h3>{item.data.title}</h3>
-              <p>{item.data.caption}</p>
-            </figcaption>
-          </figure>
-        ))
+        gallery.map((item, index) => {
+          const prevId = gallery[(index - 1 + gallery.length) % gallery.length].id;
+          const nextId = gallery[(index + 1) % gallery.length].id;
+          const imageAlt = item.data.imageAlt ?? item.data.caption;
+          const dateMeta = item.data.date ? <p class="meta">{item.data.date}</p> : null;
+
+          return (
+            <li class={`gallery-card ${item.data.layout === 'full' ? 'gallery-card-full' : ''}`}>
+              <div class="gallery-thumb">
+                <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`}>
+                  <img src={item.data.image} alt={imageAlt} loading="lazy" />
+                </a>
+              </div>
+              <div id={`gallery-lightbox-${item.id}`} class="gallery-lightbox" role="dialog" aria-modal="true" aria-label={item.data.title}>
+                <a class="gallery-lightbox-close" href="#" aria-label="Close fullscreen view">×</a>
+                <nav class="gallery-lightbox-nav" aria-label="Gallery navigation">
+                  <a class="gallery-lightbox-nav-button gallery-lightbox-prev" href={`#gallery-lightbox-${prevId}`} aria-label="Previous image">←</a>
+                  <a class="gallery-lightbox-nav-button gallery-lightbox-next" href={`#gallery-lightbox-${nextId}`} aria-label="Next image">→</a>
+                </nav>
+                <div class="gallery-lightbox-inner">
+                  <img data-src={item.data.image} alt={imageAlt} />
+                  <div class="gallery-lightbox-meta">
+                    {dateMeta}
+                    <h2>{item.data.title}</h2>
+                    <p>{item.data.caption}</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        })
       }
-    </div>
+    </ul>
   </section>
+  <script type="module" src="/scripts/gallery-lightbox.js"></script>
 </BaseLayout>

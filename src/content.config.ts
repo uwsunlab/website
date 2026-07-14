@@ -80,6 +80,8 @@ const gallery = defineCollection({
     date: z.string().optional(),
     caption: z.string(),
     image: z.string(),
+    imageAlt: z.string().optional(),
+    layout: z.enum(['grid', 'full']).default('grid'),
     order: z.number().default(100)
   })
 });

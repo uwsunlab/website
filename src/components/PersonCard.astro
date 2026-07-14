@@ -25,7 +25,18 @@ const initials = person.data.name
     <h2>{person.data.name}</h2>
     <p class="meta">{person.data.role}</p>
     {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
-    <slot />
+    <input
+      class="person-summary-checkbox"
+      type="checkbox"
+      id={`person-summary-${person.data.name.replace(/[^\w-]+/g, '-')}`}
+    />
+    <div class="person-summary">
+      <slot />
+    </div>
+    <label class="person-summary-toggle" for={`person-summary-${person.data.name.replace(/[^\w-]+/g, '-')}`}>
+      <span class="summary-open">see more</span>
+      <span class="summary-close">see less</span>
+    </label>
     {
       person.data.links.length > 0 && (
         <div class="person-links">
@@ -35,3 +46,23 @@ const initials = person.data.name
     }
   </div>
 </article>
+
+<script type="module">
+  if (!window.__personSummaryToggleInit) {
+    window.__personSummaryToggleInit = true;
+    document.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.person-card').forEach((card) => {
+          const summary = card.querySelector('.person-summary');
+          const toggle = card.querySelector('.person-summary-toggle');
+          const checkbox = card.querySelector('.person-summary-checkbox');
+          if (!summary || !toggle || !checkbox) return;
+          if (summary.scrollHeight <= summary.clientHeight + 1) {
+            toggle.style.display = 'none';
+            checkbox.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+</script>
