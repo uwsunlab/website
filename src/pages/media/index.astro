@@ -21,10 +21,10 @@ const interviewItems = media.filter((item) => item.data.category === 'interview'
 const talkItems = media.filter((item) => talkCategories.has(item.data.category));
 
 const mediaTabs = [
-  { key: 'features', label: 'Features' },
+  { key: 'news', label: 'News' },
   { key: 'interviews', label: 'Interviews' },
   { key: 'talks', label: 'Talks' },
-  { key: 'news', label: 'News' }
+  { key: 'features', label: 'Features' }
 ] as const;
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {

@@ -25,6 +25,13 @@ const initials = person.data.name
     <h2>{person.data.name}</h2>
     <p class="meta">{person.data.role}</p>
     {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
+    {
+      person.data.links.length > 0 && (
+        <div class="person-links">
+          {person.data.links.map((link) => <a href={link.url}>{link.label}</a>)}
+        </div>
+      )
+    }
     <input
       class="person-summary-checkbox"
       type="checkbox"
@@ -36,14 +43,7 @@ const initials = person.data.name
     <label class="person-summary-toggle" for={`person-summary-${person.data.name.replace(/[^\w-]+/g, '-')}`}>
       <span class="summary-open">see more</span>
       <span class="summary-close">see less</span>
-    </label>
-    {
-      person.data.links.length > 0 && (
-        <div class="person-links">
-          {person.data.links.map((link) => <a href={link.url}>{link.label}</a>)}
-        </div>
-      )
-    }
+    </label>    
   </div>
 </article>
 

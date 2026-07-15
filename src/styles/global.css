@@ -291,6 +291,7 @@ h3 {
   padding: 10px 17px;
   text-decoration: none;
   border: 1px solid var(--line);
+  border-radius: 4px;
   transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
 }
 
@@ -303,6 +304,7 @@ h3 {
   background: transparent;
   color: var(--teal-dark);
   border-color: var(--teal);
+  border-radius: 4px;
   transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease;
 }
 
@@ -361,7 +363,7 @@ h3 {
 .person-photo {
   aspect-ratio: 1 / 1;
   background: var(--paper-soft);
-  border: 1px solid var(--line);
+  border: 4px solid var(--line);
   display: grid;
   place-items: center;
   color: var(--ink);
@@ -369,6 +371,7 @@ h3 {
   width: 90%;
   margin: 0 auto;
   object-fit: cover;
+  border-radius: 5%;
 }
 
 .person-card .content {
@@ -447,9 +450,11 @@ h3 {
 .media-tabs {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: clamp(18px, 3vw, 42px);
   flex-wrap: wrap;
   border-bottom: 1px solid var(--line);
+  font: inherit;
 }
 
 .media-tab {
@@ -458,7 +463,7 @@ h3 {
   border-bottom: 2px solid transparent;
   background: transparent;
   color: var(--muted);
-  padding: 0 0 14px;
+  padding: 9px 9px 7px;
   font-weight: 500;
   letter-spacing: 0.01em;
   cursor: pointer;
@@ -864,6 +869,10 @@ h3 {
 
 .scholar-link {
   margin: 0 0 34px;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  align-items: center;
 }
 
 .site-footer {
@@ -1228,16 +1237,6 @@ h3 {
 
 .gallery-thumb img {
   pointer-events: auto;
-  cursor: pointer;
-}
-
-.gallery-thumb-link {
-  text-decoration: none;
-}
-
-.gallery-thumb-link:hover {
-  outline: 2px solid var(--teal);
-  outline-offset: -2px;
 }
 
 .gallery-card img {
