@@ -1,9 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
+import { imageSize } from 'image-size';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 
-const gallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+const rawGallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+
+const gallery = rawGallery.map((item) => {
+  let aspectRatio = 1;
+  try {
+    const filePath = path.join(process.cwd(), 'public', item.data.image);
+    const buffer = readFileSync(filePath);
+    const { width, height } = imageSize(buffer);
+    aspectRatio = width / height;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn(`[gallery] Could not read dimensions for ${item.data.image}:`, message);
+  }
+  return { ...item, aspectRatio };
+});
 ---
 
 <BaseLayout title="Gallery" description="Gallery and logo story from the Autonomous Materials Discovery Group Cambridge.">
@@ -12,18 +29,23 @@ const gallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b
     description="Moments from the lab, events, and the visual story of the group."
   />
   <section class="section">
-    <ul class="container gallery-wall">
+    <ul class="container gallery-wall" id="gallery-wall">
       {
         gallery.map((item, index) => {
           const prevId = gallery[(index - 1 + gallery.length) % gallery.length].id;
           const nextId = gallery[(index + 1) % gallery.length].id;
           const imageAlt = item.data.imageAlt ?? item.data.caption;
           const dateMeta = item.data.date ? <p class="meta">{item.data.date}</p> : null;
+          const isFull = item.data.layout === 'full';
 
           return (
-            <li class={`gallery-card ${item.data.layout === 'full' ? 'gallery-card-full' : ''}`}>
+            <li
+              class="gallery-card"
+              data-ar={item.aspectRatio}
+              data-full={isFull ? 'true' : 'false'}
+            >
               <div class="gallery-thumb">
-                <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`} title={item.data.title}>
+                <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`}>
                   <img src={item.data.image} alt={imageAlt} loading="lazy" />
                 </a>
               </div>
@@ -48,5 +70,6 @@ const gallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b
       }
     </ul>
   </section>
+  <script type="module" src="/scripts/justified-gallery.js"></script>
   <script type="module" src="/scripts/gallery-lightbox.js"></script>
 </BaseLayout>

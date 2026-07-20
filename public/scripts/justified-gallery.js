@@ -2,7 +2,7 @@
 
 function layoutJustifiedGallery(container, options = {}) {
   const {
-    targetRowHeight = 260,
+    targetRowHeight = 360,
     gap = 4,
     maxRowHeightDeviation = 0.25, // how far the last row may stretch beyond target height
   } = options;
@@ -15,7 +15,7 @@ function layoutJustifiedGallery(container, options = {}) {
       full: el.dataset.full === 'true',
     }));
 
-  const containerWidth = container.clientWidth;
+  const containerWidth = container.getBoundingClientRect().width;
   if (!containerWidth) return;
 
   let row = [];
@@ -29,6 +29,7 @@ function layoutJustifiedGallery(container, options = {}) {
     const availableWidth = containerWidth - totalGap;
 
     let rowHeight = availableWidth / sumAr;
+    let fillsFullWidth = true;
 
     // Don't force a sparse last row (e.g. one portrait photo) to stretch
     // full-width and become enormous — cap it near the target height instead.
@@ -36,16 +37,35 @@ function layoutJustifiedGallery(container, options = {}) {
       const deviation = Math.abs(rowHeight - targetRowHeight) / targetRowHeight;
       if (deviation > maxRowHeightDeviation) {
         rowHeight = targetRowHeight;
+        fillsFullWidth = false;
       }
     }
 
     rowHeight = Math.round(rowHeight);
 
-    rowItems.forEach((item) => {
-      const width = Math.round(item.ar * rowHeight);
-      item.el.style.width = `${width}px`;
-      item.el.style.height = `${rowHeight}px`;
-    });
+    if (fillsFullWidth) {
+      // Every item except the last is rounded normally; the last item
+      // absorbs whatever rounding remainder is left, so the row's total
+      // pixel width can never end up even 1px off from availableWidth —
+      // which is what previously let the browser's own wrap decision
+      // disagree with the row this JS intended.
+      let widthUsed = 0;
+      rowItems.forEach((item, i) => {
+        const isLastInRow = i === rowItems.length - 1;
+        const width = isLastInRow
+          ? Math.round(availableWidth) - widthUsed
+          : Math.round(item.ar * rowHeight);
+        if (!isLastInRow) widthUsed += width;
+        item.el.style.width = `${width}px`;
+        item.el.style.height = `${rowHeight}px`;
+      });
+    } else {
+      rowItems.forEach((item) => {
+        const width = Math.round(item.ar * rowHeight);
+        item.el.style.width = `${width}px`;
+        item.el.style.height = `${rowHeight}px`;
+      });
+    }  
   }
 
   items.forEach((item) => {
@@ -55,7 +75,7 @@ function layoutJustifiedGallery(container, options = {}) {
       row = [];
       rowAspectSum = 0;
 
-      item.el.style.width = `${containerWidth}px`;
+      item.el.style.width = `${Math.round(containerWidth)}px`;
       item.el.style.height = `${Math.round(containerWidth / item.ar)}px`;
       return;
     }

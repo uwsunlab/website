@@ -23,7 +23,6 @@ const openLightbox = (lightbox) => {
   });
 
   loadLightboxImage(lightbox);
-  // move focus to a sensible control inside the dialog
   const closeBtn = lightbox.querySelector('.gallery-lightbox-close');
   if (closeBtn instanceof HTMLElement) closeBtn.focus();
 };
@@ -73,6 +72,22 @@ const updateStateFromHash = () => {
   }
 };
 
+// Single source of truth for "navigate to this lightbox hash" —
+// used by thumbnail clicks, prev/next clicks, and arrow keys alike.
+// Keeping pushState + updateStateFromHash paired and synchronous is
+// what prevents the flash: nothing falls through to the native,
+// async hashchange-only path.
+const navigateToHash = (targetId) => {
+  if (!targetId) return;
+  history.pushState(null, '', `#${targetId}`);
+  updateStateFromHash();
+};
+
+const resolveHashTarget = (el) => {
+  const href = el.getAttribute('href') || el.getAttribute('data-href');
+  return href?.startsWith('#') ? href.slice(1) : href;
+};
+
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
     dialog.style.display = 'none';
@@ -80,17 +95,15 @@ window.addEventListener('DOMContentLoaded', () => {
     dialog.setAttribute('tabindex', '-1');
   });
 
-  // Thumbnail anchors open the lightbox by pushing a hash state
-  document.querySelectorAll('a.gallery-thumb-link').forEach((anchor) => {
-    anchor.addEventListener('click', (event) => {
-      event.preventDefault();
-      const href = anchor.getAttribute('href') || anchor.getAttribute('data-href');
-      const targetId = href?.startsWith('#') ? href.slice(1) : href;
-      if (targetId) {
-        history.pushState(null, '', `#${targetId}`);
-        updateStateFromHash();
-      }
-    });
+  // Delegated click handler covers thumbnail links AND prev/next nav
+  // buttons in one place — any current or future <a> that points at
+  // a #gallery-lightbox-* hash is caught here, so this can't silently
+  // regress to native (async) hash navigation again.
+  document.addEventListener('click', (event) => {
+    const anchor = event.target.closest('a.gallery-thumb-link, a.gallery-lightbox-nav-button');
+    if (!anchor) return;
+    event.preventDefault();
+    navigateToHash(resolveHashTarget(anchor));
   });
 
   // Backdrop click to close (clicks outside .gallery-lightbox-inner)
@@ -99,7 +112,6 @@ window.addEventListener('DOMContentLoaded', () => {
       const inner = dialog.querySelector('.gallery-lightbox-inner');
       if (!inner) return;
       if (!inner.contains(event.target)) {
-        // clicked on backdrop
         closeLightbox();
       }
     });
@@ -120,18 +132,12 @@ window.addEventListener('DOMContentLoaded', () => {
       closeLightbox();
       return;
     }
-    // Arrow navigation
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
       const sel = event.key === 'ArrowLeft' ? '.gallery-lightbox-prev' : '.gallery-lightbox-next';
       const nav = active.querySelector(sel);
       if (nav instanceof HTMLAnchorElement) {
-        const href = nav.getAttribute('href') || nav.getAttribute('data-href');
-        const targetId = href?.startsWith('#') ? href.slice(1) : href;
-        if (targetId) {
-          history.pushState(null, '', `#${targetId}`);
-          updateStateFromHash();
-        }
+        navigateToHash(resolveHashTarget(nav));
       }
       return;
     }
