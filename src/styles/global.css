@@ -1207,22 +1207,6 @@ h3 {
   margin: 0;
 }
 
-.gallery-card-full {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  height: auto;
-  margin: 0;
-  flex: 0 0 100%;
-  break-inside: avoid;
-}
-
-.gallery-card-full .gallery-thumb {
-  display: block;
-  height: auto;
-  width: 100%;
-}
-
 .gallery-thumb {
   display: flex;
   align-items: center;
@@ -1247,6 +1231,24 @@ h3 {
   object-fit: contain;
   margin: 0;
 }
+
+.gallery-card-full {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  flex: 0 0 100%;
+  break-inside: avoid;
+}
+
+.gallery-card-full .gallery-thumb {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+
 
 .gallery-card-full img {
   width: 100%;
