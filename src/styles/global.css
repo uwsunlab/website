@@ -528,6 +528,20 @@ h3 {
   object-fit: cover;
 }
 
+.media-thumb-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.media-thumb-link img {
+  transition: opacity 0.15s ease;
+}
+
+.media-thumb-link:hover img {
+  opacity: 0.85;
+}
+
 .media-copy {
   padding: 0;
 }
