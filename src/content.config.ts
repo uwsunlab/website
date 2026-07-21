@@ -48,7 +48,7 @@ const media = defineCollection({
     date: z.coerce.date(),
     summary: z.string(),
     source: z.string().optional(),
-    category: z.enum(['lecture', 'interview', 'article', 'tutorial', 'video', 'news']).default('article'),
+    category: z.enum(['lecture', 'interview', 'article', 'tutorial', 'video', 'news', 'event']).default('article'),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     externalUrl: z.url().optional()

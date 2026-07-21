@@ -19,9 +19,11 @@ const talkCategories = new Set(['lecture', 'tutorial', 'video']);
 const featureItems = media.filter((item) => item.data.category === 'article');
 const interviewItems = media.filter((item) => item.data.category === 'interview');
 const talkItems = media.filter((item) => talkCategories.has(item.data.category));
+const eventItems = media.filter((item) => item.data.category === 'event');
 
 const mediaTabs = [
   { key: 'news', label: 'News' },
+  { key: 'events', label: 'Events' },
   { key: 'interviews', label: 'Interviews' },
   { key: 'talks', label: 'Talks' },
   { key: 'features', label: 'Features' }
@@ -37,7 +39,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 <BaseLayout title="Media" description="Media, talks, tutorials, and articles from the Autonomous Materials Discovery Group Cambridge.">
   <PageHeader
     title="Media"
-    description="News, interviews, talks, and external features from the group"
+    description="News, events, interviews, talks, and external features from the group"
   />
   <section class="section media-section">
     <div class="container media-section-inner">
@@ -117,6 +119,17 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
               ))
             }
           </ol>
+        </section>
+
+        <section
+          id="media-panel-events"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-events"
+          data-media-panel="events"
+          hidden
+        >
+          <PostList media={eventItems} />
         </section>
       </div>
     </div>
