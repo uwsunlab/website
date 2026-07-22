@@ -61,6 +61,36 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
         }
       </div>
 
+      <script is:inline define:vars={{ tabKeys: mediaTabs.map((tab) => tab.key) }}>
+        (() => {
+          const param = new URLSearchParams(window.location.search).get('tab');
+          let stored = null;
+          try {
+            stored = localStorage.getItem('media-selected-tab');
+          } catch {
+            stored = null;
+          }
+
+          const tab = [param, stored].find((key) => tabKeys.includes(key));
+          if (!tab) return;
+
+          document.querySelectorAll('.media-tab[data-media-tab]').forEach((button) => {
+            const isActive = button.dataset.mediaTab === tab;
+            button.setAttribute('aria-selected', String(isActive));
+            button.tabIndex = isActive ? 0 : -1;
+          });
+
+          // The panels below are not parsed yet, so their first paint is driven by CSS
+          // rather than the `hidden` attribute. The module script removes this once it takes over.
+          const style = document.createElement('style');
+          style.id = 'media-tab-preload';
+          style.textContent =
+            `.media-panel:not([data-media-panel="${tab}"]){display:none}` +
+            `.media-panel[data-media-panel="${tab}"]{display:block}`;
+          document.head.append(style);
+        })();
+      </script>
+
       <div class="media-panels">
         <section
           id="media-panel-features"
@@ -68,6 +98,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
           role="tabpanel"
           aria-labelledby="media-tab-features"
           data-media-panel="features"
+          hidden
         >
           <PostList media={featureItems} />
         </section>
@@ -100,7 +131,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
           role="tabpanel"
           aria-labelledby="media-tab-news"
           data-media-panel="news"
-          hidden
         >
           <ol class="news-list media-news-list">
             {
@@ -140,6 +170,34 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
     if (mediaRoot) {
       const tabs = Array.from(mediaRoot.querySelectorAll<HTMLButtonElement>('[data-media-tab]'));
       const panels = Array.from(mediaRoot.querySelectorAll<HTMLElement>('[data-media-panel]'));
+      const storageKey = 'media-selected-tab';
+      const tabParam = 'tab';
+
+      const isKnownTab = (tabKey) => tabs.some((tab) => tab.dataset.mediaTab === tabKey);
+
+      const readUrlTab = () => new URLSearchParams(window.location.search).get(tabParam);
+
+      const syncUrl = (tabKey) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set(tabParam, tabKey);
+        history.replaceState(null, '', url);
+      };
+
+      const readStoredTab = () => {
+        try {
+          return localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      };
+
+      const storeTab = (tabKey) => {
+        try {
+          localStorage.setItem(storageKey, tabKey);
+        } catch {
+          // Storage can be unavailable (private mode, blocked cookies); selection just won't persist.
+        }
+      };
 
       const activateTab = (tabKey) => {
         tabs.forEach((tab) => {
@@ -153,18 +211,29 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
         });
       };
 
+      const selectTab = (tabKey) => {
+        activateTab(tabKey);
+        storeTab(tabKey);
+        syncUrl(tabKey);
+      };
+
       tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
           if (tab.dataset.mediaTab) {
-            activateTab(tab.dataset.mediaTab);
+            selectTab(tab.dataset.mediaTab);
           }
         });
       });
 
-      const initialTab = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.dataset.mediaTab;
+      // Read from the tab order, not aria-selected: the inline script above may already have moved it.
+      const defaultTab = tabs[0]?.dataset.mediaTab;
+      const initialTab = [readUrlTab(), readStoredTab(), defaultTab].find(isKnownTab);
+
       if (initialTab) {
-        activateTab(initialTab);
+        selectTab(initialTab);
       }
+
+      document.getElementById('media-tab-preload')?.remove();
     }
   </script>
 </BaseLayout>

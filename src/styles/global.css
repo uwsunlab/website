@@ -532,6 +532,13 @@ h3 {
   display: block;
   width: 100%;
   height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.media-thumb:not(.has-image) .media-thumb-link {
+  display: grid;
+  place-items: center;
 }
 
 .media-thumb-link img {
@@ -540,6 +547,10 @@ h3 {
 
 .media-thumb-link:hover img {
   opacity: 0.85;
+}
+
+.media-thumb:not(.has-image) .media-thumb-link:hover {
+  text-decoration: underline;
 }
 
 .media-copy {

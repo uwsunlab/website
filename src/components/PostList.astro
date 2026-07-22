@@ -14,20 +14,21 @@ const { media } = Astro.props;
     media.map((item) => {
       const thumbSrc = item.data.image ?? getYouTubeThumbnailUrl(item.data.externalUrl);
       const thumbAlt = item.data.imageAlt ?? `${item.data.title} media image`;
+      const thumbInner = thumbSrc ? (
+        <img src={thumbSrc} alt={thumbAlt} loading="lazy" />
+      ) : (
+        <span>{item.data.source ?? item.data.category}</span>
+      );
 
       return (
         <article class="post-item media-card">
           <div class={`media-thumb ${thumbSrc ? 'has-image' : ''}`}>
-            {thumbSrc ? (
-              item.data.externalUrl ? (
-                <a class="media-thumb-link" href={item.data.externalUrl}>
-                  <img src={thumbSrc} alt={thumbAlt} loading="lazy" />
-                </a>
-              ) : (
-                <img src={thumbSrc} alt={thumbAlt} loading="lazy" />
-              )
+            {item.data.externalUrl ? (
+              <a class="media-thumb-link" href={item.data.externalUrl} aria-label={item.data.title}>
+                {thumbInner}
+              </a>
             ) : (
-              <span>{item.data.source ?? item.data.category}</span>
+              thumbInner
             )}
           </div>
           <div class="media-copy">
@@ -41,7 +42,6 @@ const { media } = Astro.props;
               {item.data.source ? ` · ${item.data.source}` : ''} · {item.data.category}
             </p>
             <p>{item.data.summary}</p>
-            {item.data.externalUrl && <a class="text-link" href={item.data.externalUrl}>Read article</a>}
           </div>
         </article>
       );
