@@ -23,7 +23,15 @@ export function getYouTubeVideoId(url: string | undefined): string | null {
   return pathMatch ? pathMatch[2] : null;
 }
 
+// hqdefault.jpg is 4:3 and letterboxes 16:9 videos with baked-in black bars, so
+// prefer maxresdefault (16:9, but missing on some videos) and fall back to
+// mqdefault (16:9, always present) rather than to hqdefault.
 export function getYouTubeThumbnailUrl(url: string | undefined): string | null {
   const id = getYouTubeVideoId(url);
-  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : null;
+  return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
+}
+
+export function getYouTubeThumbnailFallbackUrl(url: string | undefined): string | null {
+  const id = getYouTubeVideoId(url);
+  return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : null;
 }

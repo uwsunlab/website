@@ -3,7 +3,7 @@ name: Arthur Chong
 role: Research Assistant
 status: current
 group: PostDoc & Research Assistant
-photo: /images/arthur-chong.jpg
+photo: /images/people/arthur-chong.jpg
 order: 3
 links: []
 ---

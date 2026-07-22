@@ -3,7 +3,7 @@ name: Rumen Tomov
 role: Lab Manager
 status: current
 group: Lab Managers
-photo: /images/rumen-tomov.png
+photo: /images/people/rumen-tomov.png
 affiliation: University of Cambridge
 order: 8
 links: []

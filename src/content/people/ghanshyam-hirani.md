@@ -3,7 +3,7 @@ name: Ghanshyam Hirani
 role: Postdoctoral researcher
 status: current
 group: Postdoctoral researchers
-photo: /images/ghanshyam-hirani.jpg
+photo: /images/people/ghanshyam-hirani.jpg
 affiliation: University of Cambridge
 order: 7
 links: []

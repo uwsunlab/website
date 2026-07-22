@@ -43,7 +43,13 @@ const years = Object.keys(papersByYear)
   <section class="section">
     <div class="container publication-page">
       <p class="scholar-link">
-        <a href="https://scholar.google.co.uk/citations?user=e5fFIDkAAAAJ&hl=en">Google Scholar profile</a>
+        <a
+          href="https://scholar.google.co.uk/citations?user=e5fFIDkAAAAJ&hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Scholar profile
+        </a>
       </p>
       <div class="reference-list">
         {
@@ -55,7 +61,11 @@ const years = Object.keys(papersByYear)
                   papersByYear[year].map((paper) => (
                     <li value={paper.globalIndex}>
                       &ldquo;{paper.title}&rdquo;{' '}
-                      <a href={paper.doi ? `https://doi.org/${paper.doi}` : paper.scholarQuery}>
+                      <a
+                        href={paper.doi ? `https://doi.org/${paper.doi}` : paper.scholarQuery}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         {sourceLabel(paper)} ({paper.year})
                       </a>
                     </li>

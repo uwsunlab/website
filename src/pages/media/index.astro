@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 import PostList from '@components/PostList.astro';
+import { externalLinkAttrs } from '@utils/links';
 
 const media = (await getCollection('media')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -141,7 +142,11 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
                     <item.Content />
                   </div>
                   {item.data.image && (
-                    <a class="news-thumb" href={item.data.relatedUrl ?? '/gallery/'}>
+                    <a
+                      class="news-thumb"
+                      href={item.data.relatedUrl ?? '/gallery/'}
+                      {...externalLinkAttrs(item.data.relatedUrl)}
+                    >
                       <img src={item.data.image} alt={item.data.imageAlt ?? 'News image'} loading="lazy" />
                     </a>
                   )}

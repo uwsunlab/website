@@ -3,7 +3,7 @@ name: Tobias Rangel Guillen
 role: PhD Student
 status: current
 group: PhD Students
-photo: /images/tobias-rangel-guillen.jpg
+photo: /images/people/tobias-rangel-guillen.jpg
 affiliation: Co-advised by Prof. Shijing Sun and Prof. Lilo Pozzo
 order: 13
 links: []

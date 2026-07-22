@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getYouTubeThumbnailUrl } from '@utils/youtube';
+import { externalLinkAttrs } from '@utils/links';
+import { getYouTubeThumbnailFallbackUrl, getYouTubeThumbnailUrl } from '@utils/youtube';
 
 interface Props {
   media: CollectionEntry<'media'>[];
@@ -13,9 +14,19 @@ const { media } = Astro.props;
   {
     media.map((item) => {
       const thumbSrc = item.data.image ?? getYouTubeThumbnailUrl(item.data.externalUrl);
+      const thumbFallback = item.data.image
+        ? null
+        : getYouTubeThumbnailFallbackUrl(item.data.externalUrl);
       const thumbAlt = item.data.imageAlt ?? `${item.data.title} media image`;
       const thumbInner = thumbSrc ? (
-        <img src={thumbSrc} alt={thumbAlt} loading="lazy" />
+        <img
+          src={thumbSrc}
+          alt={thumbAlt}
+          loading="lazy"
+          onerror={
+            thumbFallback ? `this.onerror=null;this.src='${thumbFallback}'` : undefined
+          }
+        />
       ) : (
         <span>{item.data.source ?? item.data.category}</span>
       );
@@ -24,7 +35,12 @@ const { media } = Astro.props;
         <article class="post-item media-card">
           <div class={`media-thumb ${thumbSrc ? 'has-image' : ''}`}>
             {item.data.externalUrl ? (
-              <a class="media-thumb-link" href={item.data.externalUrl} aria-label={item.data.title}>
+              <a
+                class="media-thumb-link"
+                href={item.data.externalUrl}
+                aria-label={item.data.title}
+                {...externalLinkAttrs(item.data.externalUrl)}
+              >
                 {thumbInner}
               </a>
             ) : (

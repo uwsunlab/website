@@ -3,7 +3,7 @@ name: Weijie Zhang
 role: AMET student
 status: current
 group: AMET students
-photo: /images/weijie-zhang.jpeg
+photo: /images/people/weijie-zhang.jpeg
 affiliation: University of Cambridge
 order: 10
 links: []
