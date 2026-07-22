@@ -75,15 +75,16 @@ const news = defineCollection({
 
 const gallery = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/gallery' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.string().optional(),
-    caption: z.string(),
-    image: z.string(),
-    imageAlt: z.string().optional(),
-    layout: z.enum(['grid', 'full']).default('grid'),
-    order: z.number().default(100)
-  })
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.string().optional(),
+      caption: z.string(),
+      image: image(),
+      imageAlt: z.string().optional(),
+      layout: z.enum(['grid', 'full']).default('grid'),
+      order: z.number().default(100)
+    })
 });
 
 const researchProjects = defineCollection({

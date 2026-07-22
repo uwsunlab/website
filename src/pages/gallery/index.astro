@@ -1,26 +1,44 @@
 ---
 import { getCollection } from 'astro:content';
-import { imageSize } from 'image-size';
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
+import { getImage } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 
+// Tiles are sized in CSS pixels by justified-gallery.js (rows target 260px tall, or
+// full container width for `layout: full`), so each derivative is a fixed width chosen
+// to cover that at 2x DPR rather than a srcset the layout script can't describe.
+const THUMB_WIDTH = 900;
+const THUMB_WIDTH_FULL = 1800;
+const LIGHTBOX_WIDTH = 2200;
+
 const rawGallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
 
-const gallery = rawGallery.map((item) => {
-  let aspectRatio = 1;
-  try {
-    const filePath = path.join(process.cwd(), 'public', item.data.image);
-    const buffer = readFileSync(filePath);
-    const { width, height } = imageSize(buffer);
-    aspectRatio = width / height;
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.warn(`[gallery] Could not read dimensions for ${item.data.image}:`, message);
-  }
-  return { ...item, aspectRatio };
-});
+// Everything here is derived from getImage() results rather than read off
+// item.data.image. Touching a property on the original metadata makes Astro emit the
+// full-size original into dist/_astro even though nothing links to it — see
+// https://github.com/withastro/astro/issues/11887. The derivative's own dimensions
+// give the same aspect ratio, so the originals stay out of the build.
+const gallery = await Promise.all(
+  rawGallery.map(async (item) => {
+    const isFull = item.data.layout === 'full';
+    const [thumb, lightbox] = await Promise.all([
+      getImage({
+        src: item.data.image,
+        width: isFull ? THUMB_WIDTH_FULL : THUMB_WIDTH,
+        format: 'webp'
+      }),
+      getImage({ src: item.data.image, width: LIGHTBOX_WIDTH, format: 'webp' })
+    ]);
+
+    return {
+      ...item,
+      isFull,
+      aspectRatio: Number(thumb.attributes.width) / Number(thumb.attributes.height),
+      thumb,
+      lightboxSrc: lightbox.src
+    };
+  })
+);
 ---
 
 <BaseLayout title="Gallery" description="Gallery and logo story from the Autonomous Materials Discovery Group Cambridge.">
@@ -36,17 +54,22 @@ const gallery = rawGallery.map((item) => {
           const nextId = gallery[(index + 1) % gallery.length].id;
           const imageAlt = item.data.imageAlt ?? item.data.caption;
           const dateMeta = item.data.date ? <p class="meta">{item.data.date}</p> : null;
-          const isFull = item.data.layout === 'full';
 
           return (
             <li
               class="gallery-card"
               data-ar={item.aspectRatio}
-              data-full={isFull ? 'true' : 'false'}
+              data-full={item.isFull ? 'true' : 'false'}
             >
               <div class="gallery-thumb">
                 <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`}>
-                  <img src={item.data.image} alt={imageAlt} loading="lazy" />
+                  <img
+                    src={item.thumb.src}
+                    width={item.thumb.attributes.width}
+                    height={item.thumb.attributes.height}
+                    alt={imageAlt}
+                    loading="lazy"
+                  />
                 </a>
               </div>
               <div id={`gallery-lightbox-${item.id}`} class="gallery-lightbox" role="dialog" aria-modal="true" aria-label={item.data.title}>
@@ -56,7 +79,7 @@ const gallery = rawGallery.map((item) => {
                   <a class="gallery-lightbox-nav-button gallery-lightbox-next" href={`#gallery-lightbox-${nextId}`} aria-label="Next image">→</a>
                 </nav>
                 <div class="gallery-lightbox-inner">
-                  <img data-src={item.data.image} alt={imageAlt} />
+                  <img data-src={item.lightboxSrc} alt={imageAlt} />
                   <div class="gallery-lightbox-meta">
                     {dateMeta}
                     <h2>{item.data.title}</h2>
