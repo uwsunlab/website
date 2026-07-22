@@ -6,5 +6,3 @@ source: AIP Publishing YouTube channel
 category: video
 externalUrl: https://www.youtube.com/watch?v=4hdPGqTtjv8
 ---
-
-Live site media item.

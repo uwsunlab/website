@@ -5,6 +5,5 @@ summary: Article on explainable AI for battery health.
 source: TRI Medium blog
 category: article
 externalUrl: https://medium.com/toyotaresearch/understanding-the-complexity-of-battery-health-with-explainable-ai-cdb474bfeccc
+image: /images/media/battery-health-explainable-ai.webp
 ---
-
-Live site media item.

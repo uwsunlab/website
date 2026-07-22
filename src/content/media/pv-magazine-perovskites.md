@@ -8,5 +8,3 @@ image: https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/06
 imageAlt: Perovskite research image placeholder
 externalUrl: https://www.pv-magazine.com/2021/03/30/mit-scientists-reveal-method-to-identify-stable-perovskites/
 ---
-
-Live site media item.

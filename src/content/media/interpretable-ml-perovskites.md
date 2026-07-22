@@ -5,6 +5,5 @@ summary: Behind-the-paper blog post on interpretable machine learning for perovs
 source: Nature Device Community
 category: article
 externalUrl: https://engineeringcommunity.nature.com/posts/interpretable-ml-assists-the-design-of-new-protective-capping-layers-for-perovskite-solar-materials
+image: /images/media/interpretable-ml-perovskites.jpg
 ---
-
-Live site media item.

@@ -8,5 +8,3 @@ image: https://images.squarespace-cdn.com/content/v1/64bc55503de4ca604bd09dac/06
 imageAlt: Perovskite research image placeholder
 externalUrl: https://news.mit.edu/2021/longer-lasting-perovskite-solar-cells-0331
 ---
-
-Live site media item.
