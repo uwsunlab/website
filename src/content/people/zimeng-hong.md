@@ -3,7 +3,7 @@ name: Zimeng Hong
 role: MPhil AMET student
 status: current
 group: AMET students
-photo: /images/people/zimeng-hong.jpg
+photo: ../../assets/images/people/zimeng-hong.jpg
 affiliation: University of Cambridge
 order: 9
 links: []

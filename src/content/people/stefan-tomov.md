@@ -3,7 +3,7 @@ name: Stefan Tomov
 role: Intern
 status: current
 group: Intern
-photo: /images/people/stefan-tomov.jpg
+photo: ../../assets/images/people/stefan-tomov.jpg
 affiliation: University of Cambridge
 order: 21
 links: []

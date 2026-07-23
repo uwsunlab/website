@@ -5,5 +5,5 @@ summary: We co-organized the Frontiers in Materials Chemistry Symposium on July 
 source: AKC80 Symposium
 category: event
 externalUrl: https://akc80.weebly.com/
-image: /images/media/akc80-symposium.jpg
+image: ../../assets/images/media/akc80-symposium.jpg
 ---

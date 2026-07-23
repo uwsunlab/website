@@ -1,5 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import researchWorkflow from '@assets/images/research/Research.png';
+import cappy from '@assets/images/research/Cappy.jpg';
+import mara from '@assets/images/research/Mara.jpg';
+import cobra from '@assets/images/research/Cobra.jpg';
 ---
 
 <BaseLayout title="Research" description="Clean energy materials research using artificial intelligence and robotics.">
@@ -17,8 +22,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
   <section class="research-method section alt" aria-labelledby="autonomous-science-title">
     <div class="container research-two-column">
       <figure class="research-media research-media-unframed">
-        <img
-          src="/Research/Research.png"
+        <Image
+          src={researchWorkflow}
+          widths={[600, 1100]}
+          sizes="(max-width: 900px) 100vw, 560px"
+          format="webp"
           alt="Closed-loop autonomous science workflow linking humans, AI systems, robots, and data"
           loading="lazy"
         />
@@ -42,7 +50,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       <div class="research-platform-list">
         <article class="research-platform">
           <figure class="research-media">
-            <img src="/Research/Cappy.jpg" alt="Cappy crystallisation platform" loading="lazy" />
+            <Image src={cappy} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cappy crystallisation platform" loading="lazy" />
           </figure>
           <div class="research-copy">
             <h3>Crystallisation</h3>
@@ -64,13 +72,13 @@ import BaseLayout from '@layouts/BaseLayout.astro';
             </p>
           </div>
           <figure class="research-media">
-            <img src="/Research/Mara.jpg" alt="MARA thin-film deposition platform" loading="lazy" />
+            <Image src={mara} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="MARA thin-film deposition platform" loading="lazy" />
           </figure>
         </article>
 
         <article class="research-platform">
           <figure class="research-media">
-            <img src="/Research/Cobra.jpg" alt="Cobra robotic sample movement platform" loading="lazy" />
+            <Image src={cobra} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cobra robotic sample movement platform" loading="lazy" />
           </figure>
           <div class="research-copy">
             <h3>Sample movement</h3>

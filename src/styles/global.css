@@ -369,6 +369,7 @@ h3 {
   color: var(--ink);
   font-weight: 500;
   width: 90%;
+  height: auto;
   margin: 0 auto;
   object-fit: cover;
   border-radius: 5%;
@@ -785,6 +786,7 @@ h3 {
 
 .home-overview-media img {
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   min-height: clamp(330px, 42vw, 560px);
   object-fit: cover;
@@ -1062,6 +1064,7 @@ h3 {
 
 .research-media img {
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
 }

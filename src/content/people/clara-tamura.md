@@ -3,7 +3,7 @@ name: Clara Tamura
 role: PhD Student
 status: current
 group: PhD Students
-photo: /images/people/clara-tamura.jpg
+photo: ../../assets/images/people/clara-tamura.jpg
 affiliation: University of Cambridge
 order: 10
 links: []

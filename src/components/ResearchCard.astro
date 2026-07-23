@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 
 interface Props {
   item: CollectionEntry<'researchProjects'>;
@@ -7,12 +8,15 @@ interface Props {
 
 const { item } = Astro.props;
 const imageAlt = item.data.imageAlt ?? `${item.data.title} research image`;
+const image = item.data.image;
 ---
 
 <article class="research-item">
   {
-    item.data.image && (
-      <img src={item.data.image} alt={imageAlt} loading="lazy" />
+    typeof image === 'object' ? (
+      <Image src={image} width={800} format="webp" alt={imageAlt} loading="lazy" />
+    ) : (
+      image && <img src={image} alt={imageAlt} loading="lazy" />
     )
   }
   <h3>{item.data.title}</h3>

@@ -9,17 +9,20 @@ const linkSchema = z.object({
 
 const people = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/people' }),
-  schema: z.object({
-    name: z.string(),
-    role: z.string(),
-    status: z.enum(['current', 'alumni']),
-    group: z.string().optional(),
-    photo: z.string().optional(),
-    email: z.email().optional(),
-    affiliation: z.string().optional(),
-    links: z.array(linkSchema).default([]),
-    order: z.number().default(100)
-  })
+  // photo accepts a local asset (current members, optimised through the pipeline) or a
+  // bare string (alumni still on remote Squarespace URLs, kept as-is and not rendered).
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      status: z.enum(['current', 'alumni']),
+      group: z.string().optional(),
+      photo: image().or(z.string()).optional(),
+      email: z.email().optional(),
+      affiliation: z.string().optional(),
+      links: z.array(linkSchema).default([]),
+      order: z.number().default(100)
+    })
 });
 
 const papers = defineCollection({
@@ -43,24 +46,26 @@ const papers = defineCollection({
 
 const media = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/media' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    summary: z.string(),
-    source: z.string().optional(),
-    category: z.enum(['lecture', 'interview', 'article', 'tutorial', 'video', 'news', 'event']).default('article'),
-    image: z.string().optional(),
-    imageAlt: z.string().optional(),
-    externalUrl: z.url().optional()
-  })
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      summary: z.string(),
+      source: z.string().optional(),
+      category: z.enum(['lecture', 'interview', 'article', 'tutorial', 'video', 'news', 'event']).default('article'),
+      image: image().optional(),
+      imageAlt: z.string().optional(),
+      externalUrl: z.url().optional()
+    })
 });
 
 const home = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/home' }),
-  schema: z.object({
-    image: z.string(),
-    imageAlt: z.string()
-  })
+  schema: ({ image }) =>
+    z.object({
+      image: image(),
+      imageAlt: z.string()
+    })
 });
 
 const news = defineCollection({
@@ -89,17 +94,20 @@ const gallery = defineCollection({
 
 const researchProjects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/research-projects' }),
-  schema: z.object({
-    title: z.string(),
-    area: z.string().optional(),
-    subtitle: z.string().optional(),
-    summary: z.string(),
-    category: z.enum(['hardware', 'software', 'collaboration']).default('hardware'),
-    image: z.string().optional(),
-    imageAlt: z.string().optional(),
-    order: z.number().default(100),
-    tags: z.array(z.string()).default([])
-  })
+  // Not currently rendered (ResearchCard is unused), but kept valid and pipeline-ready
+  // so it can be revived without dangling image refs.
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      area: z.string().optional(),
+      subtitle: z.string().optional(),
+      summary: z.string(),
+      category: z.enum(['hardware', 'software', 'collaboration']).default('hardware'),
+      image: image().optional(),
+      imageAlt: z.string().optional(),
+      order: z.number().default(100),
+      tags: z.array(z.string()).default([])
+    })
 });
 
 const openings = defineCollection({

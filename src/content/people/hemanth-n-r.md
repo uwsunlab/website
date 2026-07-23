@@ -3,7 +3,7 @@ name: Hemanth N R.
 role: PhD Student
 status: current
 group: PhD Students
-photo: /images/people/hemanth-n-r.jpg
+photo: ../../assets/images/people/hemanth-n-r.jpg
 affiliation: University of Washington
 order: 11
 links: []

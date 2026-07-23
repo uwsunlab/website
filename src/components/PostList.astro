@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { externalLinkAttrs } from '@utils/links';
 import { getYouTubeThumbnailFallbackUrl, getYouTubeThumbnailUrl } from '@utils/youtube';
 
@@ -8,24 +9,28 @@ interface Props {
 }
 
 const { media } = Astro.props;
+
+// Thumb column is minmax(180px, 0.34fr); ~380px at the widest, so 760 covers 2x DPR.
+const THUMB_WIDTH = 760;
 ---
 
 <div class="post-list">
   {
     media.map((item) => {
-      const thumbSrc = item.data.image ?? getYouTubeThumbnailUrl(item.data.externalUrl);
-      const thumbFallback = item.data.image
-        ? null
-        : getYouTubeThumbnailFallbackUrl(item.data.externalUrl);
+      // A local asset is optimised through the pipeline; otherwise fall back to a remote
+      // YouTube thumbnail (a plain URL string that can't go through <Image>).
+      const localImage = item.data.image;
+      const ytThumb = localImage ? null : getYouTubeThumbnailUrl(item.data.externalUrl);
+      const ytFallback = localImage ? null : getYouTubeThumbnailFallbackUrl(item.data.externalUrl);
       const thumbAlt = item.data.imageAlt ?? `${item.data.title} media image`;
-      const thumbInner = thumbSrc ? (
+      const thumbInner = localImage ? (
+        <Image src={localImage} width={THUMB_WIDTH} format="webp" alt={thumbAlt} loading="lazy" />
+      ) : ytThumb ? (
         <img
-          src={thumbSrc}
+          src={ytThumb}
           alt={thumbAlt}
           loading="lazy"
-          onerror={
-            thumbFallback ? `this.onerror=null;this.src='${thumbFallback}'` : undefined
-          }
+          onerror={ytFallback ? `this.onerror=null;this.src='${ytFallback}'` : undefined}
         />
       ) : (
         <span>{item.data.source ?? item.data.category}</span>
@@ -33,7 +38,7 @@ const { media } = Astro.props;
 
       return (
         <article class="post-item media-card">
-          <div class={`media-thumb ${thumbSrc ? 'has-image' : ''}`}>
+          <div class={`media-thumb ${localImage || ytThumb ? 'has-image' : ''}`}>
             {item.data.externalUrl ? (
               <a
                 class="media-thumb-link"

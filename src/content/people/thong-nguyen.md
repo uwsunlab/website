@@ -3,7 +3,7 @@ name: Thong Nguyen
 role: Undergraduate Student
 status: current
 group: Undergraduate Students
-photo: /images/people/thong-nguyen.jpg
+photo: ../../assets/images/people/thong-nguyen.jpg
 order: 20
 links: []
 ---

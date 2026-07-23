@@ -1,5 +1,5 @@
 ---
-image: /Home/Shijing%20Sun%20and%20Equipment.png
+image: ../../assets/images/home/shijing-sun-and-equipment.png
 imageAlt: Shijing Sun beside laboratory automation equipment
 ---
 

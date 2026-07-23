@@ -5,5 +5,5 @@ summary: TRI Be Yourself Spotlight feature.
 source: TRI Be Yourself Spotlight
 category: interview
 externalUrl: https://www.linkedin.com/pulse/tri-yourself-spotlight-meet-shijing-sun-toyota-research-institute/
-image: /images/media/womens-history-month.jpg
+image: ../../assets/images/media/womens-history-month.jpg
 ---

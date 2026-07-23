@@ -6,5 +6,5 @@ source: MIT News
 category: article
 imageAlt: Impossible Perovskite logo image
 externalUrl: https://news.mit.edu/2019/machine-learning-solar-cell-0605
-image: /images/media/speed-discovery-solar-cell-materials.png
+image: ../../assets/images/media/speed-discovery-solar-cell-materials.png
 ---

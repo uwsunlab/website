@@ -5,5 +5,5 @@ summary: How machine learning and lab automation are transforming materials scie
 source: Varsity
 category: article
 externalUrl: https://www.varsity.co.uk/science/30954
-image: /images/media/varsity-ai-automation.jpeg
+image: ../../assets/images/media/varsity-ai-automation.jpeg
 ---

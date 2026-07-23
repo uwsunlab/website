@@ -4,7 +4,7 @@ role: Postdoctoral Scholar
 status: current
 group: PostDoc & Research Assistant
 affiliation: University of Cambridge
-photo: /images/people/zuyang-ye.jpg
+photo: ../../assets/images/people/zuyang-ye.jpg
 order: 2
 links: []
 ---
