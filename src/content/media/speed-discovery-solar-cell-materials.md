@@ -5,6 +5,6 @@ summary: MIT News coverage of accelerated solar-cell materials discovery.
 source: MIT News
 category: article
 imageAlt: Impossible Perovskite logo image
-externalUrl: https://news.mit.edu/2019/machine-learning-solar-cell-0605
-image: ../../assets/images/media/speed-discovery-solar-cell-materials.png
+externalUrl: https://news.mit.edu/2019/solar-cell-material-discovery-perovskite-0605
+image: ../../assets/images/media/speef-discovery-solar-cell-materials.jpg
 ---

@@ -15,19 +15,18 @@ const newsItems = await Promise.all(
   })
 );
 
-const talkCategories = new Set(['lecture', 'tutorial', 'video']);
+// "Etc" collects everything that isn't a feature article: the former Events, Interviews,
+// and Talks (lecture/tutorial/video) tabs. media is already sorted newest-first, so the
+// filter preserves date order across the merged categories.
+const etcCategories = new Set(['event', 'interview', 'lecture', 'tutorial', 'video']);
 
 const featureItems = media.filter((item) => item.data.category === 'article');
-const interviewItems = media.filter((item) => item.data.category === 'interview');
-const talkItems = media.filter((item) => talkCategories.has(item.data.category));
-const eventItems = media.filter((item) => item.data.category === 'event');
+const etcItems = media.filter((item) => etcCategories.has(item.data.category));
 
 const mediaTabs = [
   { key: 'news', label: 'News' },
-  { key: 'events', label: 'Events' },
-  { key: 'interviews', label: 'Interviews' },
-  { key: 'talks', label: 'Talks' },
-  { key: 'features', label: 'Features' }
+  { key: 'features', label: 'Features' },
+  { key: 'etc', label: 'Etc.' }
 ] as const;
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
@@ -94,39 +93,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 
       <div class="media-panels">
         <section
-          id="media-panel-features"
-          class="media-panel"
-          role="tabpanel"
-          aria-labelledby="media-tab-features"
-          data-media-panel="features"
-          hidden
-        >
-          <PostList media={featureItems} />
-        </section>
-
-        <section
-          id="media-panel-interviews"
-          class="media-panel"
-          role="tabpanel"
-          aria-labelledby="media-tab-interviews"
-          data-media-panel="interviews"
-          hidden
-        >
-          <PostList media={interviewItems} />
-        </section>
-
-        <section
-          id="media-panel-talks"
-          class="media-panel"
-          role="tabpanel"
-          aria-labelledby="media-tab-talks"
-          data-media-panel="talks"
-          hidden
-        >
-          <PostList media={talkItems} />
-        </section>
-
-        <section
           id="media-panel-news"
           class="media-panel"
           role="tabpanel"
@@ -157,14 +123,24 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
         </section>
 
         <section
-          id="media-panel-events"
+          id="media-panel-features"
           class="media-panel"
           role="tabpanel"
-          aria-labelledby="media-tab-events"
-          data-media-panel="events"
+          aria-labelledby="media-tab-features"
+          data-media-panel="features"
           hidden
         >
-          <PostList media={eventItems} />
+          <PostList media={featureItems} />
+        </section>
+
+        <section
+          id="media-panel-etc"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-etc"
+          data-media-panel="etc"
+          hidden
+        >
         </section>
       </div>
     </div>

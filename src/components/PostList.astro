@@ -53,7 +53,19 @@ const THUMB_WIDTH = 760;
             )}
           </div>
           <div class="media-copy">
-            <p class="post-title">{item.data.title}</p>
+            <p class="post-title">
+              {item.data.externalUrl ? (
+                <a
+                  class="post-title-link"
+                  href={item.data.externalUrl}
+                  {...externalLinkAttrs(item.data.externalUrl)}
+                >
+                  {item.data.title}
+                </a>
+              ) : (
+                item.data.title
+              )}
+            </p>
             <p class="meta">
               {item.data.date.toLocaleDateString('en-GB', {
                 day: 'numeric',
@@ -62,7 +74,7 @@ const THUMB_WIDTH = 760;
               })}
               {item.data.source ? ` · ${item.data.source}` : ''} · {item.data.category}
             </p>
-            <p>{item.data.summary}</p>
+            {/* Summaries are intentionally not rendered here; kept in the .md files for later use. */}
           </div>
         </article>
       );
