@@ -102,13 +102,13 @@ function initJustifiedGallery() {
   if (!container) return;
 
   const options = {
-    targetRowHeight: window.innerWidth < 900 ? 180 : 260,
+    targetRowHeight: window.innerWidth < 900 ? 180 : 310,
     gap: 4,
     maxRowHeightDeviation: 0.25,
   };
 
   function relayout() {
-    options.targetRowHeight = window.innerWidth < 900 ? 180 : 260;
+    options.targetRowHeight = window.innerWidth < 900 ? 180 : 310;
     layoutJustifiedGallery(container, options);
     container.classList.add('is-laid-out');
   }
