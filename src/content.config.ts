@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { getYouTubeVideoId } from './utils/youtube';
 
 const linkSchema = z.object({
   label: z.string(),
@@ -80,16 +81,23 @@ const news = defineCollection({
 
 const gallery = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/gallery' }),
+  // An item is either a photo (image) or a YouTube video (videoUrl). At least one must be
+  // present; a video item's tile and poster come from YouTube, so it needs no local image.
   schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      date: z.string().optional(),
-      caption: z.string(),
-      image: image(),
-      imageAlt: z.string().optional(),
-      layout: z.enum(['grid', 'full']).default('grid'),
-      order: z.number().default(100)
-    })
+    z
+      .object({
+        title: z.string(),
+        date: z.string().optional(),
+        caption: z.string(),
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+        videoUrl: z.string().optional(),
+        layout: z.enum(['grid', 'full']).default('grid'),
+        order: z.number().default(100)
+      })
+      .refine((data) => data.image !== undefined || getYouTubeVideoId(data.videoUrl) !== null, {
+        message: 'A gallery item needs an image, or a videoUrl that is a valid YouTube link.'
+      })
 });
 
 const researchProjects = defineCollection({

@@ -3,6 +3,11 @@ import { getCollection } from 'astro:content';
 import { getImage } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
+import {
+  getYouTubeThumbnailFallbackUrl,
+  getYouTubeThumbnailUrl,
+  getYouTubeVideoId
+} from '@utils/youtube';
 
 // Tiles are sized in CSS pixels by justified-gallery.js (rows target 260px tall, or
 // full container width for `layout: full`), so each derivative is a fixed width chosen
@@ -13,26 +18,40 @@ const LIGHTBOX_WIDTH = 2200;
 
 const rawGallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
 
-// Everything here is derived from getImage() results rather than read off
-// item.data.image. Touching a property on the original metadata makes Astro emit the
-// full-size original into dist/_astro even though nothing links to it — see
-// https://github.com/withastro/astro/issues/11887. The derivative's own dimensions
-// give the same aspect ratio, so the originals stay out of the build.
 const gallery = await Promise.all(
   rawGallery.map(async (item) => {
     const isFull = item.data.layout === 'full';
+    const videoId = getYouTubeVideoId(item.data.videoUrl);
+
+    if (videoId) {
+      // Video item: the tile and lightbox poster come straight from YouTube (16:9). The
+      // player iframe is injected only when the user clicks play (see gallery-lightbox.js),
+      // so no YouTube request happens until then.
+      return {
+        ...item,
+        isFull,
+        isVideo: true as const,
+        videoId,
+        aspectRatio: 16 / 9,
+        posterSrc: getYouTubeThumbnailUrl(item.data.videoUrl),
+        posterFallback: getYouTubeThumbnailFallbackUrl(item.data.videoUrl)
+      };
+    }
+
+    // Image item. Everything is derived from getImage() results rather than read off
+    // item.data.image: touching a property on the original metadata makes Astro emit the
+    // full-size original into dist/_astro even though nothing links to it — see
+    // https://github.com/withastro/astro/issues/11887. The schema guarantees image is set
+    // whenever there is no video, so the non-null assertion is safe.
     const [thumb, lightbox] = await Promise.all([
-      getImage({
-        src: item.data.image,
-        width: isFull ? THUMB_WIDTH_FULL : THUMB_WIDTH,
-        format: 'webp'
-      }),
-      getImage({ src: item.data.image, width: LIGHTBOX_WIDTH, format: 'webp' })
+      getImage({ src: item.data.image!, width: isFull ? THUMB_WIDTH_FULL : THUMB_WIDTH, format: 'webp' }),
+      getImage({ src: item.data.image!, width: LIGHTBOX_WIDTH, format: 'webp' })
     ]);
 
     return {
       ...item,
       isFull,
+      isVideo: false as const,
       aspectRatio: Number(thumb.attributes.width) / Number(thumb.attributes.height),
       thumb,
       lightboxSrc: lightbox.src
@@ -62,24 +81,51 @@ const gallery = await Promise.all(
               data-full={item.isFull ? 'true' : 'false'}
             >
               <div class="gallery-thumb">
-                <a class="gallery-thumb-link" href={`#gallery-lightbox-${item.id}`} aria-label={`View ${item.data.title} fullscreen`}>
-                  <img
-                    src={item.thumb.src}
-                    width={item.thumb.attributes.width}
-                    height={item.thumb.attributes.height}
-                    alt={imageAlt}
-                    loading="lazy"
-                  />
+                <a
+                  class="gallery-thumb-link"
+                  href={`#gallery-lightbox-${item.id}`}
+                  aria-label={item.isVideo ? `Play ${item.data.title} video` : `View ${item.data.title} fullscreen`}
+                >
+                  {item.isVideo ? (
+                    <Fragment>
+                      <img
+                        src={item.posterSrc}
+                        alt={imageAlt}
+                        loading="lazy"
+                        onerror={item.posterFallback ? `this.onerror=null;this.src='${item.posterFallback}'` : undefined}
+                      />
+                      <span class="gallery-play-badge" aria-hidden="true" />
+                    </Fragment>
+                  ) : (
+                    <img
+                      src={item.thumb.src}
+                      width={item.thumb.attributes.width}
+                      height={item.thumb.attributes.height}
+                      alt={imageAlt}
+                      loading="lazy"
+                    />
+                  )}
                 </a>
               </div>
               <div id={`gallery-lightbox-${item.id}`} class="gallery-lightbox" role="dialog" aria-modal="true" aria-label={item.data.title}>
                 <a class="gallery-lightbox-close" href="#" aria-label="Close fullscreen view">×</a>
                 <nav class="gallery-lightbox-nav" aria-label="Gallery navigation">
-                  <a class="gallery-lightbox-nav-button gallery-lightbox-prev" href={`#gallery-lightbox-${prevId}`} aria-label="Previous image">←</a>
-                  <a class="gallery-lightbox-nav-button gallery-lightbox-next" href={`#gallery-lightbox-${nextId}`} aria-label="Next image">→</a>
+                  <a class="gallery-lightbox-nav-button gallery-lightbox-prev" href={`#gallery-lightbox-${prevId}`} aria-label="Previous item">←</a>
+                  <a class="gallery-lightbox-nav-button gallery-lightbox-next" href={`#gallery-lightbox-${nextId}`} aria-label="Next item">→</a>
                 </nav>
                 <div class="gallery-lightbox-inner">
-                  <img data-src={item.lightboxSrc} alt={imageAlt} />
+                  {item.isVideo ? (
+                    <div class="gallery-lightbox-video" data-youtube-id={item.videoId} data-title={item.data.title}>
+                      <img
+                        data-src={item.posterSrc}
+                        alt={imageAlt}
+                        onerror={item.posterFallback ? `this.onerror=null;this.src='${item.posterFallback}'` : undefined}
+                      />
+                      <button class="gallery-play-badge" type="button" aria-label={`Play ${item.data.title}`} />
+                    </div>
+                  ) : (
+                    <img data-src={item.lightboxSrc} alt={imageAlt} />
+                  )}
                   <div class="gallery-lightbox-meta">
                     {dateMeta}
                     <h2>{item.data.title}</h2>

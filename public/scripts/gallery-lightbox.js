@@ -5,14 +5,44 @@ const getActiveLightbox = () => document.querySelector('.gallery-lightbox[aria-h
 const getLightboxById = (id) => document.getElementById(id);
 
 const loadLightboxImage = (lightbox) => {
+  // Covers both the image lightbox and a video's poster — each is an img[data-src].
   const image = lightbox?.querySelector('img[data-src]');
   if (image && !image.src) {
     image.src = image.dataset.src;
   }
 };
 
+// Remove any injected YouTube iframe and revert to the poster + play badge. Removing the
+// iframe is what actually stops playback and audio, so this runs whenever a video leaves
+// the screen (close, or navigating to another item).
+const stopLightboxVideos = () => {
+  document.querySelectorAll('.gallery-lightbox-video.is-playing').forEach((wrap) => {
+    const frame = wrap.querySelector('iframe');
+    if (frame) frame.remove();
+    wrap.classList.remove('is-playing');
+  });
+};
+
+// Swap the poster facade for the real player, autoplaying. Nothing is requested from
+// YouTube until this runs, so opening a video's lightbox stays a static poster.
+const playLightboxVideo = (wrap) => {
+  if (!wrap || wrap.classList.contains('is-playing')) return;
+  const id = wrap.dataset.youtubeId;
+  if (!id) return;
+  const iframe = document.createElement('iframe');
+  iframe.className = 'gallery-lightbox-iframe';
+  iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+  iframe.title = wrap.dataset.title || 'YouTube video player';
+  iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+  iframe.allowFullscreen = true;
+  wrap.appendChild(iframe);
+  wrap.classList.add('is-playing');
+};
+
 const openLightbox = (lightbox) => {
   if (!lightbox) return;
+  // Stop a video that may be playing in whichever lightbox we're leaving.
+  stopLightboxVideos();
   previousFocus = document.activeElement;
   document.body.classList.add('gallery-lightbox-open');
   document.body.style.overflow = 'hidden';
@@ -28,6 +58,7 @@ const openLightbox = (lightbox) => {
 };
 
 const closeLightbox = () => {
+  stopLightboxVideos();
   document.body.classList.remove('gallery-lightbox-open');
   document.body.style.overflow = '';
   document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
@@ -100,6 +131,14 @@ window.addEventListener('DOMContentLoaded', () => {
   // a #gallery-lightbox-* hash is caught here, so this can't silently
   // regress to native (async) hash navigation again.
   document.addEventListener('click', (event) => {
+    // A click anywhere on a video's poster/badge (before it's playing) starts playback.
+    const playTarget = event.target.closest('.gallery-lightbox-video:not(.is-playing)');
+    if (playTarget) {
+      event.preventDefault();
+      playLightboxVideo(playTarget);
+      return;
+    }
+
     const anchor = event.target.closest('a.gallery-thumb-link, a.gallery-lightbox-nav-button');
     if (!anchor) return;
     event.preventDefault();
