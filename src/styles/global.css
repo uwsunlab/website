@@ -1048,7 +1048,8 @@ h3 {
 }
 
 .research-summary {
-  padding-top: clamp(54px, 7vw, 88px);
+  /* Match .page-header's top padding so the title aligns with other non-home pages. */
+  padding-top: clamp(72px, 9vw, 126px);
   padding-bottom: clamp(38px, 5vw, 64px);
 }
 
