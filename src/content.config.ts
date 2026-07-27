@@ -79,24 +79,47 @@ const news = defineCollection({
   })
 });
 
+// Gallery dates encode their own precision in the format: `2026-05` means only the month
+// is known, `2026-05-21` means the exact day is. YAML hands the day form over as a Date
+// (unquoted) or a string (quoted), and the month form as a string, so accept all three and
+// normalise to one shape. Month-only dates sort as the 1st of that month.
+const galleryDate = z
+  .union([
+    z.date(),
+    z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/, 'Gallery date must be YYYY-MM or YYYY-MM-DD')
+  ])
+  .transform((raw) => {
+    if (raw instanceof Date) return { value: raw, precision: 'day' as const };
+    const [year, month, day] = raw.split('-').map(Number);
+    return day
+      ? { value: new Date(Date.UTC(year, month - 1, day)), precision: 'day' as const }
+      : { value: new Date(Date.UTC(year, month - 1, 1)), precision: 'month' as const };
+  });
+
 const gallery = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/gallery' }),
   // An item is either a photo (image) or a YouTube video (videoUrl). At least one must be
   // present; a video item's tile and poster come from YouTube, so it needs no local image.
+  // `order` marks an item as pinned: pinned items sort first (by order), everything else
+  // sorts newest-first by date. `dateLabel` replaces the displayed date (e.g. the logo).
   schema: ({ image }) =>
     z
       .object({
         title: z.string(),
-        date: z.string().optional(),
+        date: galleryDate.optional(),
+        dateLabel: z.string().optional(),
         caption: z.string(),
         image: image().optional(),
         imageAlt: z.string().optional(),
         videoUrl: z.string().optional(),
         layout: z.enum(['grid', 'full']).default('grid'),
-        order: z.number().default(100)
+        order: z.number().optional()
       })
       .refine((data) => data.image !== undefined || getYouTubeVideoId(data.videoUrl) !== null, {
         message: 'A gallery item needs an image, or a videoUrl that is a valid YouTube link.'
+      })
+      .refine((data) => data.date !== undefined || data.order !== undefined, {
+        message: 'An unpinned gallery item needs a date, or it cannot be sorted.'
       })
 });
 

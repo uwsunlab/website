@@ -16,7 +16,31 @@ const THUMB_WIDTH = 900;
 const THUMB_WIDTH_FULL = 1800;
 const LIGHTBOX_WIDTH = 2200;
 
-const rawGallery = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+// Pinned items (those with an `order`) come first, in order. Everything else sorts
+// newest-first by date, with the title as a deterministic tie-break — month-only dates
+// sort as the 1st of the month, so they land after that month's precisely-dated items.
+const rawGallery = (await getCollection('gallery')).sort((a, b) => {
+  if (a.data.order !== undefined || b.data.order !== undefined) {
+    if (a.data.order === undefined) return 1;
+    if (b.data.order === undefined) return -1;
+    return a.data.order - b.data.order;
+  }
+  const byDate = (b.data.date?.value.getTime() ?? 0) - (a.data.date?.value.getTime() ?? 0);
+  return byDate !== 0 ? byDate : a.data.title.localeCompare(b.data.title);
+});
+
+// Dates render at their known precision; formatters are UTC because month-only dates are
+// normalised to UTC midnight and must not drift into the previous month/day.
+const dayFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC'
+});
+const monthFormatter = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const formatGalleryDate = (date: { value: Date; precision: 'day' | 'month' }) =>
+  date.precision === 'day' ? dayFormatter.format(date.value) : monthFormatter.format(date.value);
 
 const gallery = await Promise.all(
   rawGallery.map(async (item) => {
@@ -72,7 +96,8 @@ const gallery = await Promise.all(
           const prevId = gallery[(index - 1 + gallery.length) % gallery.length].id;
           const nextId = gallery[(index + 1) % gallery.length].id;
           const imageAlt = item.data.imageAlt ?? item.data.caption;
-          const dateMeta = item.data.date ? <p class="meta">{item.data.date}</p> : null;
+          const metaText = item.data.dateLabel ?? (item.data.date ? formatGalleryDate(item.data.date) : null);
+          const dateMeta = metaText ? <p class="meta">{metaText}</p> : null;
 
           return (
             <li

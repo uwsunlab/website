@@ -9,3 +9,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Local-only gallery test video; keep out of commits until a real video replaces it.
+src/content/gallery/_video-test.md
