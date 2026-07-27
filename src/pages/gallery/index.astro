@@ -164,6 +164,9 @@ const gallery = await Promise.all(
       }
     </ul>
   </section>
+  {/* One shared backdrop for every lightbox: it fades with the body class (set while any
+      item is open, unchanged while paging), so switching items never crossfades the wall. */}
+  <div class="gallery-backdrop" aria-hidden="true"></div>
   <script type="module" src="/scripts/justified-gallery.js"></script>
   <script type="module" src="/scripts/gallery-lightbox.js"></script>
 </BaseLayout>

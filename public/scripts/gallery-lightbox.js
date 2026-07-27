@@ -48,8 +48,11 @@ const openLightbox = (lightbox) => {
   document.body.style.overflow = 'hidden';
 
   document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
-    dialog.setAttribute('aria-hidden', dialog === lightbox ? 'false' : 'true');
-    dialog.style.display = dialog === lightbox ? 'flex' : 'none';
+    const isActive = dialog === lightbox;
+    dialog.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    // Toggle a class rather than inline display so CSS can transition the fade; forcing
+    // display inline here would cut the animation short.
+    dialog.classList.toggle('is-open', isActive);
   });
 
   loadLightboxImage(lightbox);
@@ -63,7 +66,7 @@ const closeLightbox = () => {
   document.body.style.overflow = '';
   document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
     dialog.setAttribute('aria-hidden', 'true');
-    dialog.style.display = 'none';
+    dialog.classList.remove('is-open');
   });
   if (previousFocus instanceof HTMLElement) {
     previousFocus.focus();
@@ -121,7 +124,7 @@ const resolveHashTarget = (el) => {
 
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
-    dialog.style.display = 'none';
+    // Visibility is CSS-driven now (base display:none + .is-open); only manage a11y state.
     dialog.setAttribute('aria-hidden', 'true');
     dialog.setAttribute('tabindex', '-1');
   });

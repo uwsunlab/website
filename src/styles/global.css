@@ -1264,19 +1264,78 @@ h3 {
 
 
 
-.gallery-lightbox {
-  display: none;
+/* Shared dark backdrop for all lightboxes. Tied to the body class (which the script keeps
+   set while any item is open and only clears on close), so paging between items with the
+   arrows/buttons leaves it untouched — no crossfade of two backdrops briefly lightening it. */
+.gallery-backdrop {
   position: fixed;
   inset: 0;
+  z-index: 999;
   background: rgba(0, 0, 0, 0.88);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+}
+
+body.gallery-lightbox-open .gallery-backdrop {
+  opacity: 1;
+}
+
+.gallery-lightbox {
+  display: none;
+  /* Off while fading out (the allow-discrete window keeps it display:flex ~200ms) so a
+     closing overlay can't swallow clicks meant for the page or the incoming item. */
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
   z-index: 1000;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  /* Transparent — the shared .gallery-backdrop is the dark wall. Only `display` transitions
+     (allow-discrete) so the overlay lingers until its content has finished fading out.
+     Browsers without allow-discrete/@starting-style (pre-2024) fall back to instant. */
+  transition: display 0.2s allow-discrete;
 }
 
-.gallery-lightbox:target {
+.gallery-lightbox.is-open {
   display: flex;
+  pointer-events: auto;
+}
+
+/* Content zooms in slightly as the backdrop fades (scale lives on the inner panel, not the
+   full-screen overlay). This is the only part that transitions when paging between items. */
+.gallery-lightbox-inner {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.gallery-lightbox.is-open .gallery-lightbox-inner {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@starting-style {
+  .gallery-lightbox.is-open .gallery-lightbox-inner {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+/* Keep the gentle fade but drop the zoom for users who ask for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-lightbox-inner,
+  .gallery-lightbox.is-open .gallery-lightbox-inner {
+    transform: none;
+    transition: opacity 0.15s ease;
+  }
+
+  @starting-style {
+    .gallery-lightbox.is-open .gallery-lightbox-inner {
+      transform: none;
+    }
+  }
 }
 
 .gallery-lightbox-inner {
