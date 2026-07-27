@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
 import researchWorkflow from '@assets/images/research/Research.png';
 import cappy from '@assets/images/research/Cappy.jpg';
 import mara from '@assets/images/research/Mara.jpg';
@@ -8,16 +9,10 @@ import cobra from '@assets/images/research/Cobra.jpg';
 ---
 
 <BaseLayout title="Research" description="Clean energy materials research using artificial intelligence and robotics.">
-  <section class="research-summary section" aria-labelledby="research-title">
-    <div class="container research-title-block">
-      <h1 id="research-title">Research</h1>
-      <p>
-        Through human–AI–robot collaboration, we seek to understand and control how functional
-        inorganic materials form, transform, and give rise to function. Our application areas range
-        from photovoltaics and light-emitting devices to carbon capture, batteries, and beyond.
-      </p>
-    </div>
-  </section>
+  <PageHeader
+    title="Research"
+    description="Through human–AI–robot collaboration, we seek to understand and control how functional inorganic materials form, transform, and give rise to function. Our application areas range from photovoltaics and light-emitting devices to carbon capture, batteries, and beyond."
+  />
 
   <section class="research-method section alt" aria-labelledby="autonomous-science-title">
     <div class="container research-two-column">
