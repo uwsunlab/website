@@ -57,28 +57,221 @@ const initials = person.data.name
       <slot />
     </div>
     <label class="person-summary-toggle" for={`person-summary-${person.data.name.replace(/[^\w-]+/g, '-')}`}>
-      <span class="summary-open">see more</span>
-      <span class="summary-close">see less</span>
-    </label>    
+      <span class="summary-open">read bio<span class="toggle-icon" aria-hidden="true">▾</span></span>
+      <span class="summary-close">hide bio<span class="toggle-icon" aria-hidden="true">▴</span></span>
+    </label>
   </div>
 </article>
 
-<script type="module">
-  if (!window.__personSummaryToggleInit) {
-    window.__personSummaryToggleInit = true;
-    document.addEventListener('DOMContentLoaded', () => {
-      requestAnimationFrame(() => {
-        document.querySelectorAll('.person-card').forEach((card) => {
-          const summary = card.querySelector('.person-summary');
-          const toggle = card.querySelector('.person-summary-toggle');
-          const checkbox = card.querySelector('.person-summary-checkbox');
-          if (!summary || !toggle || !checkbox) return;
-          if (summary.scrollHeight <= summary.clientHeight + 1) {
-            toggle.style.display = 'none';
-            checkbox.style.display = 'none';
+<script>
+  // Total budget shared across all revealed words, so long and short bios
+  // feel similar; MAX_STAGGER keeps short bios from feeling slow.
+  const OPEN_BUDGET = 340;
+  const CLOSE_BUDGET = 260;
+  const MAX_STAGGER = 25;
+  const WORD_IN = 50;
+  const WORD_OUT = 25;
+  const BLUR = 0;
+  const FOLD_EPS = 2;
+  // Height slide durations — the container grows/shrinks over these so the
+  // cards below reflow smoothly instead of snapping.
+  const HEIGHT_OPEN = 340;
+  const HEIGHT_CLOSE = 260;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // Marks JS as active so the CSS keeps the summary clamped while checked.
+  document.documentElement.classList.add('js-reveal');
+
+  // Wraps each word in a span so it can be animated individually. Uses a
+  // TreeWalker over text nodes so inline markup (links, emphasis) survives.
+  function wrapWords(root: HTMLElement) {
+    if (root.dataset.wrapped) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes: Node[] = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const text = node.textContent;
+      if (!text || !text.trim() || !node.parentNode) return;
+      const frag = document.createDocumentFragment();
+      text.split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'reveal-word';
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+    root.dataset.wrapped = 'true';
+  }
+
+  // Words whose top sits at or below the clamped fold are the newly revealed
+  // ones. Must be measured while the summary is still clamped.
+  function findNewWords(summary: HTMLElement): HTMLElement[] {
+    const foldBottom = summary.getBoundingClientRect().top + summary.clientHeight;
+    const out: HTMLElement[] = [];
+    summary.querySelectorAll<HTMLElement>('.reveal-word').forEach((w) => {
+      if (w.getBoundingClientRect().top >= foldBottom - FOLD_EPS) out.push(w);
+    });
+    return out;
+  }
+
+  // Slides the summary between two explicit pixel heights. Because height is a
+  // layout property, the grid row and every row below it reflow each frame, so
+  // the following profiles glide down rather than jumping.
+  function animateHeight(
+    summary: HTMLElement,
+    fromH: number,
+    toH: number,
+    duration: number,
+    easing: string,
+    done: () => void
+  ) {
+    summary
+      .animate([{ height: `${fromH}px` }, { height: `${toH}px` }], {
+        duration,
+        easing,
+        fill: 'both'
+      })
+      .finished.then(done)
+      .catch(() => {});
+  }
+
+  // Settles into the fully expanded state: natural height. overflow stays
+  // hidden so the summary keeps its block formatting context — otherwise the
+  // bio's top margin would collapse out and nudge the text upward. With height
+  // auto nothing is actually clipped.
+  function finalizeExpanded(summary: HTMLElement) {
+    summary.getAnimations().forEach((a) => a.cancel());
+    summary.style.height = '';
+    summary.style.overflow = 'hidden';
+  }
+
+  // Returns the summary to the CSS-driven clamped (-webkit-box) state.
+  function restoreCollapsed(summary: HTMLElement) {
+    summary.getAnimations().forEach((a) => a.cancel());
+    summary.style.height = '';
+    summary.style.overflow = '';
+    summary.style.display = '';
+    summary.style.removeProperty('-webkit-line-clamp');
+  }
+  function resetWords(words: HTMLElement[]) {
+    words.forEach((w) => {
+      w.getAnimations().forEach((a) => a.cancel());
+      w.style.opacity = '';
+      w.style.filter = '';
+    });
+  }
+
+  function animateIn(words: HTMLElement[]) {
+    const stagger = Math.min(MAX_STAGGER, OPEN_BUDGET / words.length);
+    words.forEach((w) => (w.style.opacity = '0'));
+    words.forEach((w, i) => {
+      w.animate(
+        [
+          { opacity: 0, filter: `blur(${BLUR}px)` },
+          { opacity: 1, filter: 'blur(0)' }
+        ],
+        { duration: WORD_IN, delay: i * stagger, easing: 'ease-out', fill: 'both' }
+      )
+        .finished.then(() => {
+          w.style.opacity = '';
+          w.style.filter = '';
+        })
+        .catch(() => {});
+    });
+  }
+
+  function animateOut(words: HTMLElement[], done: () => void) {
+    const n = words.length;
+    const stagger = Math.min(MAX_STAGGER, CLOSE_BUDGET / n);
+    let pending = n;
+    const finish = () => {
+      if (--pending === 0) done();
+    };
+    words.forEach((w, i) => {
+      w.getAnimations().forEach((a) => a.cancel());
+      // Reverse order: the last word fades first, unwriting back to the first.
+      w.animate(
+        [
+          { opacity: 1, filter: 'blur(0)' },
+          { opacity: 0, filter: `blur(${BLUR}px)` }
+        ],
+        { duration: WORD_OUT, delay: (n - 1 - i) * stagger, easing: 'ease-in', fill: 'both' }
+      ).finished.then(finish).catch(finish);
+    });
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('.person-card').forEach((card) => {
+      const summary = card.querySelector<HTMLElement>('.person-summary');
+      const toggle = card.querySelector<HTMLElement>('.person-summary-toggle');
+      const checkbox = card.querySelector<HTMLInputElement>('.person-summary-checkbox');
+      if (!summary || !toggle || !checkbox) return;
+
+      // Hide the control when the bio already fits within the clamp.
+      if (summary.scrollHeight <= summary.clientHeight + 1) {
+        toggle.style.display = 'none';
+        checkbox.style.display = 'none';
+        return;
+      }
+
+      let newWords: HTMLElement[] = [];
+      let collapsedH = 0; // clamped height, remembered for the closing slide
+
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          wrapWords(summary);
+          newWords = findNewWords(summary); // measured while still clamped
+          collapsedH = summary.getBoundingClientRect().height;
+
+          // Switch to a plain block so the height slide clips cleanly, then
+          // measure the natural expanded height to animate toward.
+          summary.getAnimations().forEach((a) => a.cancel());
+          summary.style.display = 'block';
+          summary.style.overflow = 'hidden';
+          summary.style.height = 'auto';
+          const expandedH = summary.getBoundingClientRect().height;
+
+          if (reduceMotion.matches || newWords.length === 0) {
+            finalizeExpanded(summary);
+            resetWords(newWords);
+            return;
           }
-        });
+          animateIn(newWords);
+          animateHeight(summary, collapsedH, expandedH, HEIGHT_OPEN, 'ease-out', () =>
+            finalizeExpanded(summary)
+          );
+        } else {
+          const currentH = summary.getBoundingClientRect().height;
+          summary.getAnimations().forEach((a) => a.cancel());
+          summary.style.display = 'block';
+          summary.style.overflow = 'hidden';
+          summary.style.height = `${currentH}px`;
+
+          if (reduceMotion.matches || newWords.length === 0 || !collapsedH) {
+            resetWords(newWords);
+            restoreCollapsed(summary);
+            return;
+          }
+          animateOut(newWords, () => {});
+          animateHeight(summary, currentH, collapsedH, HEIGHT_CLOSE, 'ease-in', () => {
+            resetWords(newWords);
+            restoreCollapsed(summary);
+          });
+        }
       });
     });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(init));
+  } else {
+    requestAnimationFrame(init);
   }
 </script>

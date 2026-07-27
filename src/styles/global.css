@@ -415,6 +415,21 @@ h3 {
   -webkit-line-clamp: unset;
 }
 
+/* When JS enhances the reveal, keep the summary clamped even while the
+   checkbox is checked, so the reveal boundary can be measured at click time.
+   The script then releases the clamp inline and fades the new words in.
+   Without JS this rule never matches, so the CSS-only toggle above still
+   expands instantly. */
+html.js-reveal .person-summary-checkbox:checked + .person-summary {
+  -webkit-line-clamp: 7;
+}
+
+/* Per-word animation hook; kept inline so text flow is identical to the
+   unwrapped bio. */
+.reveal-word {
+  display: inline;
+}
+
 .person-summary-toggle {
   display: inline-block;
   margin-top: 0.75rem;
@@ -422,6 +437,14 @@ h3 {
   color: var(--teal-dark);
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* inline-block keeps the chevron out of the label's underline (text-decoration
+   does not extend to atomic inline boxes) and lets it sit slightly smaller. */
+.person-summary-toggle .toggle-icon {
+  display: inline-block;
+  margin-left: 0.3em;
+  font-size: 0.85em;
 }
 
 .person-summary-toggle .summary-close {
