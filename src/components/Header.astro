@@ -1,4 +1,9 @@
 ---
+// Inlined (not <img src>) so the logo is part of the HTML and paints with the header on
+// every page load — an external SVG re-fetches/re-decodes on each MPA navigation, which
+// showed as a brief flicker in the header's left corner.
+import logoSvg from '../assets/lockup-horizontal-ink.svg?raw';
+
 const links = [
   { href: '/research/', label: 'Research' },
   { href: '/people/', label: 'People' },
@@ -14,14 +19,7 @@ const pathname = Astro.url.pathname;
 <header class="site-header">
   <nav class="container nav" aria-label="Primary navigation">
     <a class="brand" href="/" aria-label="Autonomous Materials Group home">
-      <img
-        class="brand-lockup"
-        src="/Home/Logo/svg/lockup-horizontal-ink.svg"
-        alt=""
-        width="1398"
-        height="444"
-        aria-hidden="true"
-      />
+      <span class="brand-lockup" aria-hidden="true" set:html={logoSvg}></span>
     </a>
     <div class="nav-links">
       {

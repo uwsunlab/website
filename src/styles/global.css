@@ -110,11 +110,19 @@ img {
 }
 
 .brand-lockup {
-  width: auto;
+  display: inline-flex;
   height: clamp(48px, 5vw, 62px);
   max-width: 100%;
   flex: 0 0 auto;
-  object-fit: contain;
+}
+
+/* The inline SVG carries its own width/height attributes; height:100% + width:auto lets
+   CSS drive the size (overriding those attributes) while the viewBox keeps the aspect. */
+.brand-lockup svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
 }
 
 .brand-text {
