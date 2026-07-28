@@ -1,191 +1,380 @@
-const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+// Shared-shell gallery lightbox.
+//
+// Instead of one overlay per gallery item, there is a single lightbox shell that the script
+// fills from a JSON data island. Opening or paging populates the shell's stage (image/video)
+// and meta, so the frame stays mounted and only its contents change. Paging crossfades the
+// image between two stacked layers while the stage's height animates (FLIP) from the old
+// image's height to the new one's — that is what lets the panel glide between images of
+// different aspect ratios rather than snapping. The backdrop, nav and close never move.
+
+const HASH_PREFIX = '#gallery-lightbox-';
+const PAGE_MS = 280;
+const PAGE_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
+const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+let items = [];
+const idToIndex = new Map();
+let currentIndex = -1;
 let previousFocus = null;
+// Bumped on every paginate; a decode callback checks it so a superseded transition bails.
+let pageToken = 0;
 
-const getActiveLightbox = () => document.querySelector('.gallery-lightbox[aria-hidden="false"]');
-const getLightboxById = (id) => document.getElementById(id);
+let lightbox, inner, stage, meta, closeBtn, prevBtn, nextBtn;
 
-const loadLightboxImage = (lightbox) => {
-  // Covers both the image lightbox and a video's poster — each is an img[data-src].
-  const image = lightbox?.querySelector('img[data-src]');
-  if (image && !image.src) {
-    image.src = image.dataset.src;
+const isOpen = () => lightbox.classList.contains('is-open');
+const wrapIndex = (i) => (i + items.length) % items.length;
+
+// --- Building the shell's contents ---------------------------------------------------------
+
+function buildLayer(item) {
+  if (item.isVideo) {
+    const box = document.createElement('div');
+    box.className = 'gallery-lightbox-layer gallery-lightbox-video';
+    box.dataset.youtubeId = item.videoId;
+    box.dataset.title = item.title;
+
+    const img = document.createElement('img');
+    img.src = item.posterSrc;
+    img.alt = item.alt;
+    if (item.posterFallback) {
+      img.addEventListener(
+        'error',
+        function onErr() {
+          img.removeEventListener('error', onErr);
+          img.src = item.posterFallback;
+        },
+        { once: true }
+      );
+    }
+
+    const play = document.createElement('button');
+    play.type = 'button';
+    play.className = 'gallery-play-badge';
+    play.setAttribute('aria-label', `Play ${item.title}`);
+
+    box.append(img, play);
+    return box;
   }
-};
 
-// Remove any injected YouTube iframe and revert to the poster + play badge. Removing the
-// iframe is what actually stops playback and audio, so this runs whenever a video leaves
-// the screen (close, or navigating to another item).
-const stopLightboxVideos = () => {
-  document.querySelectorAll('.gallery-lightbox-video.is-playing').forEach((wrap) => {
-    const frame = wrap.querySelector('iframe');
-    if (frame) frame.remove();
-    wrap.classList.remove('is-playing');
-  });
-};
+  const img = document.createElement('img');
+  img.className = 'gallery-lightbox-layer';
+  img.src = item.src;
+  img.alt = item.alt;
+  return img;
+}
 
-// Swap the poster facade for the real player, autoplaying. Nothing is requested from
-// YouTube until this runs, so opening a video's lightbox stays a static poster.
-const playLightboxVideo = (wrap) => {
-  if (!wrap || wrap.classList.contains('is-playing')) return;
-  const id = wrap.dataset.youtubeId;
+function renderMeta(item) {
+  meta.replaceChildren();
+  if (item.meta) {
+    const p = document.createElement('p');
+    p.className = 'meta';
+    p.textContent = item.meta;
+    meta.appendChild(p);
+  }
+  const h2 = document.createElement('h2');
+  h2.textContent = item.title;
+  meta.appendChild(h2);
+  const caption = document.createElement('p');
+  caption.textContent = item.caption;
+  meta.appendChild(caption);
+}
+
+// Stage height for an item: the image column's width divided by the item's aspect ratio,
+// capped by the stage's CSS max-height so tall portraits/videos never overflow the panel.
+function stageHeightFor(item) {
+  const width = stage.clientWidth;
+  const capRaw = parseFloat(getComputedStyle(stage).maxHeight);
+  const cap = Number.isFinite(capRaw) ? capRaw : window.innerHeight - 220;
+  if (!width) return cap;
+  return Math.min(width / item.ar, cap);
+}
+
+// --- Video facade --------------------------------------------------------------------------
+
+function stopVideo() {
+  const playing = stage.querySelector('.gallery-lightbox-video.is-playing');
+  if (!playing) return;
+  const frame = playing.querySelector('iframe');
+  if (frame) frame.remove();
+  playing.classList.remove('is-playing');
+}
+
+function playVideo(box) {
+  if (!box || box.classList.contains('is-playing')) return;
+  const id = box.dataset.youtubeId;
   if (!id) return;
   const iframe = document.createElement('iframe');
   iframe.className = 'gallery-lightbox-iframe';
   iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
-  iframe.title = wrap.dataset.title || 'YouTube video player';
+  iframe.title = box.dataset.title || 'YouTube video player';
   iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
   iframe.allowFullscreen = true;
-  wrap.appendChild(iframe);
-  wrap.classList.add('is-playing');
-};
+  box.appendChild(iframe);
+  box.classList.add('is-playing');
+}
 
-const openLightbox = (lightbox) => {
-  if (!lightbox) return;
-  // Stop a video that may be playing in whichever lightbox we're leaving.
-  stopLightboxVideos();
-  previousFocus = document.activeElement;
+// --- Open / close / paginate ---------------------------------------------------------------
+
+function updateAria(item) {
+  lightbox.setAttribute('aria-label', `${item.title} — gallery viewer`);
+}
+
+function open(index) {
+  const item = items[index];
+  if (!item) return;
+  if (!isOpen()) previousFocus = document.activeElement;
+  currentIndex = index;
+
+  stage.replaceChildren(buildLayer(item));
+  renderMeta(item);
+  meta.style.opacity = '';
+
   document.body.classList.add('gallery-lightbox-open');
   document.body.style.overflow = 'hidden';
+  lightbox.classList.add('is-open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  updateAria(item);
 
-  document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
-    const isActive = dialog === lightbox;
-    dialog.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-    // Toggle a class rather than inline display so CSS can transition the fade; forcing
-    // display inline here would cut the animation short.
-    dialog.classList.toggle('is-open', isActive);
-  });
+  // Measure + set synchronously now that the shell is display:flex, so the first painted
+  // frame already has the right stage height (the inner's fade/zoom plays on top).
+  stage.style.height = `${stageHeightFor(item)}px`;
 
-  loadLightboxImage(lightbox);
-  const closeBtn = lightbox.querySelector('.gallery-lightbox-close');
   if (closeBtn instanceof HTMLElement) closeBtn.focus();
-};
+}
 
-const closeLightbox = () => {
-  stopLightboxVideos();
+function close() {
+  stopVideo();
   document.body.classList.remove('gallery-lightbox-open');
   document.body.style.overflow = '';
-  document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
-    dialog.setAttribute('aria-hidden', 'true');
-    dialog.classList.remove('is-open');
-  });
-  if (previousFocus instanceof HTMLElement) {
-    previousFocus.focus();
+  lightbox.classList.remove('is-open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  currentIndex = -1;
+  if (window.location.hash.startsWith(HASH_PREFIX)) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
   }
-  history.replaceState(null, '', window.location.pathname + window.location.search);
-};
+  if (previousFocus instanceof HTMLElement) previousFocus.focus();
+}
 
-const getFocusable = (container) => Array.from(container.querySelectorAll(focusableSelector)).filter((el) => !el.hasAttribute('disabled'));
+function goTo(index) {
+  index = wrapIndex(index);
+  if (!isOpen() || index === currentIndex) return;
+  const item = items[index];
+  stopVideo();
+  const token = ++pageToken;
 
-const trapFocus = (event) => {
-  const active = getActiveLightbox();
-  if (!active) return;
+  // Start from a clean state: cancel any in-flight paging and keep only the visible layer,
+  // so rapid arrow-presses can't pile up overlapping animations/layers.
+  stage.getAnimations().forEach((a) => a.cancel());
+  meta.getAnimations().forEach((a) => a.cancel());
+  meta.style.opacity = '';
+  const layers = [...stage.querySelectorAll('.gallery-lightbox-layer')];
+  layers.slice(0, -1).forEach((l) => l.remove());
+  const outLayer = stage.querySelector('.gallery-lightbox-layer');
+  if (outLayer) outLayer.style.opacity = '';
+
+  const fromH = stage.getBoundingClientRect().height;
+
+  currentIndex = index;
+  updateAria(item);
+  syncHash(item);
+
+  const inLayer = buildLayer(item);
+  inLayer.style.opacity = '0';
+  stage.appendChild(inLayer);
+  const toH = stageHeightFor(item);
+
+  // Run the fades only once the incoming image has decoded, and swap the meta at the same
+  // moment, so the image and text fade in together. Without this the image lags by its decode
+  // time (its opacity rises before its pixels exist) while the DOM text appears instantly.
+  const run = () => {
+    if (token !== pageToken) return; // a newer paginate superseded this one
+
+    renderMeta(item);
+
+    if (reduceMotion.matches) {
+      if (outLayer) outLayer.remove();
+      inLayer.style.opacity = '';
+      stage.style.height = `${toH}px`;
+      meta.style.opacity = '';
+      return;
+    }
+
+    const opts = { duration: PAGE_MS, easing: PAGE_EASE, fill: 'both' };
+
+    stage.style.height = `${fromH}px`;
+    stage
+      .animate([{ height: `${fromH}px` }, { height: `${toH}px` }], opts)
+      .finished.then(() => {
+        stage.style.height = `${toH}px`;
+      })
+      .catch(() => {
+        stage.style.height = `${toH}px`;
+      });
+
+    inLayer
+      .animate([{ opacity: 0 }, { opacity: 1 }], opts)
+      .finished.then(() => {
+        inLayer.style.opacity = '';
+      })
+      .catch(() => {
+        inLayer.style.opacity = '';
+      });
+
+    if (outLayer) {
+      outLayer
+        .animate([{ opacity: 1 }, { opacity: 0 }], opts)
+        .finished.then(() => outLayer.remove())
+        .catch(() => outLayer.remove());
+    }
+
+    meta.style.opacity = '0';
+    meta
+      .animate([{ opacity: 0 }, { opacity: 1 }], opts)
+      .finished.then(() => {
+        meta.style.opacity = '';
+      })
+      .catch(() => {
+        meta.style.opacity = '';
+      });
+  };
+
+  // Only pure image layers are decoded; a video layer's poster fades in with its own load.
+  const img = inLayer.tagName === 'IMG' ? inLayer : null;
+  if (img && typeof img.decode === 'function') {
+    img.decode().then(run).catch(run);
+  } else {
+    run();
+  }
+}
+
+// --- Hash / history ------------------------------------------------------------------------
+
+function syncHash(item) {
+  history.replaceState(null, '', HASH_PREFIX + item.id);
+}
+
+function indexFromHash() {
+  const hash = window.location.hash;
+  if (!hash.startsWith(HASH_PREFIX)) return -1;
+  const id = hash.slice(HASH_PREFIX.length);
+  const index = idToIndex.get(id);
+  return index === undefined ? -1 : index;
+}
+
+function updateFromHash() {
+  const index = indexFromHash();
+  if (index === -1) {
+    if (isOpen()) close();
+    return;
+  }
+  if (!isOpen()) open(index);
+  else if (index !== currentIndex) goTo(index);
+}
+
+// --- Focus trap ----------------------------------------------------------------------------
+
+function trapFocus(event) {
   if (event.key !== 'Tab') return;
-  const focusable = getFocusable(active);
+  const focusable = [...lightbox.querySelectorAll(FOCUSABLE)].filter((el) => !el.hasAttribute('disabled'));
   if (!focusable.length) return;
-
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
-  if (event.shiftKey) {
-    if (document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    }
-  } else if (document.activeElement === last) {
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
     event.preventDefault();
     first.focus();
   }
-};
+}
 
-const updateStateFromHash = () => {
-  const id = window.location.hash.slice(1);
-  const target = id ? getLightboxById(id) : null;
-  if (target) {
-    openLightbox(target);
-  } else {
-    closeLightbox();
+// --- Wiring --------------------------------------------------------------------------------
+
+function init() {
+  lightbox = document.getElementById('gallery-lightbox');
+  const dataEl = document.getElementById('gallery-lightbox-data');
+  if (!lightbox || !dataEl) return;
+
+  try {
+    items = JSON.parse(dataEl.textContent || '[]');
+  } catch {
+    items = [];
   }
-};
+  if (!items.length) return;
+  items.forEach((item, i) => idToIndex.set(item.id, i));
 
-// Single source of truth for "navigate to this lightbox hash" —
-// used by thumbnail clicks, prev/next clicks, and arrow keys alike.
-// Keeping pushState + updateStateFromHash paired and synchronous is
-// what prevents the flash: nothing falls through to the native,
-// async hashchange-only path.
-const navigateToHash = (targetId) => {
-  if (!targetId) return;
-  history.pushState(null, '', `#${targetId}`);
-  updateStateFromHash();
-};
+  inner = lightbox.querySelector('.gallery-lightbox-inner');
+  stage = lightbox.querySelector('.gallery-lightbox-stage');
+  meta = lightbox.querySelector('.gallery-lightbox-meta');
+  closeBtn = lightbox.querySelector('.gallery-lightbox-close');
+  prevBtn = lightbox.querySelector('.gallery-lightbox-prev');
+  nextBtn = lightbox.querySelector('.gallery-lightbox-next');
+  if (!inner || !stage || !meta) return;
 
-const resolveHashTarget = (el) => {
-  const href = el.getAttribute('href') || el.getAttribute('data-href');
-  return href?.startsWith('#') ? href.slice(1) : href;
-};
+  lightbox.setAttribute('aria-hidden', 'true');
 
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
-    // Visibility is CSS-driven now (base display:none + .is-open); only manage a11y state.
-    dialog.setAttribute('aria-hidden', 'true');
-    dialog.setAttribute('tabindex', '-1');
-  });
-
-  // Delegated click handler covers thumbnail links AND prev/next nav
-  // buttons in one place — any current or future <a> that points at
-  // a #gallery-lightbox-* hash is caught here, so this can't silently
-  // regress to native (async) hash navigation again.
+  // A thumbnail opens the shell; the play badge/poster starts the video.
   document.addEventListener('click', (event) => {
-    // A click anywhere on a video's poster/badge (before it's playing) starts playback.
     const playTarget = event.target.closest('.gallery-lightbox-video:not(.is-playing)');
-    if (playTarget) {
+    if (playTarget && stage.contains(playTarget)) {
       event.preventDefault();
-      playLightboxVideo(playTarget);
+      playVideo(playTarget);
       return;
     }
 
-    const anchor = event.target.closest('a.gallery-thumb-link, a.gallery-lightbox-nav-button');
-    if (!anchor) return;
+    const thumb = event.target.closest('a.gallery-thumb-link');
+    if (!thumb) return;
     event.preventDefault();
-    navigateToHash(resolveHashTarget(anchor));
+    const id = (thumb.getAttribute('href') || '').slice(HASH_PREFIX.length);
+    const index = idToIndex.get(id);
+    if (index === undefined) return;
+    history.pushState(null, '', HASH_PREFIX + id);
+    open(index);
   });
 
-  // Backdrop click to close (clicks outside .gallery-lightbox-inner)
-  document.querySelectorAll('.gallery-lightbox').forEach((dialog) => {
-    dialog.addEventListener('click', (event) => {
-      const inner = dialog.querySelector('.gallery-lightbox-inner');
-      if (!inner) return;
-      if (!inner.contains(event.target)) {
-        closeLightbox();
-      }
-    });
-  });
+  closeBtn?.addEventListener('click', close);
+  prevBtn?.addEventListener('click', () => goTo(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => goTo(currentIndex + 1));
 
-  document.querySelectorAll('.gallery-lightbox-close').forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      closeLightbox();
-    });
+  // Click on the empty area around the panel (the overlay itself) closes.
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) close();
   });
 
   document.addEventListener('keydown', (event) => {
-    const active = getActiveLightbox();
-    if (!active) return;
+    if (!isOpen()) return;
     if (event.key === 'Escape') {
       event.preventDefault();
-      closeLightbox();
-      return;
-    }
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      close();
+    } else if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      const sel = event.key === 'ArrowLeft' ? '.gallery-lightbox-prev' : '.gallery-lightbox-next';
-      const nav = active.querySelector(sel);
-      if (nav instanceof HTMLAnchorElement) {
-        navigateToHash(resolveHashTarget(nav));
-      }
-      return;
+      goTo(currentIndex - 1);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      goTo(currentIndex + 1);
+    } else if (event.key === 'Tab') {
+      trapFocus(event);
     }
-    trapFocus(event);
   });
 
-  window.addEventListener('hashchange', updateStateFromHash);
-  updateStateFromHash();
-});
+  // Keep the stage height correct if the viewport resizes while open.
+  window.addEventListener('resize', () => {
+    if (!isOpen() || currentIndex < 0) return;
+    stage.getAnimations().forEach((a) => a.cancel());
+    stage.style.height = `${stageHeightFor(items[currentIndex])}px`;
+  });
+
+  // Back/forward through the deep-link hash.
+  window.addEventListener('popstate', updateFromHash);
+
+  // Open directly if the page loaded on a lightbox hash.
+  updateFromHash();
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}

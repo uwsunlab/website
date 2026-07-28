@@ -1363,12 +1363,27 @@ body.gallery-lightbox-open .gallery-backdrop {
   align-items: start;
 }
 
-.gallery-lightbox img {
+/* The stage is the image area. Its height is set per-image by the script (width / aspect
+   ratio, capped by max-height) and animated when paging, so the panel resizes to fit each
+   image. Image/video layers stack absolutely inside it so two can crossfade in place. */
+.gallery-lightbox-stage {
+  position: relative;
   width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 0;
+  height: 0;
   max-height: calc(100vh - 220px);
+  min-height: 0;
+  min-width: 0;
+}
+
+.gallery-lightbox-layer {
+  position: absolute;
+  inset: 0;
+}
+
+img.gallery-lightbox-layer {
+  width: 100%;
+  height: 100%;
+  display: block;
   object-fit: contain;
 }
 
@@ -1407,11 +1422,9 @@ body.gallery-lightbox-open .gallery-backdrop {
   transform: translate(-50%, -50%) scale(1.05);
 }
 
+/* A video is a stage layer too: .gallery-lightbox-layer positions it (absolute, inset:0),
+   and the stage is already sized to 16:9 for videos, so it just fills. */
 .gallery-lightbox-video {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: calc(100vh - 220px);
   background: #000;
   overflow: hidden;
 }
@@ -1462,6 +1475,10 @@ button.gallery-play-badge {
   font-size: 2rem;
   text-decoration: none;
   line-height: 1;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .gallery-lightbox-nav {
@@ -1490,6 +1507,7 @@ button.gallery-play-badge {
   text-decoration: none;
   font-size: 1.25rem;
   font-weight: 700;
+  cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
@@ -1514,7 +1532,7 @@ button.gallery-play-badge {
     padding: 24px 20px 20px;
   }
 
-  .gallery-lightbox img {
+  .gallery-lightbox-stage {
     max-height: calc(100vh - 260px);
   }
 }

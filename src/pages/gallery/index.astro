@@ -82,6 +82,25 @@ const gallery = await Promise.all(
     };
   })
 );
+
+// One shared lightbox shell (below) is populated from this data as the user opens and pages
+// through items, so the frame stays mounted and only its contents crossfade. `ar` drives the
+// panel's height animation between images of different aspect ratios.
+const lightboxItems = gallery.map((item) => {
+  const meta = item.data.dateLabel ?? (item.data.date ? formatGalleryDate(item.data.date) : null);
+  const base = {
+    id: item.id,
+    title: item.data.title,
+    meta,
+    caption: item.data.caption,
+    alt: item.data.imageAlt ?? item.data.caption,
+    ar: item.aspectRatio,
+    isVideo: item.isVideo
+  };
+  return item.isVideo
+    ? { ...base, src: null, videoId: item.videoId, posterSrc: item.posterSrc, posterFallback: item.posterFallback }
+    : { ...base, src: item.lightboxSrc, videoId: null, posterSrc: null, posterFallback: null };
+});
 ---
 
 <BaseLayout title="Gallery" description="Gallery and logo story from the Autonomous Materials Discovery Group Cambridge.">
@@ -92,12 +111,8 @@ const gallery = await Promise.all(
   <section class="section">
     <ul class="container gallery-wall" id="gallery-wall">
       {
-        gallery.map((item, index) => {
-          const prevId = gallery[(index - 1 + gallery.length) % gallery.length].id;
-          const nextId = gallery[(index + 1) % gallery.length].id;
+        gallery.map((item) => {
           const imageAlt = item.data.imageAlt ?? item.data.caption;
-          const metaText = item.data.dateLabel ?? (item.data.date ? formatGalleryDate(item.data.date) : null);
-          const dateMeta = metaText ? <p class="meta">{metaText}</p> : null;
 
           return (
             <li
@@ -132,32 +147,6 @@ const gallery = await Promise.all(
                   )}
                 </a>
               </div>
-              <div id={`gallery-lightbox-${item.id}`} class="gallery-lightbox" role="dialog" aria-modal="true" aria-label={item.data.title}>
-                <a class="gallery-lightbox-close" href="#" aria-label="Close fullscreen view">×</a>
-                <nav class="gallery-lightbox-nav" aria-label="Gallery navigation">
-                  <a class="gallery-lightbox-nav-button gallery-lightbox-prev" href={`#gallery-lightbox-${prevId}`} aria-label="Previous item">←</a>
-                  <a class="gallery-lightbox-nav-button gallery-lightbox-next" href={`#gallery-lightbox-${nextId}`} aria-label="Next item">→</a>
-                </nav>
-                <div class="gallery-lightbox-inner">
-                  {item.isVideo ? (
-                    <div class="gallery-lightbox-video" data-youtube-id={item.videoId} data-title={item.data.title}>
-                      <img
-                        data-src={item.posterSrc}
-                        alt={imageAlt}
-                        onerror={item.posterFallback ? `this.onerror=null;this.src='${item.posterFallback}'` : undefined}
-                      />
-                      <button class="gallery-play-badge" type="button" aria-label={`Play ${item.data.title}`} />
-                    </div>
-                  ) : (
-                    <img data-src={item.lightboxSrc} alt={imageAlt} />
-                  )}
-                  <div class="gallery-lightbox-meta">
-                    {dateMeta}
-                    <h2>{item.data.title}</h2>
-                    <p>{item.data.caption}</p>
-                  </div>
-                </div>
-              </div>
             </li>
           );
         })
@@ -167,6 +156,22 @@ const gallery = await Promise.all(
   {/* One shared backdrop for every lightbox: it fades with the body class (set while any
       item is open, unchanged while paging), so switching items never crossfades the wall. */}
   <div class="gallery-backdrop" aria-hidden="true"></div>
+
+  {/* One shared lightbox shell. The script fills the stage + meta from the data island and
+      keeps this frame mounted, crossfading only the contents when paging between items. */}
+  <div class="gallery-lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" tabindex="-1">
+    <button class="gallery-lightbox-close" type="button" aria-label="Close fullscreen view">×</button>
+    <nav class="gallery-lightbox-nav" aria-label="Gallery navigation">
+      <button class="gallery-lightbox-nav-button gallery-lightbox-prev" type="button" aria-label="Previous item">←</button>
+      <button class="gallery-lightbox-nav-button gallery-lightbox-next" type="button" aria-label="Next item">→</button>
+    </nav>
+    <div class="gallery-lightbox-inner">
+      <div class="gallery-lightbox-stage"></div>
+      <div class="gallery-lightbox-meta"></div>
+    </div>
+  </div>
+  <script type="application/json" id="gallery-lightbox-data" is:inline set:html={JSON.stringify(lightboxItems).replace(/</g, '\\u003c')}></script>
+
   <script type="module" src="/scripts/justified-gallery.js"></script>
   <script type="module" src="/scripts/gallery-lightbox.js"></script>
 </BaseLayout>
