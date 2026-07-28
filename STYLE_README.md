@@ -45,6 +45,12 @@ CSS variables:
   --line: rgb(0 107 104 / 0.18);
   --link: var(--teal);
   --accent: var(--rose);
+
+  --dur-fast: 100ms;
+  --dur-base: 150ms;
+  --dur-slow: 200ms;
+  --ease: ease;
+  --ease-out: ease-out;
 }
 ```
 
@@ -70,10 +76,32 @@ Use `"Helvetica Neue", Arial, sans-serif` everywhere.
 - Small headings (`h3`): dark ink, `font-weight: 500`.
 - Body text: dark ink or slate teal/grey for quieter support copy.
 - Metadata, captions, dates, roles: slate teal/grey.
-- Links: Cambridge teal with a subtle underline.
+- Links: Cambridge teal with a subtle underline. On hover and keyboard focus both the text
+  and the underline deepen to teal-dark. The underline sits at 42% teal at rest, so going
+  fully opaque is what carries the state change.
 
 Do not scale text directly with viewport width outside the established `clamp()`
 rules in `src/styles/global.css`.
+
+## Motion
+
+Use the duration and easing tokens rather than literal values. Every transition on the
+site draws from this scale.
+
+- `--dur-fast` (100ms): colour and border changes on hover or focus.
+- `--dur-base` (150ms): background, transform, and opacity changes on interactive elements.
+- `--dur-slow` (200ms): larger state changes, such as the lightbox opening.
+- `--ease`: state changes that start and end in place.
+- `--ease-out`: things entering or leaving.
+
+Rules:
+
+- Do not introduce new durations. Add a token here first if the scale is genuinely short.
+- Page transitions in `global.css` set their own timings. Those are tied to how long a
+  navigation can interrupt a running transition, not to this scale, so leave them alone.
+- Every animation must have a `prefers-reduced-motion: reduce` path. Script-driven
+  animation should check `matchMedia` directly, as `PersonCard.astro` and
+  `gallery-lightbox.js` do.
 
 ## Blocks And Coordinates
 
