@@ -26,6 +26,21 @@ const pageTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" href="/favicon.svg" />
     <title>{pageTitle}</title>
+    <script is:inline>
+      // A navigation that lands while a page transition is still running makes the browser
+      // abort it, which flashes white for a frame or two. `pagereveal` fires in the incoming
+      // document before its first render, so links can be held inert until it settles.
+      // Browsers without cross-document view transitions never fire it and are unaffected.
+      addEventListener('pagereveal', (event) => {
+        if (!event.viewTransition) return;
+        const root = document.documentElement;
+        const clear = () => root.classList.remove('is-transitioning');
+        root.classList.add('is-transitioning');
+        event.viewTransition.finished.then(clear, clear);
+        // Insurance: never leave the site unclickable if that promise does not settle.
+        setTimeout(clear, 400);
+      });
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

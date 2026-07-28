@@ -54,6 +54,70 @@ img {
   max-width: 100%;
 }
 
+/* Cross-document page transitions. Navigation stays a full document load, so every page
+   script keeps its normal lifecycle; browsers without support fall back to an instant cut. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Sequential rather than a cross-fade: the outgoing page clears before the incoming one
+   arrives, with the ivory canvas showing through the gap. `both` holds the incoming page
+   at opacity 0 through its delay. Total duration is deliberately short: a navigation that
+   interrupts a running transition makes the browser abort it and flash white for a frame
+   or two, and the exposure window is exactly this duration. */
+::view-transition-old(root) {
+  animation: page-fade-out 60ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: page-fade-in 90ms ease-out 60ms both;
+}
+
+/* Header and footer are shared chrome. Naming them lifts them out of the root snapshot so
+   they stay put and fully opaque while only the content fades. The group animation is off
+   so the footer does not slide when its position differs between pages, and holding the
+   old snapshot at opacity 0 avoids stacking two translucent headers mid-transition. */
+::view-transition-group(site-header),
+::view-transition-group(site-footer) {
+  animation: none;
+}
+
+::view-transition-old(site-header),
+::view-transition-old(site-footer) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(site-header),
+::view-transition-new(site-footer) {
+  animation: none;
+  opacity: 1;
+}
+
+/* Links are held inert for the length of the transition so a second click cannot abort a
+   running one. Paired with the guard script in BaseLayout.astro. */
+html.is-transitioning a {
+  pointer-events: none;
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
 .site-shell {
   min-height: 100vh;
   display: flex;
@@ -91,6 +155,7 @@ img {
   position: sticky;
   top: 0;
   z-index: 10;
+  view-transition-name: site-header;
 }
 
 .nav {
@@ -949,6 +1014,7 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   padding: 34px 0;
   background: var(--paper-soft);
   color: var(--muted);
+  view-transition-name: site-footer;
 }
 
 .footer-grid {
