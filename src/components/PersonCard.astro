@@ -77,6 +77,10 @@ const initials = person.data.name
   // cards below reflow smoothly instead of snapping.
   const HEIGHT_OPEN = 340;
   const HEIGHT_CLOSE = 260;
+  // Strong ease-out (easeOutQuart) for both slides so each decelerates into place instead of
+  // ending abruptly — the plain 'ease-out' barely slows near the end, which is most obvious on
+  // long bios where the slide covers more distance in the same time.
+  const EASE_SLIDE = 'cubic-bezier(0.165, 0.84, 0.44, 1)';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -244,7 +248,7 @@ const initials = person.data.name
             return;
           }
           animateIn(newWords);
-          animateHeight(summary, collapsedH, expandedH, HEIGHT_OPEN, 'ease-out', () =>
+          animateHeight(summary, collapsedH, expandedH, HEIGHT_OPEN, EASE_SLIDE, () =>
             finalizeExpanded(summary)
           );
         } else {
@@ -260,7 +264,7 @@ const initials = person.data.name
             return;
           }
           animateOut(newWords, () => {});
-          animateHeight(summary, currentH, collapsedH, HEIGHT_CLOSE, 'ease-in', () => {
+          animateHeight(summary, currentH, collapsedH, HEIGHT_CLOSE, EASE_SLIDE, () => {
             resetWords(newWords);
             restoreCollapsed(summary);
           });
