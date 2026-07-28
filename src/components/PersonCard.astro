@@ -66,17 +66,19 @@ const initials = person.data.name
 <script>
   // Total budget shared across all revealed words, so long and short bios
   // feel similar; MAX_STAGGER keeps short bios from feeling slow.
+  // Close mirrors open rather than running faster, so the two directions take
+  // the same time; the easings stay mirrored (ease-out in, ease-in out).
   const OPEN_BUDGET = 340;
-  const CLOSE_BUDGET = 260;
+  const CLOSE_BUDGET = 340;
   const MAX_STAGGER = 25;
   const WORD_IN = 50;
-  const WORD_OUT = 25;
+  const WORD_OUT = 50;
   const BLUR = 0;
   const FOLD_EPS = 2;
   // Height slide durations — the container grows/shrinks over these so the
   // cards below reflow smoothly instead of snapping.
   const HEIGHT_OPEN = 340;
-  const HEIGHT_CLOSE = 260;
+  const HEIGHT_CLOSE = 340;
   // Strong ease-out (easeOutQuart) for both slides so each decelerates into place instead of
   // ending abruptly — the plain 'ease-out' barely slows near the end, which is most obvious on
   // long bios where the slide covers more distance in the same time.
