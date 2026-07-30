@@ -1,28 +1,19 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
-import { scholarPapers } from '../../data/scholarPapers';
+import PublicationYearSection from '@components/PublicationYearSection.astro';
+import { scholarPapers, type NumberedScholarPaper } from '../../data/scholarPapers';
 
-const sourceLabel = (paper: (typeof scholarPapers)[number]) => {
-  const source = paper.venue
-    .replace(/\s+\d.*$/, '')
-    .replace(/,\s*$/, '')
-    .trim();
-
-  return source || 'Scholar';
-};
-
-type NumberedPaper = (typeof scholarPapers)[number] & {
-  globalIndex: number;
-  originalIndex: number;
-};
+// Years from this one onward are shown immediately; anything earlier sits behind the
+// toggle at the foot of the list.
+const ARCHIVE_BEFORE = 2020;
 
 const numberedPapers = [...scholarPapers]
   .map((paper, originalIndex) => ({ ...paper, originalIndex }))
   .sort((a, b) => a.year - b.year || b.originalIndex - a.originalIndex)
   .map((paper, index) => ({ ...paper, globalIndex: index + 1 }));
 
-const papersByYear = numberedPapers.reduce<Record<number, NumberedPaper[]>>((groups, paper) => {
+const papersByYear = numberedPapers.reduce<Record<number, NumberedScholarPaper[]>>((groups, paper) => {
   groups[paper.year] ??= [];
   groups[paper.year].push(paper);
   return groups;
@@ -33,6 +24,9 @@ Object.values(papersByYear).forEach((papers) => papers.sort((a, b) => a.original
 const years = Object.keys(papersByYear)
   .map(Number)
   .sort((a, b) => b - a);
+
+const recentYears = years.filter((year) => year >= ARCHIVE_BEFORE);
+const archiveYears = years.filter((year) => year < ARCHIVE_BEFORE);
 ---
 
 <BaseLayout title="Papers" description="Papers and prior publications from the Autonomous Materials Discovery Group Cambridge.">
@@ -52,30 +46,98 @@ const years = Object.keys(papersByYear)
         </a>
       </p>
       <div class="reference-list">
-        {
-          years.map((year) => (
-            <section class="year-section" aria-labelledby={`papers-${year}`}>
-              <h2 id={`papers-${year}`}>{year}</h2>
-              <ol class="publication-list compact continuous">
-                {
-                  papersByYear[year].map((paper) => (
-                    <li value={paper.globalIndex}>
-                      &ldquo;{paper.title}&rdquo;{' '}
-                      <a
-                        href={paper.doi ? `https://doi.org/${paper.doi}` : paper.scholarQuery}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {sourceLabel(paper)} ({paper.year})
-                      </a>
-                    </li>
-                  ))
-                }
-              </ol>
-            </section>
-          ))
-        }
+        {recentYears.map((year) => <PublicationYearSection year={year} papers={papersByYear[year]} />)}
       </div>
+      {
+        archiveYears.length > 0 && (
+          <>
+            <input class="papers-archive-checkbox" type="checkbox" id="papers-archive" />
+            <div class="papers-archive">
+              {archiveYears.map((year) => <PublicationYearSection year={year} papers={papersByYear[year]} />)}
+            </div>
+            <label class="papers-archive-toggle" for="papers-archive">
+              <span class="summary-open">
+                show earlier publications<span class="toggle-icon" aria-hidden="true">▾</span>
+              </span>
+              <span class="summary-close">
+                hide earlier publications<span class="toggle-icon" aria-hidden="true">▴</span>
+              </span>
+            </label>
+          </>
+        )
+      }
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import {
+    EASE_SLIDE,
+    HEIGHT_CLOSE,
+    HEIGHT_OPEN,
+    animateHeight,
+    animateIn,
+    animateOut,
+    reduceMotion,
+    resetWords,
+    wrapWords
+  } from '@scripts/word-reveal';
+
+  const panel = document.querySelector<HTMLElement>('.papers-archive');
+  const checkbox = document.querySelector<HTMLInputElement>('.papers-archive-checkbox');
+
+  // Returns the panel to the CSS-driven collapsed state.
+  function clearInline(el: HTMLElement) {
+    el.getAnimations().forEach((a) => a.cancel());
+    el.style.height = '';
+    el.style.overflow = '';
+    el.style.display = '';
+  }
+
+  if (panel && checkbox) {
+    let words: HTMLElement[] = [];
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        // The CSS rule has already switched the panel to a grid, so it can be measured.
+        // Nothing has painted yet, so setting the start height here shows no flash.
+        wrapWords(panel);
+        words = Array.from(panel.querySelectorAll<HTMLElement>('.reveal-word'));
+
+        panel.getAnimations().forEach((a) => a.cancel());
+        panel.style.overflow = 'hidden';
+        panel.style.height = 'auto';
+        const expandedH = panel.getBoundingClientRect().height;
+
+        if (reduceMotion.matches || words.length === 0) {
+          clearInline(panel);
+          resetWords(words);
+          return;
+        }
+
+        animateIn(words);
+        animateHeight(panel, 0, expandedH, HEIGHT_OPEN, EASE_SLIDE, () => clearInline(panel));
+      } else {
+        // Unchecking has already applied `display: none`, so force it back before
+        // measuring or the height would read as zero.
+        panel.getAnimations().forEach((a) => a.cancel());
+        panel.style.display = 'grid';
+        const currentH = panel.getBoundingClientRect().height;
+        panel.style.overflow = 'hidden';
+        panel.style.height = `${currentH}px`;
+
+        if (reduceMotion.matches || words.length === 0) {
+          resetWords(words);
+          clearInline(panel);
+          return;
+        }
+
+        animateOut(words, () => {});
+        animateHeight(panel, currentH, 0, HEIGHT_CLOSE, EASE_SLIDE, () => {
+          resetWords(words);
+          clearInline(panel);
+        });
+      }
+    });
+  }
+</script>

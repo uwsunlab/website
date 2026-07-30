@@ -7,6 +7,16 @@ export interface ScholarPaper {
   scholarQuery: string;
 }
 
+/**
+ * A paper carrying its position in the continuously numbered list. `globalIndex`
+ * drives the `<li value>` markers, so it stays stable whether or not the earlier
+ * years are expanded.
+ */
+export type NumberedScholarPaper = ScholarPaper & {
+  globalIndex: number;
+  originalIndex: number;
+};
+
 export const scholarPapers: ScholarPaper[] = [
   {
     "year": 2026,

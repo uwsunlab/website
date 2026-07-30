@@ -519,7 +519,8 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   display: inline;
 }
 
-.person-summary-toggle {
+.person-summary-toggle,
+.papers-archive-toggle {
   display: inline-block;
   margin-top: 0.75rem;
   font-size: 0.95rem;
@@ -530,13 +531,15 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
 
 /* inline-block keeps the chevron out of the label's underline (text-decoration
    does not extend to atomic inline boxes) and lets it sit slightly smaller. */
-.person-summary-toggle .toggle-icon {
+.person-summary-toggle .toggle-icon,
+.papers-archive-toggle .toggle-icon {
   display: inline-block;
   margin-left: 0.3em;
   font-size: 0.85em;
 }
 
-.person-summary-toggle .summary-close {
+.person-summary-toggle .summary-close,
+.papers-archive-toggle .summary-close {
   display: none;
 }
 
@@ -1273,6 +1276,36 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
 .reference-list {
   display: grid;
   gap: 22px;
+}
+
+.papers-archive-checkbox {
+  display: none;
+}
+
+/* Years before the cutoff are held back behind the toggle. The grid and gap match
+   `.reference-list` so the archived years sit flush with the visible ones once open.
+   The script overrides display, height and overflow inline while it animates. */
+.papers-archive {
+  display: none;
+  gap: 22px;
+}
+
+.papers-archive-checkbox:checked + .papers-archive {
+  display: grid;
+}
+
+/* Without JS this pair is the whole mechanism: checking the box reveals the archive
+   instantly. The script layers the word reveal and height slide on top. */
+.papers-archive-checkbox:checked + .papers-archive + .papers-archive-toggle .summary-open {
+  display: none;
+}
+
+.papers-archive-checkbox:checked + .papers-archive + .papers-archive-toggle .summary-close {
+  display: inline;
+}
+
+.papers-archive-toggle {
+  margin-top: 22px;
 }
 
 .year-section {

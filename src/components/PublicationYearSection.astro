@@ -1,0 +1,39 @@
+---
+import type { NumberedScholarPaper } from '../data/scholarPapers';
+
+interface Props {
+  year: number;
+  papers: NumberedScholarPaper[];
+}
+
+const { year, papers } = Astro.props;
+
+const sourceLabel = (paper: NumberedScholarPaper) => {
+  const source = paper.venue
+    .replace(/\s+\d.*$/, '')
+    .replace(/,\s*$/, '')
+    .trim();
+
+  return source || 'Scholar';
+};
+---
+
+<section class="year-section" aria-labelledby={`papers-${year}`}>
+  <h2 id={`papers-${year}`}>{year}</h2>
+  <ol class="publication-list compact continuous">
+    {
+      papers.map((paper) => (
+        <li value={paper.globalIndex}>
+          &ldquo;{paper.title}&rdquo;{' '}
+          <a
+            href={paper.doi ? `https://doi.org/${paper.doi}` : paper.scholarQuery}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {sourceLabel(paper)} ({paper.year})
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</section>

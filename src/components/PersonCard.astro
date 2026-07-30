@@ -64,57 +64,22 @@ const initials = person.data.name
 </article>
 
 <script>
-  // Total budget shared across all revealed words, so long and short bios
-  // feel similar; MAX_STAGGER keeps short bios from feeling slow.
-  // Close mirrors open rather than running faster, so the two directions take
-  // the same time; the easings stay mirrored (ease-out in, ease-in out).
-  const OPEN_BUDGET = 340;
-  const CLOSE_BUDGET = 340;
-  const MAX_STAGGER = 25;
-  const WORD_IN = 50;
-  const WORD_OUT = 50;
-  const BLUR = 0;
-  const FOLD_EPS = 2;
-  // Height slide durations — the container grows/shrinks over these so the
-  // cards below reflow smoothly instead of snapping.
-  const HEIGHT_OPEN = 340;
-  const HEIGHT_CLOSE = 340;
-  // Strong ease-out (easeOutQuart) for both slides so each decelerates into place instead of
-  // ending abruptly — the plain 'ease-out' barely slows near the end, which is most obvious on
-  // long bios where the slide covers more distance in the same time.
-  const EASE_SLIDE = 'cubic-bezier(0.165, 0.84, 0.44, 1)';
+  import {
+    EASE_SLIDE,
+    HEIGHT_CLOSE,
+    HEIGHT_OPEN,
+    animateHeight,
+    animateIn,
+    animateOut,
+    reduceMotion,
+    resetWords,
+    wrapWords
+  } from '@scripts/word-reveal';
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const FOLD_EPS = 2;
 
   // Marks JS as active so the CSS keeps the summary clamped while checked.
   document.documentElement.classList.add('js-reveal');
-
-  // Wraps each word in a span so it can be animated individually. Uses a
-  // TreeWalker over text nodes so inline markup (links, emphasis) survives.
-  function wrapWords(root: HTMLElement) {
-    if (root.dataset.wrapped) return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const nodes: Node[] = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach((node) => {
-      const text = node.textContent;
-      if (!text || !text.trim() || !node.parentNode) return;
-      const frag = document.createDocumentFragment();
-      text.split(/(\s+)/).forEach((part) => {
-        if (!part) return;
-        if (/^\s+$/.test(part)) {
-          frag.appendChild(document.createTextNode(part));
-        } else {
-          const span = document.createElement('span');
-          span.className = 'reveal-word';
-          span.textContent = part;
-          frag.appendChild(span);
-        }
-      });
-      node.parentNode.replaceChild(frag, node);
-    });
-    root.dataset.wrapped = 'true';
-  }
 
   // Words whose top sits at or below the clamped fold are the newly revealed
   // ones. Must be measured while the summary is still clamped.
@@ -125,27 +90,6 @@ const initials = person.data.name
       if (w.getBoundingClientRect().top >= foldBottom - FOLD_EPS) out.push(w);
     });
     return out;
-  }
-
-  // Slides the summary between two explicit pixel heights. Because height is a
-  // layout property, the grid row and every row below it reflow each frame, so
-  // the following profiles glide down rather than jumping.
-  function animateHeight(
-    summary: HTMLElement,
-    fromH: number,
-    toH: number,
-    duration: number,
-    easing: string,
-    done: () => void
-  ) {
-    summary
-      .animate([{ height: `${fromH}px` }, { height: `${toH}px` }], {
-        duration,
-        easing,
-        fill: 'both'
-      })
-      .finished.then(done)
-      .catch(() => {});
   }
 
   // Settles into the fully expanded state: natural height. overflow stays
@@ -165,52 +109,6 @@ const initials = person.data.name
     summary.style.overflow = '';
     summary.style.display = '';
     summary.style.removeProperty('-webkit-line-clamp');
-  }
-  function resetWords(words: HTMLElement[]) {
-    words.forEach((w) => {
-      w.getAnimations().forEach((a) => a.cancel());
-      w.style.opacity = '';
-      w.style.filter = '';
-    });
-  }
-
-  function animateIn(words: HTMLElement[]) {
-    const stagger = Math.min(MAX_STAGGER, OPEN_BUDGET / words.length);
-    words.forEach((w) => (w.style.opacity = '0'));
-    words.forEach((w, i) => {
-      w.animate(
-        [
-          { opacity: 0, filter: `blur(${BLUR}px)` },
-          { opacity: 1, filter: 'blur(0)' }
-        ],
-        { duration: WORD_IN, delay: i * stagger, easing: 'ease-out', fill: 'both' }
-      )
-        .finished.then(() => {
-          w.style.opacity = '';
-          w.style.filter = '';
-        })
-        .catch(() => {});
-    });
-  }
-
-  function animateOut(words: HTMLElement[], done: () => void) {
-    const n = words.length;
-    const stagger = Math.min(MAX_STAGGER, CLOSE_BUDGET / n);
-    let pending = n;
-    const finish = () => {
-      if (--pending === 0) done();
-    };
-    words.forEach((w, i) => {
-      w.getAnimations().forEach((a) => a.cancel());
-      // Reverse order: the last word fades first, unwriting back to the first.
-      w.animate(
-        [
-          { opacity: 1, filter: 'blur(0)' },
-          { opacity: 0, filter: `blur(${BLUR}px)` }
-        ],
-        { duration: WORD_OUT, delay: (n - 1 - i) * stagger, easing: 'ease-in', fill: 'both' }
-      ).finished.then(finish).catch(finish);
-    });
   }
 
   function init() {
