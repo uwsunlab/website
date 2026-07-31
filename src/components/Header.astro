@@ -3,6 +3,7 @@
 // every page load — an external SVG re-fetches/re-decodes on each MPA navigation, which
 // showed as a brief flicker in the header's left corner.
 import logoSvg from '../assets/lockup-horizontal-ink.svg?raw';
+import { withBase } from '@utils/paths';
 
 const links = [
   { href: '/research/', label: 'Research' },
@@ -18,15 +19,16 @@ const pathname = Astro.url.pathname;
 
 <header class="site-header">
   <nav class="container nav" aria-label="Primary navigation">
-    <a class="brand" href="/" aria-label="Autonomous Materials Group home">
+    <a class="brand" href={withBase('/')} aria-label="Autonomous Materials Group home">
       <span class="brand-lockup" aria-hidden="true" set:html={logoSvg}></span>
     </a>
     <div class="nav-links">
       {
         links.map((link) => {
-          const current = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+          const href = withBase(link.href);
+          const current = link.href === '/' ? pathname === href : pathname.startsWith(href);
           return (
-            <a href={link.href} aria-current={current ? 'page' : undefined}>
+            <a href={href} aria-current={current ? 'page' : undefined}>
               {link.label}
             </a>
           );

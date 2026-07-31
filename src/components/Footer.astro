@@ -1,3 +1,7 @@
+---
+import { withBase } from '@utils/paths';
+---
+
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-contact">
@@ -7,13 +11,13 @@
       </p>
     </div>
     <div class="footer-links" aria-label="Footer navigation">
-      <a href="/">Home</a>
-      <a href="/research/">Research</a>
-      <a href="/people/">People</a>
-      <a href="/papers/">Papers</a>
-      <a href="/media/">Media</a>
-      <a href="/gallery/">Gallery</a>
-      <a href="/contact/">Contact</a>
+      <a href={withBase('/')}>Home</a>
+      <a href={withBase('/research/')}>Research</a>
+      <a href={withBase('/people/')}>People</a>
+      <a href={withBase('/papers/')}>Papers</a>
+      <a href={withBase('/media/')}>Media</a>
+      <a href={withBase('/gallery/')}>Gallery</a>
+      <a href={withBase('/contact/')}>Contact</a>
     </div>
     <div class="footer-info">
       <strong>Autonomous Materials Group</strong>
