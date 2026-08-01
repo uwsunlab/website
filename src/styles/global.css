@@ -1694,7 +1694,8 @@ button.gallery-play-badge {
     grid-template-columns: 1fr;
   }
 
-  .concept-steps {
+  .concept-steps,
+  .grid.four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1763,7 +1764,8 @@ button.gallery-play-badge {
     padding-inline: 8px;
   }
 
-  .concept-steps {
+  .concept-steps,
+  .grid.four {
     grid-template-columns: 1fr;
   }
 }
