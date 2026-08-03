@@ -4,7 +4,7 @@ role: PhD Student
 status: current
 group: PhD Students
 photo: ../../assets/images/people/hemanth-n-r.jpg
-affiliation: University of Washington
+affiliation: University of Washington; co-advised by Prof. Shijing Sun and Prof. Aniruddh Vashisth
 order: 11
 links: []
 ---
