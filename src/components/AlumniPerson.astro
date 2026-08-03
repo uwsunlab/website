@@ -11,6 +11,7 @@ const { person } = Astro.props;
 
 <article class="alumni-entry">
   <h3>{person.data.name}</h3>
+  {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
   {
     person.data.links.length > 0 && (
       <div class="person-links">

@@ -2,6 +2,9 @@
 name: Austin Martin
 role: Alumni
 status: alumni
-affiliation: Currently at UIUC
-links: []
+affiliation: Undergrad, UW
+order: 116
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/austinfm/
 ---

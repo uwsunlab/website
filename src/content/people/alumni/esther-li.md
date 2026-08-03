@@ -2,6 +2,9 @@
 name: Esther Li
 role: Alumni
 status: alumni
-affiliation: Currently at UW
-links: []
+affiliation: Undergrad, UW
+order: 120
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/yue-li-090768295/
 ---

@@ -2,6 +2,7 @@
 name: Sourabh Burela
 role: Alumni
 status: alumni
-affiliation: Currently at Tesla
+affiliation: Masters, UW
+order: 106
 links: []
 ---

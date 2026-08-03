@@ -459,16 +459,20 @@ h3 {
   padding: 0;
 }
 
-.person-card[tabindex='0'] {
+.person-card[role='button'] {
   cursor: pointer;
 }
 
-.person-card[tabindex='0']:focus-visible .person-photo {
+.person-card[role='button']:focus-visible {
+  outline: 0;
+}
+
+.person-card[role='button']:focus-visible .person-photo {
   outline: 2px solid var(--teal);
   outline-offset: 4px;
 }
 
-.person-card[tabindex='0']:hover .person-photo {
+.person-card[role='button']:hover .person-photo {
   border-color: rgb(0 107 104 / 0.34);
 }
 
@@ -499,33 +503,70 @@ h3 {
   font-size: 0.95rem;
 }
 
+.person-dialog {
+  width: min(820px, calc(100% - 36px));
+  max-height: min(82vh, 760px);
+  border: 1px solid var(--line);
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.person-dialog::backdrop {
+  background: rgb(31 42 42 / 0.42);
+}
+
+.person-dialog-inner {
+  display: grid;
+  gap: 24px;
+  padding: clamp(24px, 4vw, 42px);
+}
+
+.person-dialog-close {
+  justify-self: end;
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--teal-dark);
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.person-dialog-close:hover,
+.person-dialog-close:focus-visible {
+  border-color: var(--teal);
+}
+
+.person-dialog-header {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.person-dialog-photo {
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 3px solid var(--line);
+  border-radius: 5%;
+}
+
+.person-dialog-bio {
+  color: var(--ink);
+}
+
+.person-dialog-bio p {
+  margin: 0;
+}
+
+.person-dialog-bio p + p {
+  margin-top: 1em;
+}
+
 .meta {
   color: var(--muted);
   font-size: 0.95rem;
-}
-
-.person-summary-checkbox {
-  display: none;
-}
-
-.person-summary {
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.person-summary-checkbox:checked + .person-summary {
-  -webkit-line-clamp: unset;
-}
-
-/* When JS enhances the reveal, keep the summary clamped even while the
-   checkbox is checked, so the reveal boundary can be measured at click time.
-   The script then releases the clamp inline and fades the new words in.
-   Without JS this rule never matches, so the CSS-only toggle above still
-   expands instantly. */
-html.js-reveal .person-summary-checkbox:checked + .person-summary {
-  -webkit-line-clamp: 7;
 }
 
 /* Per-word animation hook; kept inline so text flow is identical to the
@@ -534,7 +575,6 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   display: inline;
 }
 
-.person-summary-toggle,
 .papers-archive-toggle {
   display: inline-block;
   margin-top: 0.75rem;
@@ -546,24 +586,14 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
 
 /* inline-block keeps the chevron out of the label's underline (text-decoration
    does not extend to atomic inline boxes) and lets it sit slightly smaller. */
-.person-summary-toggle .toggle-icon,
 .papers-archive-toggle .toggle-icon {
   display: inline-block;
   margin-left: 0.3em;
   font-size: 0.85em;
 }
 
-.person-summary-toggle .summary-close,
 .papers-archive-toggle .summary-close {
   display: none;
-}
-
-.person-summary-checkbox:checked + .person-summary + .person-summary-toggle .summary-open {
-  display: none;
-}
-
-.person-summary-checkbox:checked + .person-summary + .person-summary-toggle .summary-close {
-  display: inline;
 }
 
 .publication-list,
@@ -1245,55 +1275,6 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   line-height: 1.58;
 }
 
-.contact-location {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
-  gap: clamp(28px, 5vw, 64px);
-  align-items: center;
-}
-
-.contact-location-copy {
-  max-width: 620px;
-}
-
-.contact-location-copy .lead {
-  color: var(--ink);
-  line-height: 1.6;
-}
-
-.contact-map {
-  margin: 0;
-}
-
-.contact-map iframe {
-  border: 0;
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-}
-
-.contact-map figcaption {
-  margin-top: 10px;
-  color: var(--muted);
-}
-
-.contact-details {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(22px, 4vw, 42px);
-  margin-top: clamp(24px, 4vw, 40px);
-  max-width: 440px;
-}
-
-.contact-details article {
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
-}
-
-.contact-details p {
-  color: var(--ink);
-}
-
 .contact-join {
   display: grid;
   gap: clamp(30px, 5vw, 56px);
@@ -1305,8 +1286,8 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
 
 .join-pathways {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
+  max-width: 820px;
 }
 
 .join-pathway {
@@ -1763,10 +1744,12 @@ button.gallery-play-badge {
   .research-platform,
   .media-card,
   .gallery-event figcaption,
-  .contact-location,
   .contact-join,
-  .contact-details,
   .join-pathways {
+    grid-template-columns: 1fr;
+  }
+
+  .person-dialog-header {
     grid-template-columns: 1fr;
   }
 

@@ -2,6 +2,9 @@
 name: Vattanary Tevy
 role: Alumni
 status: alumni
-affiliation: Currently at UW
-links: []
+affiliation: Masters, UW
+order: 113
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/vattanary-tevy/
 ---

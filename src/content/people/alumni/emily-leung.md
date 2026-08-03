@@ -2,6 +2,9 @@
 name: Emily Leung
 role: Alumni
 status: alumni
-affiliation: Graduated from UW
-links: []
+affiliation: Undergrad, UW
+order: 115
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/emily-leung-0033671b0/
 ---

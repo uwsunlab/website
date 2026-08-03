@@ -14,181 +14,105 @@ const initials = person.data.name
   .map((part) => part[0])
   .join('')
   .slice(0, 2);
+const dialogId = `person-dialog-${person.data.name.replace(/[^\w-]+/g, '-')}`;
 ---
 
-<article class="person-card">
-  {
-    typeof photo === 'object' ? (
-      <Image
-        class="person-photo"
-        src={photo}
-        width={600}
-        format="webp"
-        alt={`Portrait of ${person.data.name}`}
-        loading="lazy"
-      />
-    ) : photo ? (
-      <img class="person-photo" src={photo} alt={`Portrait of ${person.data.name}`} loading="lazy" />
-    ) : (
-      <div class="person-photo" aria-hidden="true">{initials}</div>
-    )
-  }
-  <div class="content">
-    <h2>{person.data.name}</h2>
-    <p class="meta">{person.data.role}</p>
-    {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
+<article class="person-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls={dialogId}>
+  <div class="person-card-face">
     {
-      person.data.links.length > 0 && (
-        <div class="person-links">
-          {person.data.links.map((link) => (
-            <a href={link.url} {...externalLinkAttrs(link.url)}>
-              {link.label}
-            </a>
-          ))}
-        </div>
+      typeof photo === 'object' ? (
+        <Image
+          class="person-photo"
+          src={photo}
+          width={600}
+          format="webp"
+          alt={`Portrait of ${person.data.name}`}
+          loading="lazy"
+        />
+      ) : photo ? (
+        <img class="person-photo" src={photo} alt={`Portrait of ${person.data.name}`} loading="lazy" />
+      ) : (
+        <div class="person-photo" aria-hidden="true">{initials}</div>
       )
     }
-    <input
-      class="person-summary-checkbox"
-      type="checkbox"
-      id={`person-summary-${person.data.name.replace(/[^\w-]+/g, '-')}`}
-    />
-    <div class="person-summary">
-      <slot />
+    <div class="content">
+      <h2>{person.data.name}</h2>
+      <p class="meta">{person.data.role}</p>
+      {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
+      {
+        person.data.links.length > 0 && (
+          <div class="person-links">
+            {person.data.links.map((link) => (
+              <a href={link.url} {...externalLinkAttrs(link.url)}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </div>
-    <label class="person-summary-toggle" for={`person-summary-${person.data.name.replace(/[^\w-]+/g, '-')}`}>
-      <span class="summary-open">read bio<span class="toggle-icon" aria-hidden="true">▾</span></span>
-      <span class="summary-close">hide bio<span class="toggle-icon" aria-hidden="true">▴</span></span>
-    </label>
   </div>
 </article>
 
+<dialog class="person-dialog" id={dialogId} aria-labelledby={`${dialogId}-title`}>
+  <div class="person-dialog-inner">
+    <button class="person-dialog-close" type="button" aria-label={`Close ${person.data.name} bio`}>Close</button>
+    <div class="person-dialog-header">
+      {
+        typeof photo === 'object' ? (
+          <Image
+            class="person-dialog-photo"
+            src={photo}
+            width={360}
+            format="webp"
+            alt={`Portrait of ${person.data.name}`}
+            loading="lazy"
+          />
+        ) : photo ? (
+          <img class="person-dialog-photo" src={photo} alt={`Portrait of ${person.data.name}`} loading="lazy" />
+        ) : (
+          <div class="person-dialog-photo" aria-hidden="true">{initials}</div>
+        )
+      }
+      <div>
+        <h2 id={`${dialogId}-title`}>{person.data.name}</h2>
+        <p class="meta">{person.data.role}</p>
+        {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
+      </div>
+    </div>
+    <div class="person-dialog-bio">
+      <slot />
+    </div>
+  </div>
+</dialog>
+
 <script>
-  import {
-    EASE_SLIDE,
-    HEIGHT_CLOSE,
-    HEIGHT_OPEN,
-    animateHeight,
-    animateIn,
-    animateOut,
-    reduceMotion,
-    resetWords,
-    wrapWords
-  } from '@scripts/word-reveal';
-
-  const FOLD_EPS = 2;
-
-  // Marks JS as active so the CSS keeps the summary clamped while checked.
-  document.documentElement.classList.add('js-reveal');
-
-  // Words whose top sits at or below the clamped fold are the newly revealed
-  // ones. Must be measured while the summary is still clamped.
-  function findNewWords(summary: HTMLElement): HTMLElement[] {
-    const foldBottom = summary.getBoundingClientRect().top + summary.clientHeight;
-    const out: HTMLElement[] = [];
-    summary.querySelectorAll<HTMLElement>('.reveal-word').forEach((w) => {
-      if (w.getBoundingClientRect().top >= foldBottom - FOLD_EPS) out.push(w);
-    });
-    return out;
-  }
-
-  // Settles into the fully expanded state: natural height. overflow stays
-  // hidden so the summary keeps its block formatting context — otherwise the
-  // bio's top margin would collapse out and nudge the text upward. With height
-  // auto nothing is actually clipped.
-  function finalizeExpanded(summary: HTMLElement) {
-    summary.getAnimations().forEach((a) => a.cancel());
-    summary.style.height = '';
-    summary.style.overflow = 'hidden';
-  }
-
-  // Returns the summary to the CSS-driven clamped (-webkit-box) state.
-  function restoreCollapsed(summary: HTMLElement) {
-    summary.getAnimations().forEach((a) => a.cancel());
-    summary.style.height = '';
-    summary.style.overflow = '';
-    summary.style.display = '';
-    summary.style.removeProperty('-webkit-line-clamp');
-  }
-
   function init() {
     document.querySelectorAll<HTMLElement>('.person-card').forEach((card) => {
-      const summary = card.querySelector<HTMLElement>('.person-summary');
-      const toggle = card.querySelector<HTMLElement>('.person-summary-toggle');
-      const checkbox = card.querySelector<HTMLInputElement>('.person-summary-checkbox');
-      if (!summary || !toggle || !checkbox) return;
-
-      // Hide the control when the bio already fits within the clamp.
-      if (summary.scrollHeight <= summary.clientHeight + 1) {
-        toggle.style.display = 'none';
-        checkbox.style.display = 'none';
-        return;
-      }
-
-      let newWords: HTMLElement[] = [];
-      let collapsedH = 0; // clamped height, remembered for the closing slide
-
-      card.tabIndex = 0;
-      card.setAttribute('aria-expanded', String(checkbox.checked));
-
-      checkbox.addEventListener('change', () => {
-        card.setAttribute('aria-expanded', String(checkbox.checked));
-        if (checkbox.checked) {
-          wrapWords(summary);
-          newWords = findNewWords(summary); // measured while still clamped
-          collapsedH = summary.getBoundingClientRect().height;
-
-          // Switch to a plain block so the height slide clips cleanly, then
-          // measure the natural expanded height to animate toward.
-          summary.getAnimations().forEach((a) => a.cancel());
-          summary.style.display = 'block';
-          summary.style.overflow = 'hidden';
-          summary.style.height = 'auto';
-          const expandedH = summary.getBoundingClientRect().height;
-
-          if (reduceMotion.matches || newWords.length === 0) {
-            finalizeExpanded(summary);
-            resetWords(newWords);
-            return;
-          }
-          animateIn(newWords);
-          animateHeight(summary, collapsedH, expandedH, HEIGHT_OPEN, EASE_SLIDE, () =>
-            finalizeExpanded(summary)
-          );
-        } else {
-          const currentH = summary.getBoundingClientRect().height;
-          summary.getAnimations().forEach((a) => a.cancel());
-          summary.style.display = 'block';
-          summary.style.overflow = 'hidden';
-          summary.style.height = `${currentH}px`;
-
-          if (reduceMotion.matches || newWords.length === 0 || !collapsedH) {
-            resetWords(newWords);
-            restoreCollapsed(summary);
-            return;
-          }
-          animateOut(newWords, () => {});
-          animateHeight(summary, currentH, collapsedH, HEIGHT_CLOSE, EASE_SLIDE, () => {
-            resetWords(newWords);
-            restoreCollapsed(summary);
-          });
-        }
-      });
+      const dialogId = card.getAttribute('aria-controls');
+      const dialog = dialogId ? document.getElementById(dialogId) as HTMLDialogElement | null : null;
+      if (!dialog) return;
+      const close = dialog.querySelector<HTMLButtonElement>('.person-dialog-close');
+      const open = () => dialog.showModal();
 
       card.addEventListener('click', (event) => {
         const target = event.target as HTMLElement;
-        if (target.closest('a, button, input, label')) return;
-        checkbox.checked = !checkbox.checked;
-        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+        if (target.closest('a')) return;
+        open();
       });
 
       card.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         const target = event.target as HTMLElement;
-        if (target.closest('a, button, input, label')) return;
+        if (target.closest('a')) return;
         event.preventDefault();
-        checkbox.checked = !checkbox.checked;
-        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+        open();
+      });
+
+      close?.addEventListener('click', () => dialog.close());
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
       });
     });
   }

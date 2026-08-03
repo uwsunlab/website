@@ -2,6 +2,9 @@
 name: Mason Palmer
 role: Alumni
 status: alumni
-affiliation: Graduated from UW
-links: []
+affiliation: Undergrad, UW
+order: 114
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/masonpalmer33320/
 ---

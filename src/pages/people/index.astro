@@ -25,6 +25,9 @@ const people = await Promise.all(
       if (a.data.status === 'current') {
         const rankDiff = roleRank(a) - roleRank(b);
         if (rankDiff !== 0) return rankDiff;
+      } else {
+        const orderDiff = a.data.order - b.data.order;
+        if (orderDiff !== 0) return orderDiff;
       }
       return a.data.name.localeCompare(b.data.name);
     })

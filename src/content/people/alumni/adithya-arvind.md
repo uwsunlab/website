@@ -2,6 +2,9 @@
 name: Adithya Arvind
 role: Alumni
 status: alumni
-affiliation: Currently at Intel
-links: []
+affiliation: Masters, UW
+order: 107
+links:
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/adithya-arvind/
 ---
