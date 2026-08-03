@@ -94,7 +94,7 @@ const lightboxItems = gallery.map((item) => {
     title: item.data.title,
     meta,
     caption: item.data.caption,
-    alt: item.data.imageAlt ?? item.data.caption,
+    alt: item.data.imageAlt ?? (item.data.caption || item.data.title),
     ar: item.aspectRatio,
     isVideo: item.isVideo
   };
@@ -107,21 +107,18 @@ const lightboxItems = gallery.map((item) => {
 <BaseLayout title="Gallery" description="Gallery and logo story from the Autonomous Materials Discovery Group Cambridge.">
   <PageHeader
     title="Gallery"
-    description="Moments from the lab, events, and the visual story of the group."
+    description="Photo-first moments from the lab, events, conferences, visitors, and group life."
   />
   <section class="section">
-    <ul class="container gallery-wall" id="gallery-wall">
+    <ul class="container gallery-grid" id="gallery-wall">
       {
         gallery.map((item) => {
-          const imageAlt = item.data.imageAlt ?? item.data.caption;
+          const imageAlt = item.data.imageAlt ?? (item.data.caption || item.data.title);
+          const meta = item.data.dateLabel ?? (item.data.date ? formatGalleryDate(item.data.date) : null);
 
           return (
-            <li
-              class="gallery-card"
-              data-ar={item.aspectRatio}
-              data-full={item.isFull ? 'true' : 'false'}
-            >
-              <div class="gallery-thumb">
+            <li class="gallery-card">
+              <figure class="gallery-figure">
                 <a
                   class="gallery-thumb-link"
                   href={`#gallery-lightbox-${item.id}`}
@@ -147,7 +144,12 @@ const lightboxItems = gallery.map((item) => {
                     />
                   )}
                 </a>
-              </div>
+                <figcaption>
+                  {meta && <p class="meta">{meta}</p>}
+                  <h2>{item.data.title}</h2>
+                  {item.data.caption && <p>{item.data.caption}</p>}
+                </figcaption>
+              </figure>
             </li>
           );
         })
@@ -173,6 +175,5 @@ const lightboxItems = gallery.map((item) => {
   </div>
   <script type="application/json" id="gallery-lightbox-data" is:inline set:html={JSON.stringify(lightboxItems).replace(/</g, '\\u003c')}></script>
 
-  <script type="module" src={withBase('/scripts/justified-gallery.js')}></script>
   <script type="module" src={withBase('/scripts/gallery-lightbox.js')}></script>
 </BaseLayout>
