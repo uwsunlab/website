@@ -1,0 +1,194 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+import { externalLinkAttrs } from '@utils/links';
+import { getYouTubeThumbnailFallbackUrl, getYouTubeThumbnailUrl } from '@utils/youtube';
+
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC'
+});
+
+const newsCategoryById = new Map([
+  ['ml2md-symposium-2026', 'talks']
+]);
+
+const categoryLabels = {
+  talks: 'Talks & Videos',
+  events: 'Events'
+} as const;
+
+type CategoryKey = keyof typeof categoryLabels;
+
+const categoryOrder = ['talks', 'events'] as const;
+const eventMediaIds = new Set(['akc80-symposium', 'future-labs-summer-school-2025', 'future-labs-summer-school-2026']);
+const shijingTalkMediaIds = new Set([
+  'leveraging-ai-scientific-discovery',
+  'battery-lifetime-prediction',
+  'closed-loop-optimization',
+  'publishing-apl-machine-learning'
+]);
+
+const newsEntries = await Promise.all(
+  (await getCollection('news'))
+    .filter((item) => newsCategoryById.has(item.id))
+    .map(async (item) => {
+      const { Content } = await render(item);
+      return {
+        id: `news-${item.id}`,
+        sourceId: item.id,
+        kind: 'news' as const,
+        category: newsCategoryById.get(item.id) as CategoryKey,
+        date: item.data.date,
+        image: item.data.image,
+        imageAlt: item.data.imageAlt,
+        relatedUrl: item.data.relatedUrl,
+        Content
+      };
+    })
+);
+
+const mediaEntries = (await getCollection('media'))
+  .filter((item) => eventMediaIds.has(item.id) || shijingTalkMediaIds.has(item.id))
+  .map((item) => {
+    const category = (eventMediaIds.has(item.id) ? 'events' : 'talks') as CategoryKey;
+
+    return {
+      id: `media-${item.id}`,
+      sourceId: item.id,
+      kind: 'media' as const,
+      category,
+      date: item.data.date,
+      title: item.data.title,
+      summary: item.data.summary,
+      source: item.data.source,
+      image: item.data.image,
+      imageAlt: item.data.imageAlt,
+      externalUrl: item.data.externalUrl
+    };
+  });
+
+const items = [...newsEntries, ...mediaEntries].sort((a, b) => b.date.valueOf() - a.date.valueOf());
+---
+
+<BaseLayout title="Talks & Events" description="Talks, videos, symposia, summer schools, and event listings from the Autonomous Materials Discovery Group Cambridge.">
+  <PageHeader
+    title="Talks & Events"
+    description="Selected talks, videos, symposia, summer schools, and events connected to the group."
+  />
+  <section class="section news-archive-section">
+    <div class="container news-archive">
+      <div class="news-filters" role="tablist" aria-label="Talks and events filters">
+        {
+          categoryOrder.map((key, index) => (
+            <button
+              class="news-filter"
+              type="button"
+              role="tab"
+              aria-selected={index === 0}
+              data-news-filter={key}
+            >
+              {categoryLabels[key]}
+            </button>
+          ))
+        }
+      </div>
+
+      <ol class="news-archive-list">
+        {
+          items.map((item) => {
+            const ytThumb =
+              item.kind === 'media' && !item.image ? getYouTubeThumbnailUrl(item.externalUrl) : null;
+            const ytFallback =
+              item.kind === 'media' && !item.image ? getYouTubeThumbnailFallbackUrl(item.externalUrl) : null;
+            const href = item.kind === 'media' ? item.externalUrl : item.relatedUrl;
+
+            return (
+              <li
+                class={`news-archive-item${item.image || ytThumb ? '' : ' news-archive-item-no-thumb'}`}
+                data-news-category={item.category}
+                hidden={item.category !== categoryOrder[0]}
+              >
+                {(item.image || ytThumb) && (
+                  <a
+                    class="news-archive-thumb"
+                    href={href ?? '#'}
+                    aria-hidden={href ? undefined : 'true'}
+                    tabindex={href ? undefined : -1}
+                    {...externalLinkAttrs(href)}
+                  >
+                    {item.image && typeof item.image === 'object' ? (
+                      <Image src={item.image} width={520} format="webp" alt={item.imageAlt ?? 'News image'} loading="lazy" />
+                    ) : item.image ? (
+                      <img src={item.image} alt={item.imageAlt ?? 'News image'} loading="lazy" />
+                    ) : (
+                      <img
+                        src={ytThumb}
+                        alt={item.imageAlt ?? `${item.kind === 'media' ? item.title : 'News'} image`}
+                        loading="lazy"
+                        onerror={ytFallback ? `this.onerror=null;this.src='${ytFallback}'` : undefined}
+                      />
+                    )}
+                  </a>
+                )}
+                {!(item.image || ytThumb) && <div class="news-archive-thumb-placeholder" aria-hidden="true"></div>}
+                <div class="news-archive-date">
+                  <time datetime={item.date.toISOString()}>{dateFormatter.format(item.date)}</time>
+                  <span>{categoryLabels[item.category]}</span>
+                </div>
+                <div class="news-archive-copy">
+                  {item.kind === 'news' ? (
+                    <item.Content />
+                  ) : (
+                    <>
+                      <h2>
+                        {href ? (
+                          <a href={href} {...externalLinkAttrs(href)}>{item.title}</a>
+                        ) : (
+                          item.title
+                        )}
+                      </h2>
+                      <p>{item.summary}</p>
+                      {item.source && <p class="meta">{item.source}</p>}
+                    </>
+                  )}
+                </div>
+              </li>
+            );
+          })
+        }
+      </ol>
+    </div>
+  </section>
+  <script type="module">
+    const root = document.querySelector('.news-archive');
+
+    if (root) {
+      const filters = Array.from(root.querySelectorAll('[data-news-filter]'));
+      const items = Array.from(root.querySelectorAll('[data-news-category]'));
+
+      const selectFilter = (filter) => {
+        filters.forEach((button) => {
+          button.setAttribute('aria-selected', String(button.dataset.newsFilter === filter));
+        });
+
+        items.forEach((item) => {
+          item.hidden = item.dataset.newsCategory !== filter;
+        });
+      };
+
+      filters.forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = button.dataset.newsFilter;
+          if (filter) selectFilter(filter);
+        });
+      });
+
+      selectFilter('talks');
+    }
+  </script>
+</BaseLayout>
