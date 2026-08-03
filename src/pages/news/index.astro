@@ -16,9 +16,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 const newsCategoryById = new Map([
   ['dmsm-cusp-materials-foundry', 'news'],
   ['hemanth-travel-grant', 'news'],
-  ['abc-forum-2026', 'events'],
-  ['cambridge-alumni-ai-event', 'events'],
-  ['ml2md-symposium-2026', 'events']
+  ['abc-forum-2026', 'talks'],
+  ['cambridge-alumni-ai-event', 'talks'],
+  ['ml2md-symposium-2026', 'talks']
 ]);
 
 const categoryLabels = {
@@ -31,6 +31,7 @@ const categoryLabels = {
 type CategoryKey = keyof typeof categoryLabels;
 
 const categoryOrder = ['all', 'talks', 'events'] as const;
+const eventMediaIds = new Set(['akc80-symposium', 'summer-school-2025', 'summer-school-2026']);
 const duplicateMediaIds = new Set(['dmsm-cusp-materials-foundry']);
 
 const newsEntries = await Promise.all(
@@ -40,7 +41,7 @@ const newsEntries = await Promise.all(
       id: `news-${item.id}`,
       sourceId: item.id,
       kind: 'news' as const,
-      category: (newsCategoryById.get(item.id) ?? 'lab-news') as CategoryKey,
+      category: (newsCategoryById.get(item.id) ?? 'news') as CategoryKey,
       date: item.data.date,
       image: item.data.image,
       imageAlt: item.data.imageAlt,
@@ -54,7 +55,7 @@ const mediaEntries = (await getCollection('media'))
   .filter((item) => !duplicateMediaIds.has(item.id))
   .map((item) => {
     const category = (
-      item.data.category === 'event'
+      eventMediaIds.has(item.id)
         ? 'events'
         : ['lecture', 'tutorial', 'video'].includes(item.data.category)
           ? 'talks'
