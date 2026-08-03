@@ -1235,26 +1235,92 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   border-bottom: 0;
 }
 
-.contact-join {
+.contact-location {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
   gap: clamp(28px, 5vw, 64px);
-  align-items: start;
+  align-items: center;
 }
 
-.contact-methods {
+.contact-location-copy {
+  max-width: 620px;
+}
+
+.contact-location-copy .lead {
+  color: var(--ink);
+  font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.contact-photo {
+  margin: 0;
+}
+
+.contact-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.contact-photo figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+
+.contact-details {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(28px, 5vw, 64px);
+  gap: clamp(22px, 4vw, 42px);
+  margin-top: clamp(24px, 4vw, 40px);
 }
 
-.contact-methods article {
+.contact-details article {
   border-top: 1px solid var(--line);
   padding-top: 18px;
 }
 
-.contact-methods p {
+.contact-details p {
   color: var(--muted);
+}
+
+.contact-join {
+  display: grid;
+  gap: clamp(30px, 5vw, 56px);
+}
+
+.join-intro {
+  max-width: 760px;
+}
+
+.join-pathways {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.join-pathway {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.join-pathway h3 {
+  color: var(--teal-dark);
+}
+
+.join-pathway p,
+.join-pathway li {
+  color: var(--muted);
+}
+
+.fellowship-list {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding-left: 20px;
 }
 
 .research-item {
@@ -1689,8 +1755,10 @@ button.gallery-play-badge {
   .research-platform,
   .media-card,
   .gallery-event figcaption,
+  .contact-location,
   .contact-join,
-  .contact-methods {
+  .contact-details,
+  .join-pathways {
     grid-template-columns: 1fr;
   }
 

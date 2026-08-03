@@ -1,13 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
-import OpeningList from '@components/OpeningList.astro';
-
-const openings = (await getCollection('openings')).sort((a, b) => {
-  if (a.data.status !== b.data.status) return a.data.status === 'open' ? -1 : 1;
-  return a.data.order - b.data.order;
-});
+import materialsBuilding from '@assets/images/contact/materials-building.webp';
 ---
 
 <BaseLayout title="Contact" description="Contact the Autonomous Materials Discovery Group Cambridge.">
@@ -16,46 +11,151 @@ const openings = (await getCollection('openings')).sort((a, b) => {
     description="Enquiries, visits, collaborations, and opportunities to work with the lab."
   />
   <section class="section">
-    <div class="container contact-methods">
-      <article>
-        <h2>Email</h2>
+    <div class="container contact-location">
+      <div class="contact-location-copy content-flow">
+        <h2>Visit us</h2>
+        <p class="lead">
+          Our lab is based in the Materials Science &amp; Metallurgy Department Building on
+          Charles Babbage Road, in West Cambridge.
+        </p>
         <p>
           For enquiries, collaboration opportunities, visiting information, and joining the lab,
-          contact Shijing Sun.
+          contact Shijing Sun at
+          <a href="mailto:ss896@cam.ac.uk">ss896@cam.ac.uk</a>.
         </p>
-        <p>
-          <a href="mailto:ss896@cam.ac.uk" target="_blank" rel="noopener noreferrer">ss896@cam.ac.uk</a>
-        </p>
-      </article>
-      <article>
-        <h2>Postal Address</h2>
-        <p>
-          Shijing Sun<br />
-          Department of Materials Science & Metallurgy<br />
-          University of Cambridge<br />
-          Office 0_023<br />
-          27 Charles Babbage Road<br />
-          Cambridge CB3 0FS<br />
-          United Kingdom
-        </p>
-      </article>
+        <div class="contact-details">
+          <article>
+            <h3>Email</h3>
+            <p><a href="mailto:ss896@cam.ac.uk">ss896@cam.ac.uk</a></p>
+          </article>
+          <article>
+            <h3>Postal Address</h3>
+            <p>
+              Shijing Sun<br />
+              Department of Materials Science &amp; Metallurgy<br />
+              University of Cambridge<br />
+              Office 0_023<br />
+              27 Charles Babbage Road<br />
+              Cambridge CB3 0FS<br />
+              United Kingdom
+            </p>
+          </article>
+        </div>
+      </div>
+      <figure class="contact-photo">
+        <Image
+          src={materialsBuilding}
+          alt="Department of Materials Science and Metallurgy building on Charles Babbage Road"
+          widths={[720, 960, 1440]}
+          sizes="(max-width: 820px) 100vw, 48vw"
+          loading="eager"
+        />
+        <figcaption>Department of Materials Science &amp; Metallurgy, Cambridge</figcaption>
+      </figure>
     </div>
   </section>
   <section class="section alt">
     <div class="container contact-join">
-      <div class="content-flow">
-        <h2>Work with us</h2>
+      <div class="join-intro content-flow">
+        <h2>Joining the team</h2>
         <p>
-          We welcome new members from diverse backgrounds and value creative thinking,
-          intellectual honesty, kindness, and a growth mindset. The lab culture is guided by
-          respectful mentorship, collaboration, and care for the people doing the science.
+          We warmly welcome new members from diverse backgrounds. Our work is highly
+          interdisciplinary, bringing together materials science, robotics, and artificial
+          intelligence to address global energy and climate challenges.
         </p>
         <p>
-          Prospective postdocs, PhD students, Cambridge students, visitors, and collaborators can
-          use the email above to start a conversation.
+          We value creative thinking, intellectual honesty, kindness, and a growth mindset, and
+          aim to foster a supportive and collaborative learning and work environment.
+        </p>
+        <p>
+          If you are interested in joining the group, please contact Shijing with a short note
+          about your research interests and relevant background.
         </p>
       </div>
-      <OpeningList openings={openings} />
+      <div class="join-pathways">
+        <article class="join-pathway">
+          <h3>PhD Students</h3>
+          <p>
+            We are always looking for talented students interested in AI- and robotics-driven
+            scientific discovery. Apply to the
+            <a
+              href="https://www.postgraduate.study.cam.ac.uk/courses/directory/pcmmpdmsm/apply"
+              target="_blank"
+              rel="noopener noreferrer">Materials Science and Metallurgy PhD</a
+            >
+            by the December departmental deadline for funding consideration.
+          </p>
+        </article>
+        <article class="join-pathway">
+          <h3>Postdocs</h3>
+          <p>
+            We welcome applicants from materials chemistry, lab automation, statistics, machine
+            learning, and AI for clean energy. Potential fellowship routes include:
+          </p>
+          <ul class="fellowship-list">
+            <li>
+              <a
+                href="https://www.herchelsmith.cam.ac.uk/postdoctoral-fellowships"
+                target="_blank"
+                rel="noopener noreferrer">Herchel Smith Postdoctoral Fellowship</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://royalsociety.org/grants/newton-international/"
+                target="_blank"
+                rel="noopener noreferrer">Newton International Fellowship</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.ukri.org/councils/epsrc/"
+                target="_blank"
+                rel="noopener noreferrer">EPSRC Postdoctoral Fellowship</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://royalcommission1851.org/awards/"
+                target="_blank"
+                rel="noopener noreferrer">Royal Commission for the Exhibition of 1851 Fellowship</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.leverhulme.ac.uk/early-career-fellowships"
+                target="_blank"
+                rel="noopener noreferrer">Leverhulme Trust Early Career Fellowships</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://marie-sklodowska-curie-actions.ec.europa.eu/actions/postdoctoral-fellowships"
+                target="_blank"
+                rel="noopener noreferrer">Marie Sklodowska-Curie Actions Postdoctoral Fellowship</a
+              >
+            </li>
+          </ul>
+        </article>
+        <article class="join-pathway">
+          <h3>Current Undergraduates</h3>
+          <p>
+            Current Cambridge undergraduates in Part IB or Part II can join as summer students,
+            and students interested in Part III projects are welcome to get in touch.
+          </p>
+        </article>
+        <article class="join-pathway">
+          <h3>MPhil Projects</h3>
+          <p>
+            We welcome MPhil project enquiries, especially from students in
+            <a
+              href="https://amet.masters.cam.ac.uk/course/"
+              target="_blank"
+              rel="noopener noreferrer">Advanced Materials for the Energy Transition (AMET)</a
+            >.
+          </p>
+        </article>
+      </div>
     </div>
   </section>
 </BaseLayout>
