@@ -31,7 +31,7 @@ const categoryLabels = {
 type CategoryKey = keyof typeof categoryLabels;
 
 const categoryOrder = ['all', 'talks', 'events'] as const;
-const eventMediaIds = new Set(['akc80-symposium', 'summer-school-2025', 'summer-school-2026']);
+const eventMediaIds = new Set(['akc80-symposium', 'future-labs-summer-school-2025', 'future-labs-summer-school-2026']);
 const duplicateMediaIds = new Set(['dmsm-cusp-materials-foundry']);
 
 const newsEntries = await Promise.all(
@@ -136,6 +136,7 @@ const items = [...newsEntries, ...mediaEntries].sort((a, b) => b.date.valueOf() 
                     )}
                   </a>
                 )}
+                {!(item.image || ytThumb) && <div class="news-archive-thumb-placeholder" aria-hidden="true"></div>}
                 <div class="news-archive-date">
                   <time datetime={item.date.toISOString()}>{dateFormatter.format(item.date)}</time>
                   <span>{categoryLabels[item.category]}</span>

@@ -822,7 +822,7 @@ h3 {
 }
 
 .news-archive-item-no-thumb {
-  grid-template-columns: 140px minmax(0, 1fr);
+  grid-template-columns: 132px 140px minmax(0, 1fr);
 }
 
 .news-archive-date {
@@ -867,6 +867,11 @@ h3 {
   overflow: hidden;
   background: var(--paper-soft);
   align-self: start;
+}
+
+.news-archive-thumb-placeholder {
+  width: 132px;
+  aspect-ratio: 1;
 }
 
 .news-archive-thumb img {
@@ -1965,6 +1970,10 @@ button.gallery-play-badge {
 
   .news-archive-thumb {
     width: 112px;
+  }
+
+  .news-archive-thumb-placeholder {
+    display: none;
   }
 
   .gallery-grid {
