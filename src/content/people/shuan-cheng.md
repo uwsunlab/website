@@ -4,7 +4,9 @@ role: PhD Student
 status: current
 group: PhD Students
 photo: ../../assets/images/people/shuan-cheng.jpg
-affiliation: University of Washington; co-advised by Prof. Shijing Sun and Prof. Xu Chen
+affiliation:
+  - Co-advised by Prof. Shijing Sun and Prof. Xu Chen
+  - University of Washington
 order: 12
 links: []
 ---

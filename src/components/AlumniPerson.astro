@@ -7,11 +7,16 @@ interface Props {
 }
 
 const { person } = Astro.props;
+const affiliations = person.data.affiliation
+  ? Array.isArray(person.data.affiliation)
+    ? person.data.affiliation
+    : [person.data.affiliation]
+  : [];
 ---
 
 <article class="alumni-entry">
   <h3>{person.data.name}</h3>
-  {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
+  {affiliations.map((affiliation) => <p class="meta">{affiliation}</p>)}
   {
     person.data.links.length > 0 && (
       <div class="person-links">
