@@ -2,20 +2,20 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { withBase } from '@utils/paths';
 
-const talksEventsPath = withBase('/talks-events/');
+const activitiesPath = withBase('/activities/');
 ---
 
-<BaseLayout title="Talks & Events">
+<BaseLayout title="Activities">
   <section class="section">
     <div class="container narrow">
-      <h1>Media has moved to Talks & Events</h1>
+      <h1>Media has moved to Activities</h1>
       <p>
         Talks, videos, and event listings now live on
-        {' '}<a href={talksEventsPath}>the Talks & Events page</a>.
+        {' '}<a href={activitiesPath}>the Activities page</a>.
       </p>
     </div>
   </section>
-  <script is:inline define:vars={{ talksEventsPath }}>
-    window.location.replace(talksEventsPath);
+  <script is:inline define:vars={{ activitiesPath }}>
+    window.location.replace(activitiesPath);
   </script>
 </BaseLayout>
