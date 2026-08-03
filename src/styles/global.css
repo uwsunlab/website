@@ -1252,18 +1252,18 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   line-height: 1.6;
 }
 
-.contact-photo {
+.contact-map {
   margin: 0;
 }
 
-.contact-photo img {
+.contact-map iframe {
+  border: 0;
   display: block;
   width: 100%;
   aspect-ratio: 16 / 10;
-  object-fit: cover;
 }
 
-.contact-photo figcaption {
+.contact-map figcaption {
   margin-top: 10px;
   color: var(--muted);
   font-family: var(--font-sans);
