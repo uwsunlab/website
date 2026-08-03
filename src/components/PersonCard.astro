@@ -128,7 +128,11 @@ const initials = person.data.name
       let newWords: HTMLElement[] = [];
       let collapsedH = 0; // clamped height, remembered for the closing slide
 
+      card.tabIndex = 0;
+      card.setAttribute('aria-expanded', String(checkbox.checked));
+
       checkbox.addEventListener('change', () => {
+        card.setAttribute('aria-expanded', String(checkbox.checked));
         if (checkbox.checked) {
           wrapWords(summary);
           newWords = findNewWords(summary); // measured while still clamped
@@ -169,6 +173,22 @@ const initials = person.data.name
             restoreCollapsed(summary);
           });
         }
+      });
+
+      card.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        if (target.closest('a, button, input, label')) return;
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const target = event.target as HTMLElement;
+        if (target.closest('a, button, input, label')) return;
+        event.preventDefault();
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
       });
     });
   }

@@ -1,6 +1,6 @@
 ---
 name: Weijie Zhang
-role: AMET student
+role: MPhil AMET Student
 status: current
 group: AMET students
 photo: ../../assets/images/people/weijie-zhang.jpeg
@@ -9,4 +9,4 @@ order: 10
 links: []
 ---
 
-I am Weijie Zhang. I am AMET student and now doing a project: AI for perovskite material discovery. I like playing basketball, taking photographs and traveling.
+Weijie is an MPhil AMET student working on AI for perovskite materials discovery.

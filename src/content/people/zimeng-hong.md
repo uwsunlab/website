@@ -1,6 +1,6 @@
 ---
 name: Zimeng Hong
-role: MPhil AMET student
+role: MPhil AMET Student
 status: current
 group: AMET students
 photo: ../../assets/images/people/zimeng-hong.jpg

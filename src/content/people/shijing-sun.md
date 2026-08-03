@@ -12,4 +12,4 @@ links:
     url: https://scholar.google.co.uk/citations?user=e5fFIDkAAAAJ&hl=en
 ---
 
-Assistant professor interested in energy, materials, and collaborative intelligence that brings together robots, AI, and scientists to tackle major climate and energy challenges.
+Shijing is an Assistant Professor whose research brings together robots, AI, and scientists to accelerate materials discovery for major climate and energy challenges.

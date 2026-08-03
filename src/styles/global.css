@@ -26,7 +26,8 @@
   --ease: ease;
   --ease-out: ease-out;
 
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-optical-sizing: auto;
 }
 
 * {
@@ -41,7 +42,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.58;
   background: var(--paper);
   color: var(--ink);
 }
@@ -295,21 +297,21 @@ html.is-transitioning a {
 h1,
 h2,
 h3 {
+  color: var(--teal-dark);
   line-height: 1.14;
   margin: 0;
   letter-spacing: 0;
 }
 
 h1 {
-  font-size: clamp(3rem, 6vw, 5.7rem);
-  font-weight: 400;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  font-weight: 600;
   max-width: 900px;
 }
 
 h2 {
   font-size: clamp(1.55rem, 2.45vw, 2.25rem);
-  font-weight: 500;
-  color: var(--teal);
+  font-weight: 600;
 }
 
 .person-card h2 {
@@ -320,7 +322,7 @@ h2 {
 
 h3 {
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .lede {
@@ -455,6 +457,19 @@ h3 {
 
 .person-card {
   padding: 0;
+}
+
+.person-card[tabindex='0'] {
+  cursor: pointer;
+}
+
+.person-card[tabindex='0']:focus-visible .person-photo {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+}
+
+.person-card[tabindex='0']:hover .person-photo {
+  border-color: rgb(0 107 104 / 0.34);
 }
 
 .person-photo {
@@ -1041,7 +1056,7 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: minmax(200px, 1fr) auto minmax(240px, 1fr);
+  grid-template-columns: minmax(200px, 1fr) minmax(240px, 1fr);
   gap: 32px;
   align-items: flex-start;
 }
@@ -1067,17 +1082,6 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   flex-direction: column;
   gap: 6px;
   text-align: right;
-}
-
-.footer-links {
-  display: grid;
-  grid-auto-flow: row;
-  grid-template-rows: repeat(4, auto);
-  grid-template-columns: repeat(4, auto);
-  gap: 12px;
-  justify-content: center;
-  justify-items: center;
-  text-align: center;
 }
 
 /* Footer text is muted, so its links set their own colour rather than inheriting; that
@@ -1235,28 +1239,9 @@ html.js-reveal .person-summary-checkbox:checked + .person-summary {
   border-bottom: 0;
 }
 
-.contact-page {
-  font-family: "Source Serif 4", Georgia, serif;
-  color: var(--ink);
-}
-
-.contact-page h1 {
-  color: var(--teal-dark);
-  font-size: clamp(2.8rem, 5vw, 4.8rem);
-  font-weight: 600;
-}
-
-.contact-page h2,
-.contact-page h3 {
-  color: var(--teal-dark);
-  font-size: clamp(1.45rem, 2vw, 2rem);
-  font-weight: 600;
-}
-
 .contact-page p,
 .contact-page li {
   color: var(--ink);
-  font-size: 1.0625rem;
   line-height: 1.58;
 }
 

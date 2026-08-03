@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { externalLinkAttrs } from '@utils/links';
 
 interface Props {
   person: CollectionEntry<'people'>;
@@ -10,6 +11,15 @@ const { person } = Astro.props;
 
 <article class="alumni-entry">
   <h3>{person.data.name}</h3>
-  {person.data.affiliation && <p class="meta">{person.data.affiliation}</p>}
-  {/* {person.data.description && <p>{person.data.description}</p>} */}
+  {
+    person.data.links.length > 0 && (
+      <div class="person-links">
+        {person.data.links.map((link) => (
+          <a href={link.url} {...externalLinkAttrs(link.url)}>
+            {link.label}
+          </a>
+        ))}
+      </div>
+    )
+  }
 </article>

@@ -1,13 +1,33 @@
 ---
 import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 import PersonCard from '@components/PersonCard.astro';
 import AlumniPerson from '@components/AlumniPerson.astro';
 
+const roleRank = (person: CollectionEntry<'people'>) => {
+  const role = person.data.role.toLowerCase();
+  const group = person.data.group?.toLowerCase() ?? '';
+  if (role.includes('principal investigator')) return 0;
+  if (role.includes('lab manager')) return 1;
+  if (role.includes('postdoc') || role.includes('postdoctoral')) return 2;
+  if (role.includes('phd')) return 3;
+  if (role.includes('mphil') || group.includes('amet')) return 4;
+  if (role.includes('intern')) return 5;
+  return 6;
+};
+
 const people = await Promise.all(
   (await getCollection('people'))
-    .sort((a, b) => a.data.order - b.data.order)
+    .sort((a, b) => {
+      if (a.data.status !== b.data.status) return a.data.status === 'current' ? -1 : 1;
+      if (a.data.status === 'current') {
+        const rankDiff = roleRank(a) - roleRank(b);
+        if (rankDiff !== 0) return rankDiff;
+      }
+      return a.data.name.localeCompare(b.data.name);
+    })
     .map(async (person) => ({
       person,
       Content: (await render(person)).Content

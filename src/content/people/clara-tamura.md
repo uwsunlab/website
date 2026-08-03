@@ -9,4 +9,4 @@ order: 10
 links: []
 ---
 
-I am a PhD student at Material Science and Metallurgy. Before coming to Cambridge, I completed my undergraduate degree at Seattle University and my master's degree in mechanical engineering at the University of Washington. My work combines robotic automation, Bayesian optimization, and material science to design experimental workflows and accelerate materials development, particularly in perovskite semiconductors.
+Clara is a PhD student in the Department of Materials Science and Metallurgy. Before coming to Cambridge, she completed her undergraduate degree at Seattle University and her master's degree in mechanical engineering at the University of Washington. Her work combines robotic automation, Bayesian optimization, and materials science to design experimental workflows and accelerate materials development, particularly in perovskite semiconductors.

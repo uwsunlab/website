@@ -1,6 +1,6 @@
 ---
 name: Zuyang Ye
-role: Postdoctoral Scholar
+role: Postdoctoral Researcher
 status: current
 group: PostDoc & Research Assistant
 affiliation: University of Cambridge

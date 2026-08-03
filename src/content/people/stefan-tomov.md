@@ -1,6 +1,6 @@
 ---
 name: Stefan Tomov
-role: Intern
+role: Research Intern
 status: current
 group: Intern
 photo: ../../assets/images/people/stefan-tomov.jpg
@@ -9,4 +9,4 @@ order: 21
 links: []
 ---
 
-I am a gap year student in between my A-Levels and university who has found work experience in the lab, primarily in robotics. I create code to move our robotic arms, implement reinforcement learning and create 3D equipment renders.
+Stefan is a gap year student gaining research experience in the lab, primarily in robotics. He writes code for robotic arm control, implements reinforcement learning workflows, and creates 3D equipment renders.
