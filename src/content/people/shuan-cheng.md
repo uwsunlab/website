@@ -11,4 +11,6 @@ order: 12
 links: []
 ---
 
-Shuan works on machine learning, autonomous robotic systems, and control for testing material life cycles.
+Shuan is a graduate student working on machine learning, autonomous robotic systems, and control for materials testing. He grew up in China and completed his undergraduate studies at Technion, Israel. His research interests focus on developing autonomous systems for testing the life cycles of materials such as batteries and solar cells.
+
+Outside the lab, Shuan enjoys traveling and playing sports, including tennis and badminton.

@@ -11,4 +11,6 @@ order: 11
 links: []
 ---
 
-Hemanth researches explainable machine learning for battery research across length scales.
+Hemanth is a PhD student working on explainable machine learning for battery research across length scales. He grew up in India before moving to Seattle, where he studied Materials Science and Engineering at the University of Washington.
+
+Outside the lab, Hemanth enjoys hiking, swimming, cooking, and playing board games.
