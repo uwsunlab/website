@@ -3,7 +3,7 @@ name: Hemanth Neelgund Ramesh
 role: PhD Student
 status: current
 group: PhD Students
-photo: ../../assets/images/people/hemanth-n-r.jpg
+photo: ../../assets/images/people/hemanth-n-r.png
 affiliation:
   - Co-advised by Prof. Shijing Sun and Prof. Aniruddh Vashisth
   - University of Washington
