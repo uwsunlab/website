@@ -14,8 +14,8 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 });
 
 const newsCategoryById = new Map([
-  ['dmsm-cusp-materials-foundry', 'coverage'],
-  ['hemanth-travel-grant', 'awards'],
+  ['dmsm-cusp-materials-foundry', 'news'],
+  ['hemanth-travel-grant', 'news'],
   ['abc-forum-2026', 'events'],
   ['cambridge-alumni-ai-event', 'events'],
   ['ml2md-symposium-2026', 'events']
@@ -23,16 +23,14 @@ const newsCategoryById = new Map([
 
 const categoryLabels = {
   all: 'All',
-  'lab-news': 'Lab News',
-  coverage: 'Coverage',
+  news: 'News',
   talks: 'Talks & Videos',
-  events: 'Events',
-  awards: 'Awards',
+  events: 'Events'
 } as const;
 
 type CategoryKey = keyof typeof categoryLabels;
 
-const categoryOrder = ['all', 'lab-news', 'coverage', 'talks', 'events', 'awards'] as const;
+const categoryOrder = ['all', 'talks', 'events'] as const;
 const duplicateMediaIds = new Set(['dmsm-cusp-materials-foundry']);
 
 const newsEntries = await Promise.all(
@@ -60,9 +58,7 @@ const mediaEntries = (await getCollection('media'))
         ? 'events'
         : ['lecture', 'tutorial', 'video'].includes(item.data.category)
           ? 'talks'
-          : item.data.category === 'news'
-            ? 'lab-news'
-            : 'coverage'
+          : 'news'
     ) as CategoryKey;
 
     return {
@@ -83,10 +79,10 @@ const mediaEntries = (await getCollection('media'))
 const items = [...newsEntries, ...mediaEntries].sort((a, b) => b.date.valueOf() - a.date.valueOf());
 ---
 
-<BaseLayout title="News" description="Lab news, media coverage, events, talks, awards, and publication highlights from the Autonomous Materials Discovery Group Cambridge.">
+<BaseLayout title="News" description="News, talks, videos, events, and media coverage from the Autonomous Materials Discovery Group Cambridge.">
   <PageHeader
     title="News"
-    description="Recent updates, media coverage, talks, events, awards, and publication highlights from the group."
+    description="Recent updates from the group, including media coverage, talks, videos, and events."
   />
   <section class="section news-archive-section">
     <div class="container news-archive">
@@ -116,28 +112,7 @@ const items = [...newsEntries, ...mediaEntries].sort((a, b) => b.date.valueOf() 
             const href = item.kind === 'media' ? item.externalUrl : item.relatedUrl;
 
             return (
-              <li class="news-archive-item" data-news-category={item.category}>
-                <div class="news-archive-date">
-                  <time datetime={item.date.toISOString()}>{dateFormatter.format(item.date)}</time>
-                  <span>{categoryLabels[item.category]}</span>
-                </div>
-                <div class="news-archive-copy">
-                  {item.kind === 'news' ? (
-                    <item.Content />
-                  ) : (
-                    <>
-                      <h2>
-                        {href ? (
-                          <a href={href} {...externalLinkAttrs(href)}>{item.title}</a>
-                        ) : (
-                          item.title
-                        )}
-                      </h2>
-                      <p>{item.summary}</p>
-                      {item.source && <p class="meta">{item.source}</p>}
-                    </>
-                  )}
-                </div>
+              <li class={`news-archive-item${item.image || ytThumb ? '' : ' news-archive-item-no-thumb'}`} data-news-category={item.category}>
                 {(item.image || ytThumb) && (
                   <a
                     class="news-archive-thumb"
@@ -160,6 +135,27 @@ const items = [...newsEntries, ...mediaEntries].sort((a, b) => b.date.valueOf() 
                     )}
                   </a>
                 )}
+                <div class="news-archive-date">
+                  <time datetime={item.date.toISOString()}>{dateFormatter.format(item.date)}</time>
+                  <span>{categoryLabels[item.category]}</span>
+                </div>
+                <div class="news-archive-copy">
+                  {item.kind === 'news' ? (
+                    <item.Content />
+                  ) : (
+                    <>
+                      <h2>
+                        {href ? (
+                          <a href={href} {...externalLinkAttrs(href)}>{item.title}</a>
+                        ) : (
+                          item.title
+                        )}
+                      </h2>
+                      <p>{item.summary}</p>
+                      {item.source && <p class="meta">{item.source}</p>}
+                    </>
+                  )}
+                </div>
               </li>
             );
           })
