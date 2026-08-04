@@ -12,4 +12,4 @@ links:
     url: https://scholar.google.co.uk/citations?user=e5fFIDkAAAAJ&hl=en
 ---
 
-Shijing is an Assistant Professor whose research brings together robots, AI, and scientists to accelerate materials discovery for major climate and energy challenges.
+Shijing is an Associate Professor in Materials Science and Co-director of Advanced Materials for Energy Transition MPhil Programme.
