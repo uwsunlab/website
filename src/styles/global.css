@@ -2075,6 +2075,9 @@ button.gallery-play-badge {
       "title"
       "text";
     grid-template-rows: none;
+  }
+
+  .person-dialog-close {
     margin-bottom: 18px;
   }
 
