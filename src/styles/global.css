@@ -1429,8 +1429,22 @@ h3 {
   gap: clamp(30px, 5vw, 56px);
 }
 
+.join-intro-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+  gap: clamp(26px, 4vw, 48px);
+  align-items: start;
+}
+
 .join-intro {
   max-width: 760px;
+}
+
+.join-building img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--line);
 }
 
 .join-pathways {
@@ -1458,6 +1472,43 @@ h3 {
   gap: 8px;
   margin: 16px 0 0;
   padding-left: 20px;
+}
+
+.visit-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(320px, 1fr);
+  gap: clamp(28px, 5vw, 60px);
+  align-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: clamp(28px, 4vw, 44px);
+}
+
+.visit-copy {
+  display: grid;
+  gap: 18px;
+}
+
+.visit-copy h2 {
+  margin: 0;
+}
+
+.visit-copy p {
+  margin: 0;
+}
+
+.visit-copy address {
+  color: var(--ink);
+  font-style: normal;
+  font-size: clamp(1.02rem, 1.35vw, 1.16rem);
+  line-height: 1.62;
+}
+
+.visit-map iframe {
+  display: block;
+  width: 100%;
+  min-height: 340px;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--line);
 }
 
 .research-item {
@@ -1915,7 +1966,9 @@ button.gallery-play-badge {
   .media-card,
   .gallery-event figcaption,
   .contact-join,
-  .join-pathways {
+  .join-intro-panel,
+  .join-pathways,
+  .visit-section {
     grid-template-columns: 1fr;
   }
 
