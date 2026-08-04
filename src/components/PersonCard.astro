@@ -61,14 +61,15 @@ const affiliations = person.data.affiliation
 
 <dialog class="person-dialog" id={dialogId} aria-labelledby={`${dialogId}-title`}>
   <div class="person-dialog-inner">
-    <button class="person-dialog-close" type="button" aria-label={`Close ${person.data.name} bio`}>Close</button>
-    <div class="person-dialog-header">
+    <div class="person-dialog-body">
       {
+        /* Same width as the card's portrait, so the derivative is already in cache when the
+           dialog opens rather than being fetched on first open. */
         typeof photo === 'object' ? (
           <Image
             class="person-dialog-photo"
             src={photo}
-            width={360}
+            width={600}
             format="webp"
             alt={`Portrait of ${person.data.name}`}
             loading="lazy"
@@ -79,14 +80,15 @@ const affiliations = person.data.affiliation
           <div class="person-dialog-photo" aria-hidden="true">{initials}</div>
         )
       }
-      <div>
-        <h2 id={`${dialogId}-title`}>{person.data.name}</h2>
+      <h2 class="person-dialog-title" id={`${dialogId}-title`}>{person.data.name}</h2>
+      <button class="person-dialog-close" type="button" aria-label={`Close ${person.data.name} bio`}>Close</button>
+      <div class="person-dialog-text">
         <p class="meta">{person.data.role}</p>
         {affiliations.map((affiliation) => <p class="meta">{affiliation}</p>)}
+        <div class="person-dialog-bio">
+          <slot />
+        </div>
       </div>
-    </div>
-    <div class="person-dialog-bio">
-      <slot />
     </div>
   </div>
 </dialog>
