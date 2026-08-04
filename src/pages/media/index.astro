@@ -1,21 +1,228 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { withBase } from '@utils/paths';
+import PageHeader from '@components/PageHeader.astro';
+import PostList from '@components/PostList.astro';
+import { externalLinkAttrs } from '@utils/links';
 
-const activitiesPath = withBase('/activities/');
+const media = (await getCollection('media')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const newsItems = await Promise.all(
+  news.map(async (item) => {
+    const { Content } = await render(item);
+    return { ...item, Content };
+  })
+);
+
+const featureItems = media.filter((item) => item.data.category === 'article');
+const eventItems = media.filter((item) => item.data.category === 'event');
+const etcCategories = new Set(['interview', 'lecture', 'tutorial', 'video']);
+const etcItems = media.filter((item) => etcCategories.has(item.data.category));
+
+const mediaTabs = [
+  { key: 'news', label: 'News' },
+  { key: 'features', label: 'Features' },
+  { key: 'events', label: 'Events' },
+  { key: 'etc', label: 'Etc.' }
+] as const;
+
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC'
+});
 ---
 
-<BaseLayout title="Activities">
-  <section class="section">
-    <div class="container narrow">
-      <h1>Media has moved to Activities</h1>
-      <p>
-        Talks, videos, and event listings now live on
-        {' '}<a href={activitiesPath}>the Activities page</a>.
-      </p>
+<BaseLayout title="Media" description="News, features, events, talks, and videos from the Autonomous Materials Discovery Group Cambridge.">
+  <PageHeader
+    title="Media"
+    description="News archive, press coverage, events, talks, videos, and other updates from the group."
+  />
+  <section class="section media-section">
+    <div class="container media-section-inner">
+      <div class="media-tabs" role="tablist" aria-label="Media sections">
+        {
+          mediaTabs.map((section, index) => (
+            <button
+              id={`media-tab-${section.key}`}
+              class="media-tab"
+              type="button"
+              role="tab"
+              aria-selected={index === 0}
+              aria-controls={`media-panel-${section.key}`}
+              data-media-tab={section.key}
+            >
+              {section.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <script is:inline define:vars={{ tabKeys: mediaTabs.map((tab) => tab.key) }}>
+        (() => {
+          const param = new URLSearchParams(window.location.search).get('tab');
+          let stored = null;
+          try {
+            stored = localStorage.getItem('media-selected-tab');
+          } catch {
+            stored = null;
+          }
+
+          const tab = [param, stored].find((key) => tabKeys.includes(key));
+          if (!tab) return;
+
+          document.querySelectorAll('.media-tab[data-media-tab]').forEach((button) => {
+            const isActive = button.dataset.mediaTab === tab;
+            button.setAttribute('aria-selected', String(isActive));
+            button.tabIndex = isActive ? 0 : -1;
+          });
+
+          const style = document.createElement('style');
+          style.id = 'media-tab-preload';
+          style.textContent =
+            `.media-panel:not([data-media-panel="${tab}"]){display:none}` +
+            `.media-panel[data-media-panel="${tab}"]{display:block}`;
+          document.head.append(style);
+        })();
+      </script>
+
+      <div class="media-panels">
+        <section
+          id="media-panel-news"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-news"
+          data-media-panel="news"
+        >
+          <ol class="news-list media-news-list">
+            {
+              newsItems.map((item) => (
+                <li class="news-item">
+                  <time datetime={item.data.date.toISOString()}>{dateFormatter.format(item.data.date)}</time>
+                  <div class="news-copy">
+                    <item.Content />
+                  </div>
+                  {item.data.image && (
+                    <a
+                      class="news-thumb"
+                      href={item.data.relatedUrl ?? '/gallery/'}
+                      {...externalLinkAttrs(item.data.relatedUrl)}
+                    >
+                      <img src={item.data.image} alt={item.data.imageAlt ?? 'News image'} loading="lazy" />
+                    </a>
+                  )}
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section
+          id="media-panel-features"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-features"
+          data-media-panel="features"
+          hidden
+        >
+          <PostList media={featureItems} />
+        </section>
+
+        <section
+          id="media-panel-events"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-events"
+          data-media-panel="events"
+          hidden
+        >
+          <PostList media={eventItems} />
+        </section>
+
+        <section
+          id="media-panel-etc"
+          class="media-panel"
+          role="tabpanel"
+          aria-labelledby="media-tab-etc"
+          data-media-panel="etc"
+          hidden
+        >
+          <PostList media={etcItems} />
+        </section>
+      </div>
     </div>
   </section>
-  <script is:inline define:vars={{ activitiesPath }}>
-    window.location.replace(activitiesPath);
+  <script is:inline>
+    const mediaRoot = document.querySelector('.media-section');
+
+    if (mediaRoot) {
+      const tabs = Array.from(mediaRoot.querySelectorAll('[data-media-tab]'));
+      const panels = Array.from(mediaRoot.querySelectorAll('[data-media-panel]'));
+      const storageKey = 'media-selected-tab';
+      const tabParam = 'tab';
+
+      const isKnownTab = (tabKey) => tabs.some((tab) => tab.dataset.mediaTab === tabKey);
+
+      const readUrlTab = () => new URLSearchParams(window.location.search).get(tabParam);
+
+      const syncUrl = (tabKey) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set(tabParam, tabKey);
+        history.replaceState(null, '', url);
+      };
+
+      const readStoredTab = () => {
+        try {
+          return localStorage.getItem(storageKey);
+        } catch {
+          return null;
+        }
+      };
+
+      const storeTab = (tabKey) => {
+        try {
+          localStorage.setItem(storageKey, tabKey);
+        } catch {
+          // Storage can be unavailable; selection just won't persist.
+        }
+      };
+
+      const activateTab = (tabKey) => {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.mediaTab === tabKey;
+          tab.setAttribute('aria-selected', String(isActive));
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.mediaPanel !== tabKey;
+        });
+      };
+
+      const selectTab = (tabKey) => {
+        activateTab(tabKey);
+        storeTab(tabKey);
+        syncUrl(tabKey);
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          if (tab.dataset.mediaTab) {
+            selectTab(tab.dataset.mediaTab);
+          }
+        });
+      });
+
+      const defaultTab = tabs[0]?.dataset.mediaTab;
+      const initialTab = [readUrlTab(), readStoredTab(), defaultTab].find(isKnownTab);
+
+      if (initialTab) {
+        selectTab(initialTab);
+      }
+
+      document.getElementById('media-tab-preload')?.remove();
+    }
   </script>
 </BaseLayout>
