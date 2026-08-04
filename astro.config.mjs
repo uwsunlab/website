@@ -3,13 +3,11 @@ import { satteri } from '@astrojs/markdown-satteri';
 
 import externalLinks from './scripts/satteri-external-links.mjs';
 
-const isGithubPagesPreview =
-  process.env.GITHUB_REPOSITORY === 'uwsunlab/website' &&
-  process.env.GITHUB_REF_NAME === 'pages-test';
-
+// Pages is served from the apex domain, so the site lives at the root and needs no base.
+// The old `/website` base was for the uwsunlab.github.io/website preview URL, which GitHub
+// now 301s to the custom domain — so that base only broke asset paths in production.
 export default defineConfig({
-  site: isGithubPagesPreview ? 'https://uwsunlab.github.io' : 'https://camsunlab.com',
-  base: isGithubPagesPreview ? '/website' : undefined,
+  site: 'https://camsunlab.com',
   output: 'static',
   markdown: {
     processor: satteri({ hastPlugins: [externalLinks] })
