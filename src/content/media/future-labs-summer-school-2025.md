@@ -5,4 +5,6 @@ summary: Robotic Synthesis Coupled with Machine Learning for Energy Materials, h
 source: Summer School
 category: event
 externalUrl: https://futurelab-school.github.io/2025Summer/home/
+image: ../../assets/images/media/future-labs-summer-school-2025.png
+imageAlt: 2025 Future Labs Summer School banner
 ---
