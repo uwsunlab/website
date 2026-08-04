@@ -9,6 +9,4 @@ order: 2
 links: []
 ---
 
-Zuyang is a postdoctoral researcher working on autonomous systems for materials synthesis. He grew up in Fujian, China, and earned his undergraduate degree in Chemical Physics from the University of Science and Technology of China. He completed his PhD in Physical Chemistry at the University of California, Riverside, under Prof. Yadong Yin, where he studied nanosynthesis and light-matter interactions.
-
-Outside the lab, Zuyang enjoys good conversations, lighthearted gossip, and finding new ways not to take life too seriously.
+Zuyang Ye is a postdoctoral researcher in Materials Science and Metallurgy at the University of Cambridge. His research focuses on the autonomous synthesis of functional materials.
