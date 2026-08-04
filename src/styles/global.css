@@ -1656,10 +1656,12 @@ h3 {
   margin: 0;
 }
 
+/* `height: auto` so the intrinsic height attribute on the <img> does not fix the box at the
+   source's 600px. A forced square here never took effect anyway — the height attribute won
+   over aspect-ratio — and left the landscape photo letterboxed inside a tall box. */
 .join-building img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
+  height: auto;
 }
 
 .join-pathways {

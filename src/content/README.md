@@ -13,6 +13,6 @@ Current collections:
 - `news`: compact group updates shown on Home
 - `gallery`: gallery entries shown on `/gallery/`
 - `research-projects`: research platform/project entries shown on `/research/`
-- `openings`: joining/recruitment content shown on `/contact/`
+- `openings`: joining/recruitment content shown on `/join-us/`
 
 Legacy Squarespace content belongs in top-level `Archive/`, not here, until it is intentionally cleaned, edited, and promoted.
