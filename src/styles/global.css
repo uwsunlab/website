@@ -517,6 +517,10 @@ h3 {
   margin: 0 auto;
   object-fit: cover;
   border-radius: 5%;
+  transition:
+    border-color var(--dur-base) var(--ease),
+    opacity var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
 }
 
 .person-card .content {
@@ -538,10 +542,30 @@ h3 {
   padding: 0;
   background: var(--paper);
   color: var(--ink);
+  border-radius: 18px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out),
+    display var(--dur-slow) allow-discrete;
+}
+
+.person-dialog[open] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@starting-style {
+  .person-dialog[open] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
 }
 
 .person-dialog::backdrop {
-  background: rgb(31 42 42 / 0.42);
+  background: rgb(0 0 0 / 0.72);
 }
 
 .person-dialog-inner {
@@ -558,11 +582,16 @@ h3 {
   color: var(--teal-dark);
   padding: 7px 12px;
   cursor: pointer;
+  border-radius: 8px;
+  transition:
+    border-color var(--dur-base) var(--ease),
+    background var(--dur-base) var(--ease);
 }
 
 .person-dialog-close:hover,
 .person-dialog-close:focus-visible {
   border-color: var(--teal);
+  background: var(--paper-soft);
 }
 
 .person-dialog-header {
@@ -1641,33 +1670,32 @@ h3 {
   margin-top: 8px;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(18px, 2.5vw, 28px);
+.gallery-wall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
   list-style: none;
   padding: 0;
   margin-block: 0;
-  max-width: 1060px;
+  visibility: hidden;
+  justify-content: center;
+}
+
+.gallery-wall.is-laid-out {
+  visibility: visible;
 }
 
 .gallery-card {
-  min-width: 0;
-}
-
-.gallery-figure {
+  overflow: hidden;
   margin: 0;
-  display: grid;
-  gap: 9px;
+  /* width/height are set inline by JS per item */
 }
 
+.gallery-thumb,
 .gallery-thumb-link {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--paper-soft);
+  height: 100%;
 }
 
 .gallery-card img {
@@ -1676,30 +1704,6 @@ h3 {
   object-fit: cover;
   display: block;
 }
-
-.gallery-figure figcaption {
-  display: grid;
-  gap: 4px;
-}
-
-.gallery-figure figcaption .meta {
-  margin: 0;
-}
-
-.gallery-figure h2 {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.35;
-}
-
-.gallery-figure p {
-  margin: 0;
-  font-size: var(--step-small);
-  line-height: 1.45;
-  color: var(--muted);
-}
-
-
 
 /* Shared dark backdrop for all lightboxes. Tied to the body class (which the script keeps
    set while any item is open and only clears on close), so paging between items with the
@@ -2007,6 +2011,16 @@ button.gallery-play-badge {
     padding: 0 22px 22px;
   }
 
+  .media-thumb {
+    aspect-ratio: auto;
+  }
+
+  .media-thumb img {
+    height: auto;
+    min-height: 0;
+    object-fit: contain;
+  }
+
   .section-head {
     align-items: flex-start;
     flex-direction: column;
@@ -2051,9 +2065,6 @@ button.gallery-play-badge {
     display: none;
   }
 
-  .gallery-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2075,6 +2086,7 @@ button.gallery-play-badge {
 @media (max-width: 520px) {
   .container {
     width: min(100% - 28px, 1120px);
+    max-width: calc(100vw - 28px);
   }
 
   h1 {
@@ -2089,7 +2101,4 @@ button.gallery-play-badge {
     grid-template-columns: 1fr;
   }
 
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
 }

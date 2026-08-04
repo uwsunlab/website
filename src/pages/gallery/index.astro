@@ -110,15 +110,18 @@ const lightboxItems = gallery.map((item) => {
     description="Photo-first moments from the lab, events, conferences, visitors, and group life."
   />
   <section class="section">
-    <ul class="container gallery-grid" id="gallery-wall">
+    <ul class="container gallery-wall" id="gallery-wall">
       {
         gallery.map((item) => {
           const imageAlt = item.data.imageAlt ?? (item.data.caption || item.data.title);
-          const meta = item.data.dateLabel ?? (item.data.date ? formatGalleryDate(item.data.date) : null);
 
           return (
-            <li class="gallery-card">
-              <figure class="gallery-figure">
+            <li
+              class="gallery-card"
+              data-ar={item.aspectRatio}
+              data-full={item.isFull ? 'true' : 'false'}
+            >
+              <div class="gallery-thumb">
                 <a
                   class="gallery-thumb-link"
                   href={`#gallery-lightbox-${item.id}`}
@@ -144,11 +147,7 @@ const lightboxItems = gallery.map((item) => {
                     />
                   )}
                 </a>
-                <figcaption>
-                  {meta && <p class="meta">{meta}</p>}
-                  <h2>{item.data.title}</h2>
-                </figcaption>
-              </figure>
+              </div>
             </li>
           );
         })
@@ -174,5 +173,6 @@ const lightboxItems = gallery.map((item) => {
   </div>
   <script type="application/json" id="gallery-lightbox-data" is:inline set:html={JSON.stringify(lightboxItems).replace(/</g, '\\u003c')}></script>
 
-  <script type="module" src={withBase('/scripts/gallery-lightbox.js')}></script>
+  <script is:inline type="module" src={withBase('/scripts/justified-gallery.js')}></script>
+  <script is:inline type="module" src={withBase('/scripts/gallery-lightbox.js')}></script>
 </BaseLayout>
