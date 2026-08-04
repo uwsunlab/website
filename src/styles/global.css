@@ -548,13 +548,22 @@ h3 {
   transform: scale(0.96);
   transition:
     opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out),
-    display var(--dur-slow) allow-discrete;
+    transform var(--dur-slow) var(--ease-out);
 }
 
 .person-dialog[open] {
   opacity: 1;
   transform: scale(1);
+}
+
+/* `showModal()` puts the dialog in the top layer, and closing evicts it from that layer at
+   once — which is why an exit transition here does nothing unless `overlay` is transitioned
+   too, and support for that is still uneven. Instead the script adds `.is-closing` and holds
+   `dialog.close()` back until the transition ends, so the dialog is still in the top layer
+   the whole way out and only opacity/transform need to animate. */
+.person-dialog[open].is-closing {
+  opacity: 0;
+  transform: scale(0.96);
 }
 
 @starting-style {
@@ -564,8 +573,31 @@ h3 {
   }
 }
 
+/* ::backdrop needs its own transition — it does not inherit the dialog's. */
 .person-dialog::backdrop {
+  background: rgb(0 0 0 / 0);
+  transition: background var(--dur-slow) var(--ease-out);
+}
+
+.person-dialog[open]::backdrop {
   background: rgb(0 0 0 / 0.72);
+}
+
+.person-dialog[open].is-closing::backdrop {
+  background: rgb(0 0 0 / 0);
+}
+
+@starting-style {
+  .person-dialog[open]::backdrop {
+    background: rgb(0 0 0 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .person-dialog,
+  .person-dialog::backdrop {
+    transition: none;
+  }
 }
 
 .person-dialog-inner {

@@ -92,13 +92,54 @@ const affiliations = person.data.affiliation
 </dialog>
 
 <script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // Must outlast the CSS exit transition (--dur-slow); only used if transitionend is missed.
+  const EXIT_FALLBACK_MS = 400;
+
+  /**
+   * Fades the dialog out before closing it. `dialog.close()` would drop it out of the top
+   * layer immediately and kill the animation, so the class drives the transition and the
+   * close is held back until it finishes.
+   */
+  function requestClose(dialog: HTMLDialogElement) {
+    if (dialog.dataset.closing) return;
+
+    if (reduceMotion.matches) {
+      dialog.close();
+      return;
+    }
+
+    dialog.dataset.closing = 'true';
+    dialog.classList.add('is-closing');
+
+    let timer = 0;
+    const finish = () => {
+      window.clearTimeout(timer);
+      dialog.removeEventListener('transitionend', onEnd);
+      dialog.classList.remove('is-closing');
+      delete dialog.dataset.closing;
+      dialog.close();
+    };
+    // Both opacity and transform transition; settle on the one that always runs.
+    const onEnd = (event: TransitionEvent) => {
+      if (event.target === dialog && event.propertyName === 'opacity') finish();
+    };
+
+    dialog.addEventListener('transitionend', onEnd);
+    // Safety net for engines that skip the transition, or a tab backgrounded mid-fade.
+    timer = window.setTimeout(finish, EXIT_FALLBACK_MS);
+  }
+
   function init() {
     document.querySelectorAll<HTMLElement>('.person-card').forEach((card) => {
       const dialogId = card.getAttribute('aria-controls');
       const dialog = dialogId ? document.getElementById(dialogId) as HTMLDialogElement | null : null;
       if (!dialog) return;
       const close = dialog.querySelector<HTMLButtonElement>('.person-dialog-close');
-      const open = () => dialog.showModal();
+      const open = () => {
+        if (dialog.open) return;
+        dialog.showModal();
+      };
 
       card.addEventListener('click', (event) => {
         const target = event.target as HTMLElement;
@@ -114,10 +155,17 @@ const affiliations = person.data.affiliation
         open();
       });
 
-      close?.addEventListener('click', () => dialog.close());
+      close?.addEventListener('click', () => requestClose(dialog));
 
       dialog.addEventListener('click', (event) => {
-        if (event.target === dialog) dialog.close();
+        if (event.target === dialog) requestClose(dialog);
+      });
+
+      // Esc fires `cancel` and would close instantly; route it through the fade instead.
+      dialog.addEventListener('cancel', (event) => {
+        if (dialog.dataset.closing) return;
+        event.preventDefault();
+        requestClose(dialog);
       });
     });
   }
