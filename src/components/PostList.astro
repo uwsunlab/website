@@ -22,6 +22,7 @@ const THUMB_WIDTH = 760;
       const localImage = item.data.image;
       const ytThumb = localImage ? null : getYouTubeThumbnailUrl(item.data.externalUrl);
       const ytFallback = localImage ? null : getYouTubeThumbnailFallbackUrl(item.data.externalUrl);
+      const hasThumb = Boolean(localImage || ytThumb);
       const thumbAlt = item.data.imageAlt ?? `${item.data.title} media image`;
       const thumbInner = localImage ? (
         <Image src={localImage} width={THUMB_WIDTH} format="webp" alt={thumbAlt} loading="lazy" />
@@ -37,21 +38,23 @@ const THUMB_WIDTH = 760;
       );
 
       return (
-        <article class="post-item media-card">
-          <div class={`media-thumb ${localImage || ytThumb ? 'has-image' : ''}`}>
-            {item.data.externalUrl ? (
-              <a
-                class="media-thumb-link"
-                href={item.data.externalUrl}
-                aria-label={item.data.title}
-                {...externalLinkAttrs(item.data.externalUrl)}
-              >
-                {thumbInner}
-              </a>
-            ) : (
-              thumbInner
-            )}
-          </div>
+        <article class={`post-item media-card${hasThumb ? '' : ' no-media-thumb'}`}>
+          {hasThumb && (
+            <div class="media-thumb has-image">
+              {item.data.externalUrl ? (
+                <a
+                  class="media-thumb-link"
+                  href={item.data.externalUrl}
+                  aria-label={item.data.title}
+                  {...externalLinkAttrs(item.data.externalUrl)}
+                >
+                  {thumbInner}
+                </a>
+              ) : (
+                thumbInner
+              )}
+            </div>
+          )}
           <div class="media-copy">
             <p class="post-title">
               {item.data.externalUrl ? (
