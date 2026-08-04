@@ -51,6 +51,9 @@ CSS variables:
   --dur-slow: 200ms;
   --ease: ease;
   --ease-out: ease-out;
+
+  --font-body: "Open Sans", Arial, sans-serif;
+  --font-display: var(--font-body);
 }
 ```
 
@@ -69,11 +72,23 @@ Rules:
 
 ## Typography
 
-Use `"Helvetica Neue", Arial, sans-serif` everywhere.
+Two families, following the University of Cambridge typography guide:
 
-- Page title (`h1`): centered near the top of the page, dark ink, `font-weight: 400`, max width about `900px`.
-- Section and subsection titles (`h2`): Cambridge teal, `font-weight: 500`.
-- Small headings (`h3`): dark ink, `font-weight: 500`.
+- `--font-display` — headlines, titles and quotes. Feijoa, once licensed.
+- `--font-body` — subheadings and body copy. Open Sans.
+
+Never write a font stack inline. Every `font-family` declaration should point at one of
+those two tokens, so the display face can be switched in one place.
+
+Feijoa is not yet enabled. The files sit in `src/assets/fonts/`, the `@font-face` block at
+the top of `src/styles/global.css` is commented out, and `--font-display` currently resolves
+to `--font-body`. Enabling it means uncommenting that block and repointing the token — see
+the notes there before doing so.
+
+- Page title (`h1`): centered near the top of the page, dark ink, `font-weight: 600`, max width about `900px`. Display face.
+- Section and subsection titles (`h2`): Cambridge teal, `font-weight: 600`. Body face — a subheading in the guide's terms.
+- Small headings (`h3`): teal-dark, `font-weight: 600`. Body face.
+- Quotes: display face.
 - Body text: dark ink or slate teal/grey for quieter support copy.
 - Metadata, captions, dates, roles: slate teal/grey.
 - Links: Cambridge teal with a subtle underline. On hover and keyboard focus both the text

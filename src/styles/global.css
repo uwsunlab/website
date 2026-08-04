@@ -1,3 +1,86 @@
+/* Open Sans, self-hosted. These are the variable cuts (400–700 on one axis), so a single
+   file per subset covers every weight the site uses rather than one file per weight.
+   `unicode-range` keeps the fetch minimal: a typical page pulls only the latin roman file,
+   and the italic and latin-ext files are requested solely if a page contains characters
+   that need them. Paths are relative so Vite hashes and rewrites them. */
+@font-face {
+  font-family: "Open Sans";
+  src: url("../assets/fonts/open-sans-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../assets/fonts/open-sans-latin-ext.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../assets/fonts/open-sans-italic-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../assets/fonts/open-sans-italic-latin-ext.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Feijoa — the display face named by the University typography guide. Held inert until the
+   licence is confirmed: a live @font-face makes Vite emit the .otf files into the build,
+   which would publish ~358KB of a commercial font on the site. To enable, uncomment this
+   block and point --font-display at Feijoa below; nothing else needs to change.
+
+   The files each declare their own family ("Feijoa Bold-Cambridge", "Feijoa Medium-Cambridge"),
+   so the family is renamed and the weights mapped here rather than relying on their metadata.
+   Only Medium (500) and Bold (700) are supplied — there is no 400.
+
+@font-face {
+  font-family: "Feijoa";
+  src: url("../assets/fonts/Feijoa-Medium-Cambridge.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Feijoa";
+  src: url("../assets/fonts/Feijoa-MediumItalic-Cambridge.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Feijoa";
+  src: url("../assets/fonts/Feijoa-Bold-Cambridge.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
 :root {
   color-scheme: light;
   --teal: #006B68;
@@ -26,7 +109,15 @@
   --ease: ease;
   --ease-out: ease-out;
 
-  font-family: "Open Sans", Arial, sans-serif;
+  /* Two families per the University typography guide: a display face for headlines, titles
+     and quotes, and Open Sans for subheadings and body copy. --font-display currently
+     resolves to the body stack, so the site reads as it does today; switching it to
+     `"Feijoa", Georgia, serif` (with the @font-face block above uncommented) is the whole
+     change. Keep every font-family declaration pointed at one of these two tokens. */
+  --font-body: "Open Sans", Arial, sans-serif;
+  --font-display: var(--font-body);
+
+  font-family: var(--font-body);
 }
 
 * {
@@ -300,6 +391,13 @@ h3 {
   line-height: 1.14;
   margin: 0;
   letter-spacing: 0;
+}
+
+/* The guide's "headlines, titles and quotes" — the only places the display face applies.
+   h2 and h3 are subheadings and stay on the body face. */
+h1,
+blockquote {
+  font-family: var(--font-display);
 }
 
 h1 {

@@ -3,6 +3,9 @@ import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import '@styles/global.css';
 import { withBase } from '@utils/paths';
+// Imported for its hashed URL so the roman latin cut can be preloaded. It is the only font
+// file every page needs; the italic and latin-ext cuts are left to load on demand.
+import openSansLatin from '@assets/fonts/open-sans-latin.woff2?url';
 
 interface Props {
   title?: string;
@@ -26,12 +29,9 @@ const pageTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" href={withBase('/favicon.svg')} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    {/* crossorigin is required even same-origin — fonts fetch in CORS mode, and without it
+        the preload is discarded and the file fetched twice. */}
+    <link rel="preload" href={openSansLatin} as="font" type="font/woff2" crossorigin />
     <title>{pageTitle}</title>
     <script is:inline>
       // A navigation that lands while a page transition is still running makes the browser
