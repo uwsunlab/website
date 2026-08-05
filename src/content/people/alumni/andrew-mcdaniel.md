@@ -2,8 +2,8 @@
 name: Andrew McDaniel
 role: Alumni
 status: alumni
-affiliation: MS student @ UW
-whereabouts: HeadLight
+affiliation: MS, UW
+whereabouts: Currently at HeadLight
 order: 112
 links:
   - label: LinkedIn

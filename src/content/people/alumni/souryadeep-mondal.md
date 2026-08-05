@@ -2,8 +2,8 @@
 name: Souryadeep Mondal
 role: Alumni
 status: alumni
-affiliation: MS student @ UW
-whereabouts: Tesla
+affiliation: MS, UW
+whereabouts: Currently at Tesla
 order: 108
 links:
   - label: LinkedIn

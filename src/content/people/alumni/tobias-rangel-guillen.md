@@ -4,7 +4,7 @@ role: PhD Student
 status: alumni
 group: PhD Students
 photo: ../../../assets/images/people/tobias-rangel-guillen.jpg
-affiliation: PhD student @ UW
+affiliation: PhD student, UW
 order: 102
 links:
   - label: LinkedIn

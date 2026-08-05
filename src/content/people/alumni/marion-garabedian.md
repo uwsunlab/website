@@ -2,8 +2,8 @@
 name: Marion Garabedian
 role: Alumni
 status: alumni
-affiliation: Undergrad RA @ UW
-whereabouts: undergrad @ UW
+affiliation: Undergrad, UW
+whereabouts: Currently at UW
 order: 121
 links:
   - label: LinkedIn

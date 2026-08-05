@@ -2,8 +2,8 @@
 name: Tristan Angeles
 role: Alumni
 status: alumni
-affiliation: Undergrad RA @ UW
-whereabouts: Aimbridge Energy Group
+affiliation: Undergrad, UW
+whereabouts: Currently at Aimbridge Energy Group
 order: 118
 links:
   - label: LinkedIn

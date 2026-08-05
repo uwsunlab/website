@@ -2,8 +2,8 @@
 name: Qusai Alsabia
 role: Alumni
 status: alumni
-affiliation: MS student @ UW
-whereabouts: MS student @ UW
+affiliation: MS, UW
+whereabouts: Currently at UW
 order: 109
 links:
   - label: LinkedIn
