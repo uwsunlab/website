@@ -5,6 +5,7 @@ status: alumni
 group: Undergraduate Students
 photo: ../../../assets/images/people/thong-nguyen.jpg
 affiliation: Undergrad, UW
+whereabouts: Undergraduate Student
 order: 103
 links:
   - label: LinkedIn

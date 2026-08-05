@@ -21,6 +21,7 @@ const people = defineCollection({
       photo: image().or(z.string()).optional(),
       email: z.email().optional(),
       affiliation: z.string().or(z.array(z.string())).optional(),
+      whereabouts: z.string().optional(),
       links: z.array(linkSchema).default([]),
       order: z.number().default(100)
     })

@@ -3,6 +3,7 @@ name: KS Nandishwara
 role: Alumni
 status: alumni
 affiliation: Masters, UW
+whereabouts: Currently at AIMATX
 order: 110
 links:
   - label: LinkedIn

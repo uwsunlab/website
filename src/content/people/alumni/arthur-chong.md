@@ -5,6 +5,7 @@ status: alumni
 group: PostDoc & Research Assistant
 photo: ../../../assets/images/people/arthur-chong.jpg
 affiliation: Undergrad, UW
+whereabouts: Research Assistant
 order: 101
 links:
   - label: LinkedIn
