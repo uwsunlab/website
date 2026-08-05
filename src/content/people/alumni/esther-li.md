@@ -2,8 +2,8 @@
 name: Esther Li
 role: Alumni
 status: alumni
-affiliation: Undergrad, UW
-whereabouts: Currently at UW
+affiliation: Undergrad RA @ UW
+whereabouts: MS student @ Harvard
 order: 120
 links:
   - label: LinkedIn

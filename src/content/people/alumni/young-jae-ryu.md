@@ -2,8 +2,8 @@
 name: Young-Jae Ryu
 role: Alumni
 status: alumni
-affiliation: Masters, UW
-whereabouts: Currently at AIMATX
+affiliation: MS student @ UW
+whereabouts: AIMATX
 order: 111
 links:
   - label: LinkedIn

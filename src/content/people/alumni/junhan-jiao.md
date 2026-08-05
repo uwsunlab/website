@@ -2,8 +2,8 @@
 name: Junhan Jiao
 role: Alumni
 status: alumni
-affiliation: Undergrad, UW
-whereabouts: Graduated from UW
+affiliation: Undergrad RA @ UW
+whereabouts: graduated from UW
 order: 119
 links:
   - label: LinkedIn

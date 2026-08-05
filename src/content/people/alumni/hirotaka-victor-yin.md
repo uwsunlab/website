@@ -2,8 +2,8 @@
 name: Hirotaka (Victor) Yin
 role: Alumni
 status: alumni
-affiliation: Undergrad, UW
-whereabouts: Currently at CMU
+affiliation: Undergrad RA @ UW
+whereabouts: MS student @ CMU
 order: 117
 links:
   - label: LinkedIn

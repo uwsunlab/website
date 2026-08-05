@@ -17,7 +17,7 @@ const metadata = [...affiliations, person.data.whereabouts].filter(Boolean);
 
 <article class="alumni-entry">
   <h3>{person.data.name}</h3>
-  {metadata.length > 0 && <p class="meta">{metadata.join(', ')}</p>}
+  {metadata.length > 0 && <p class="meta">{metadata.join('; ')}</p>}
   {
     person.data.links.length > 0 && (
       <div class="person-links">
