@@ -14,7 +14,7 @@ const roleRank = (person: CollectionEntry<'people'>) => {
   if (role.includes('postdoc') || role.includes('postdoctoral')) return 2;
   if (role.includes('phd')) return 3;
   if (role.includes('mphil') || group.includes('amet')) return 4;
-  if (role.includes('intern')) return 5;
+  if (role.includes('intern') || role.includes("summer student")) return 5;
   return 6;
 };
 
