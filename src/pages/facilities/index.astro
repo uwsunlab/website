@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+import researchWorkflow from '@assets/images/facilities/Research.png';
+import cappy from '@assets/images/facilities/Cappy.jpg';
+import mara from '@assets/images/facilities/Mara.jpg';
+import cobra from '@assets/images/facilities/Cobra.jpg';
+---
+
+<BaseLayout title="Facilities" description="Autonomous laboratory platforms and robotic instrumentation at the Autonomous Materials Discovery Group Cambridge.">
+  <PageHeader
+    title="Facilities"
+    description="Our group runs the Self-driving Lab Research Facility (SRF), an open facility for autonomous materials research. We welcome enquiries about access to our high-throughput synthesis and characterisation equipment, trialling AI-driven experimental design, and collaborations to develop new autonomous workflows."
+  />
+
+  <section class="research-method section alt" aria-labelledby="facilities-autonomous-science-title">
+    <div class="container research-two-column">
+      <figure class="research-media research-media-unframed">
+        <Image
+          src={researchWorkflow}
+          widths={[600, 1100]}
+          sizes="(max-width: 900px) 100vw, 560px"
+          format="webp"
+          alt="Closed-loop autonomous science workflow linking humans, AI systems, robots, and data"
+          loading="lazy"
+        />
+      </figure>
+      <div class="research-copy">
+        <h2 id="facilities-autonomous-science-title">Autonomous science</h2>
+        <p>
+          In an autonomous lab, scientists, AI systems, and robots work together in a closed loop.
+          Human and AI scientists design experiments to explore and exploit the building blocks of
+          matter; robots execute these experiments to assemble materials with targeted
+          functionality; and the resulting data provide physical-world feedback to guide the next
+          round of planning, execution, and learning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="research-platforms section" aria-labelledby="facilities-platforms-title">
+    <div class="container">
+      <h2 id="facilities-platforms-title">Autonomous laboratory platforms</h2>
+      <div class="research-platform-list">
+        <article class="research-platform">
+          <figure class="research-media">
+            <Image src={cappy} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cappy crystallisation platform" loading="lazy" />
+          </figure>
+          <div class="research-copy">
+            <h3>Crystallisation</h3>
+            <p>
+              Cappy is a platform that runs high-throughput crystallisation experiments, including
+              precipitation and solvothermal reactions. It is used to study phase formation,
+              polymorphism, and crystallisation pathways.
+            </p>
+          </div>
+        </article>
+
+        <article class="research-platform media-right">
+          <div class="research-copy">
+            <h3>Thin-film deposition</h3>
+            <p>
+              MARA consists of a suite of automation components that prepares thin films and
+              iteratively optimises their optoelectronic properties. It combines automated
+              deposition, characterisation, and Bayesian optimisation.
+            </p>
+          </div>
+          <figure class="research-media">
+            <Image src={mara} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="MARA thin-film deposition platform" loading="lazy" />
+          </figure>
+        </article>
+
+        <article class="research-platform">
+          <figure class="research-media">
+            <Image src={cobra} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cobra robotic sample movement platform" loading="lazy" />
+          </figure>
+          <div class="research-copy">
+            <h3>Sample movement</h3>
+            <p>
+              Cobra is a set of configurable robotic arms for moving samples between instruments and
+              workstations. It connects synthesis, characterisation, and storage into automated
+              workflows.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
