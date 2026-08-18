@@ -342,7 +342,7 @@ html.is-transitioning a {
 h1,
 h2,
 h3 {
-  color: var(--teal-dark);
+  color: var(--ink);
   line-height: 1.14;
   margin: 0;
   letter-spacing: 0;
