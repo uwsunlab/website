@@ -1322,23 +1322,33 @@ h3 {
   object-fit: cover;
 }
 
-.research-copy {
+/* The facilities platform copy shares these rules outright rather than restating the
+   values, so the two pages cannot drift apart if this typography is ever retuned. */
+.research-copy,
+.facility-intro {
   max-width: 560px;
 }
 
+/* Facility titles are listed explicitly rather than relying on `.research-platforms h2`,
+   so scoping that selector cannot silently take their colour away. */
 .research-copy h2,
 .research-copy h3,
-.research-platforms h2 {
+.research-platforms h2,
+.facility-intro h2 {
   color: var(--teal-dark);
 }
 
-.research-copy p {
+.research-copy p,
+.facility-intro p {
   color: var(--ink);
   font-size: clamp(1.02rem, 1.35vw, 1.16rem);
   line-height: 1.62;
 }
 
-.research-platforms h2 {
+/* Direct child, not a descendant: this spacing is for the section's own heading, and as a
+   descendant selector it also caught the platform titles nested further down once those
+   became h2s, pushing a 42px gap between each title and its paragraph. */
+.research-platforms > .container > h2 {
   margin-bottom: clamp(26px, 4vw, 42px);
 }
 
@@ -1355,6 +1365,130 @@ h3 {
 .research-platform:last-child {
   padding-bottom: 0;
   border-bottom: 0;
+}
+
+/* Facilities platforms: copy at the prose measure, then a media band across the full
+   container. Separators match .research-platform so the two pages stay related. */
+.facility-list {
+  display: grid;
+  gap: clamp(30px, 4.5vw, 56px);
+}
+
+/* min-width:0 because a grid item defaults to min-width:auto, which refuses to shrink below
+   its content's min-content width — the media band would then stretch the whole article to
+   the full width of its items instead of scrolling inside it. */
+.facility {
+  min-width: 0;
+  padding-bottom: clamp(30px, 4.5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+
+.facility:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+/* Sizing and colour come from the shared .research-copy rules above; only the spacing
+   between the heading and its paragraph is specific to this layout. 14px rather than the
+   original 10px because the titles are now h2-sized and need a little more room under them. */
+.facility-intro p {
+  margin: 14px 0 0;
+}
+
+/* A band can hold portrait photos and 16:9 video side by side, so nothing here forces a
+   shared aspect ratio — cropping to one would gut a 2:3 portrait, and `contain` would
+   letterbox it. Every item is instead pinned to the same height with its width following
+   its own ratio, so the row stays visually even whatever the mix.
+
+   The row scrolls rather than wraps or shrinks: adding media extends it sideways and
+   leaves the existing items at full size. Bands alternate left/right down the page, which
+   brings back some of the rhythm of the research page's alternating two-column blocks. */
+.facility-media {
+  --media-h: clamp(240px, 34vw, 460px);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(20px, 2.6vw, 34px);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  /* Keeps the scrollbar clear of the mat's bottom border. */
+  padding-bottom: 6px;
+}
+
+/* Every second platform hangs its media off the right edge instead. `safe` is load-bearing:
+   plain `flex-end` on a scroll container pushes the overflow off the start side, where
+   scrollLeft cannot reach it and the first items become unreachable. `safe` drops back to
+   start-aligned exactly when the row overflows, which is also when alignment stops mattering
+   because the row already fills the width. Browsers without `safe` ignore the declaration
+   and inherit flex-start above, so the worst case is no alternation rather than lost media. */
+.facility:nth-child(even) .facility-media {
+  justify-content: safe flex-end;
+}
+
+/* Deliberately not reusing .research-media: that mat forces `aspect-ratio: 16/10` with
+   `object-fit: cover` on its images, which is right for the research page's uniform rows
+   but would crop a 2:3 portrait here. Same cream mat, without the forced ratio. */
+.facility-media-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  margin: 0;
+  background: var(--paper-soft);
+  border: 1px solid var(--line);
+  padding: clamp(8px, 1.1vw, 14px);
+}
+
+/* Fixed height with auto width is what keeps every item the same size regardless of how
+   many there are. `max-width: none` overrides the global `img { max-width: 100% }`, which
+   would otherwise shrink a wide item to fit and break the shared height; the row scrolls
+   instead. aspect-ratio:auto stops any inherited ratio cropping the image. */
+.facility-media-item img {
+  height: var(--media-h);
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  object-fit: fill;
+}
+
+.facility-media-item figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.facility-video {
+  position: relative;
+  display: block;
+  height: var(--media-h);
+  width: auto;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* The poster fills the 16:9 button, so this one is cropped on purpose. */
+.facility-video img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.facility-video-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.facility-video.is-playing img,
+.facility-video.is-playing .gallery-play-badge {
+  display: none;
 }
 
 .contact-page p,
@@ -1725,7 +1859,9 @@ img.gallery-lightbox-layer {
   margin-left: 4px; /* optically centre the triangle */
 }
 
-.gallery-thumb-link:hover .gallery-play-badge {
+.gallery-thumb-link:hover .gallery-play-badge,
+.facility-video:hover .gallery-play-badge,
+.facility-video:focus-visible .gallery-play-badge {
   background: rgb(0 0 0 / 0.72);
   transform: translate(-50%, -50%) scale(1.05);
 }
@@ -1927,7 +2063,8 @@ button.gallery-play-badge {
     order: -1;
   }
 
-  .research-copy {
+  .research-copy,
+  .facility-intro {
     max-width: 100%;
   }
 
