@@ -248,6 +248,15 @@ html.is-transitioning a {
   margin-inline: auto;
 }
 
+/* Header and footer run the full page width instead of the shared container, so their
+   content sits near the page edges while everything else keeps the safe zone. The padding
+   is only a gutter to stop content touching the viewport edge; at the small end it matches
+   what `.container` already gave on narrow screens, so mobile is unchanged. */
+.container-full {
+  width: 100%;
+  padding-inline: clamp(16px, 2.5vw, 48px);
+}
+
 .skip-link {
   position: absolute;
   top: 12px;
@@ -1985,7 +1994,9 @@ button.gallery-play-badge {
   .nav {
     align-items: flex-start;
     flex-direction: column;
-    padding: 16px 0;
+    /* padding-block, not the `16px 0` shorthand — that would reset padding-inline to 0 and
+       wipe out the edge gutter .container-full sets. */
+    padding-block: 16px;
   }
 
   .nav-links {
