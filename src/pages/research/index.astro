@@ -3,9 +3,9 @@ import { Image } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PageHeader from '@components/PageHeader.astro';
 import researchWorkflow from '@assets/images/research/Research.png';
-import cappy from '@assets/images/research/Cappy.jpg';
-import mara from '@assets/images/research/Mara.jpg';
-import cobra from '@assets/images/research/Cobra.jpg';
+import assembly_in_solution from '@assets/images/research/assembly-in-solution.jpeg';
+import assembly_at_interfaces from '@assets/images/research/assembly-at-interfaces.jpg';
+import assembly_on_templates from '@assets/images/research/assembly-on-templates.jpeg';
 ---
 
 <BaseLayout title="Research" description="Clean energy materials research using artificial intelligence and robotics.">
@@ -19,7 +19,7 @@ import cobra from '@assets/images/research/Cobra.jpg';
       <figure class="research-media research-media-unframed">
         <Image
           src={researchWorkflow}
-          widths={[600, 1100]}
+          widths={[600, 1200]}
           sizes="(max-width: 900px) 100vw, 560px"
           format="webp"
           alt="Closed-loop autonomous science workflow linking humans, AI systems, robots, and data"
@@ -39,48 +39,77 @@ import cobra from '@assets/images/research/Cobra.jpg';
     </div>
   </section>
 
-  <section class="research-platforms section" aria-labelledby="platforms-title">
+  <section class="research-platforms section" aria-labelledby="research-themes-title">
     <div class="container">
-      <h2 id="platforms-title">Autonomous laboratory platforms</h2>
+      <h2 id="research-themes-title">Research Themes</h2>
       <div class="research-platform-list">
         <article class="research-platform">
           <figure class="research-media">
-            <Image src={cappy} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cappy crystallisation platform" loading="lazy" />
+            <Image src={assembly_in_solution} widths={[600, 1200]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Illustration for the Assembly in solution research theme" loading="lazy" />
           </figure>
           <div class="research-copy">
-            <h3>Crystallisation</h3>
+            <h3>Assembly in solution</h3>
             <p>
-              Cappy is a platform that runs high-throughput crystallisation experiments, including
-              precipitation and solvothermal reactions. It is used to study phase formation,
-              polymorphism, and crystallisation pathways.
+              We study how hybrid halide
+              perovskites and metal–organic
+              frameworks crystallise from
+              solution, where the interplay of
+              thermodynamic stability and
+              nucleation kinetics selects
+              among competing polymorphs.
+              Resolving these crystallisation
+              pathways lets us direct phase
+              formation towards target
+              structures and functions.
             </p>
           </div>
         </article>
 
-        <article class="research-platform media-right">
+        {/* Media sits on the right here purely by source order — the copy is written before
+            the figure, and the two-column grid does the rest. */}
+        <article class="research-platform">
           <div class="research-copy">
-            <h3>Thin-film deposition</h3>
+            <h3>Assembly at interfaces</h3>
             <p>
-              MARA consists of a suite of automation components that prepares thin films and
-              iteratively optimises their optoelectronic properties. It combines automated
-              deposition, characterisation, and Bayesian optimisation.
+              We deposit thin films by
+              solution processing, where
+              rapid solvent removal drives
+              crystallisation far from
+              equilibrium. Antisolvent
+              addition and annealing steer
+              this kinetic landscape,
+              trapping metastable phases
+              or suppressing phase
+              segregation, and with it, the
+              optoelectronic properties
+              that matter for photovoltaics
+              and light-emitting devices.
             </p>
           </div>
           <figure class="research-media">
-            <Image src={mara} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="MARA thin-film deposition platform" loading="lazy" />
+            <Image src={assembly_at_interfaces} widths={[600, 1200]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Illustration for the Assembly at interfaces research theme" loading="lazy" />
           </figure>
         </article>
 
         <article class="research-platform">
           <figure class="research-media">
-            <Image src={cobra} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cobra robotic sample movement platform" loading="lazy" />
+            <Image src={assembly_on_templates} widths={[600, 1200]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Illustration for the Assembly on templates research theme" loading="lazy" />
           </figure>
           <div class="research-copy">
-            <h3>Sample movement</h3>
+            <h3>Assembly on templates</h3>
             <p>
-              Cobra is a set of configurable robotic arms for moving samples between instruments and
-              workstations. It connects synthesis, characterisation, and storage into automated
-              workflows.
+              We use molecular
+              templates as a bridging
+              tool to direct inorganic
+              growth and enable
+              co-crystallisation of organic
+              and inorganic building
+              blocks; from nanoparticles
+              to layered heterostructures
+              that self-assemble in water.
+              It offers a mild, sustainable
+              route to precise hybrid
+              materials.
             </p>
           </div>
         </article>

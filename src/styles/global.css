@@ -248,6 +248,15 @@ html.is-transitioning a {
   margin-inline: auto;
 }
 
+/* Header and footer run the full page width instead of the shared container, so their
+   content sits near the page edges while everything else keeps the safe zone. The padding
+   is only a gutter to stop content touching the viewport edge; at the small end it matches
+   what `.container` already gave on narrow screens, so mobile is unchanged. */
+.container-full {
+  width: 100%;
+  padding-inline: clamp(16px, 2.5vw, 48px);
+}
+
 .skip-link {
   position: absolute;
   top: 12px;
@@ -305,27 +314,6 @@ html.is-transitioning a {
   max-width: 100%;
 }
 
-.brand-text {
-  display: grid;
-  gap: 2px;
-}
-
-.brand-text span + span {
-  color: var(--muted);
-  font-size: 0.82em;
-}
-
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  display: inline-grid;
-  place-items: center;
-  border-radius: 7px;
-  background: var(--teal);
-  color: var(--paper);
-  font-size: 1rem;
-}
-
 .nav-links {
   display: flex;
   align-items: center;
@@ -360,30 +348,6 @@ html.is-transitioning a {
   text-decoration: none;
 }
 
-.hero {
-  padding: clamp(70px, 9vw, 132px) 0 clamp(48px, 7vw, 88px);
-  background: var(--paper);
-}
-
-.hero-stack {
-  display: grid;
-  gap: clamp(34px, 5vw, 66px);
-  justify-items: center;
-}
-
-.hero-copy {
-  text-align: center;
-  max-width: 920px;
-}
-
-.hero-copy .lede {
-  margin-inline: auto;
-}
-
-.hero-copy .button-row {
-  justify-content: center;
-}
-
 h1,
 h2,
 h3 {
@@ -401,6 +365,7 @@ blockquote {
 }
 
 h1 {
+  color: var(--ink);
   font-size: clamp(2.8rem, 5vw, 4.8rem);
   font-weight: 600;
   max-width: 900px;
@@ -426,21 +391,6 @@ h3 {
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   max-width: 66ch;
   color: var(--muted);
-}
-
-.hero-visual {
-  margin: 0;
-  width: min(100%, 1080px);
-  background: var(--cream);
-  border: 1px solid var(--line);
-  padding: clamp(8px, 1.25vw, 16px);
-}
-
-.hero-visual img {
-  width: 100%;
-  min-height: clamp(260px, 45vw, 560px);
-  object-fit: cover;
-  aspect-ratio: 16 / 8.7;
 }
 
 .section {
@@ -523,10 +473,6 @@ h3 {
 
 .grid.three {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid.four {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .people-grid {
@@ -966,129 +912,6 @@ h3 {
   padding: 0;
 }
 
-.news-archive {
-  display: grid;
-  gap: 0;
-}
-
-.news-filters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(12px, 2.2vw, 30px);
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--line);
-}
-
-.news-filter {
-  appearance: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  background: transparent;
-  color: var(--muted);
-  padding: 9px 6px 7px;
-  font: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color var(--dur-slow) var(--ease), border-bottom-color var(--dur-slow) var(--ease);
-}
-
-.news-filter:hover,
-.news-filter:focus-visible,
-.news-filter[aria-selected='true'] {
-  color: var(--teal-dark);
-  border-bottom-color: var(--rose);
-}
-
-.news-filter:focus-visible {
-  outline: 2px solid transparent;
-  outline-offset: 3px;
-}
-
-.news-archive-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.news-archive-item {
-  display: grid;
-  grid-template-columns: 132px 140px minmax(0, 1fr);
-  gap: clamp(18px, 2.6vw, 30px);
-  align-items: start;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.news-archive-item[hidden] {
-  display: none;
-}
-
-.news-archive-item-no-thumb {
-  grid-template-columns: 132px 140px minmax(0, 1fr);
-}
-
-.news-archive-date {
-  display: grid;
-  gap: 6px;
-}
-
-.news-archive-date time {
-  color: var(--teal-dark);
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.news-archive-date span {
-  color: var(--muted);
-  font-size: var(--step-small);
-}
-
-.news-archive-copy {
-  color: var(--ink);
-}
-
-.news-archive-copy h2 {
-  margin: 0 0 6px;
-  font-size: clamp(1.08rem, 1.55vw, 1.32rem);
-  line-height: 1.35;
-}
-
-.news-archive-copy p {
-  margin: 0;
-}
-
-.news-archive-copy p + p {
-  margin-top: 8px;
-}
-
-.news-archive-thumb {
-  display: block;
-  width: 132px;
-  aspect-ratio: 1;
-  border: 1px solid var(--line);
-  overflow: hidden;
-  background: var(--paper-soft);
-  align-self: start;
-}
-
-.news-archive-thumb-placeholder {
-  width: 132px;
-  aspect-ratio: 1;
-}
-
-.news-archive-thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity var(--dur-base) var(--ease);
-}
-
-.news-archive-thumb:hover img {
-  opacity: 0.86;
-}
-
 .publication-item.featured {
   border-left-color: var(--accent);
 }
@@ -1143,20 +966,6 @@ h3 {
 .content-flow p,
 .content-flow li {
   color: var(--muted);
-}
-
-.home-statement {
-  max-width: 860px;
-}
-
-.home-statement h2 {
-  max-width: 18ch;
-}
-
-.home-statement p {
-  color: var(--muted);
-  font-size: clamp(1.08rem, 1.7vw, 1.32rem);
-  max-width: 68ch;
 }
 
 .news-section {
@@ -1479,8 +1288,7 @@ h3 {
   text-decoration-color: var(--teal-dark);
 }
 
-.paper-thumb,
-.gallery-image {
+.paper-thumb {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -1489,68 +1297,6 @@ h3 {
 
 .paper-thumb {
   aspect-ratio: 16 / 9;
-}
-
-.platform-list {
-  display: grid;
-  gap: clamp(30px, 5vw, 64px);
-}
-
-.concept-panel {
-  max-width: 900px;
-}
-
-.concept-panel p {
-  color: var(--muted);
-  font-size: clamp(1.05rem, 1.6vw, 1.24rem);
-  max-width: 72ch;
-}
-
-.concept-steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: 32px;
-  border: 1px solid var(--line);
-  background: var(--line);
-}
-
-.concept-steps span {
-  background: var(--paper-soft);
-  padding: 18px;
-  text-align: center;
-  font-weight: 500;
-  color: var(--teal-dark);
-}
-
-.platform-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  gap: clamp(24px, 4vw, 54px);
-  align-items: center;
-  padding-bottom: clamp(30px, 5vw, 64px);
-  border-bottom: 1px solid var(--line);
-}
-
-.platform-card:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.platform-media {
-  background: var(--paper-soft);
-  border: 1px solid var(--line);
-  padding: clamp(8px, 1.1vw, 14px);
-}
-
-.platform-media img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
-
-.platform-copy p:not(.publication-title) {
-  color: var(--muted);
 }
 
 .research-method.section,
@@ -1586,23 +1332,33 @@ h3 {
   object-fit: cover;
 }
 
-.research-copy {
+/* The facilities platform copy shares these rules outright rather than restating the
+   values, so the two pages cannot drift apart if this typography is ever retuned. */
+.research-copy,
+.facility-intro {
   max-width: 560px;
 }
 
+/* Facility titles are listed explicitly rather than relying on `.research-platforms h2`,
+   so scoping that selector cannot silently take their colour away. */
 .research-copy h2,
 .research-copy h3,
-.research-platforms h2 {
+.research-platforms h2,
+.facility-intro h2 {
   color: var(--teal-dark);
 }
 
-.research-copy p {
+.research-copy p,
+.facility-intro p {
   color: var(--ink);
   font-size: clamp(1.02rem, 1.35vw, 1.16rem);
   line-height: 1.62;
 }
 
-.research-platforms h2 {
+/* Direct child, not a descendant: this spacing is for the section's own heading, and as a
+   descendant selector it also caught the platform titles nested further down once those
+   became h2s, pushing a 42px gap between each title and its paragraph. */
+.research-platforms > .container > h2 {
   margin-bottom: clamp(26px, 4vw, 42px);
 }
 
@@ -1619,6 +1375,130 @@ h3 {
 .research-platform:last-child {
   padding-bottom: 0;
   border-bottom: 0;
+}
+
+/* Facilities platforms: copy at the prose measure, then a media band across the full
+   container. Separators match .research-platform so the two pages stay related. */
+.facility-list {
+  display: grid;
+  gap: clamp(30px, 4.5vw, 56px);
+}
+
+/* min-width:0 because a grid item defaults to min-width:auto, which refuses to shrink below
+   its content's min-content width — the media band would then stretch the whole article to
+   the full width of its items instead of scrolling inside it. */
+.facility {
+  min-width: 0;
+  padding-bottom: clamp(30px, 4.5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+
+.facility:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+/* Sizing and colour come from the shared .research-copy rules above; only the spacing
+   between the heading and its paragraph is specific to this layout. 14px rather than the
+   original 10px because the titles are now h2-sized and need a little more room under them. */
+.facility-intro p {
+  margin: 14px 0 0;
+}
+
+/* A band can hold portrait photos and 16:9 video side by side, so nothing here forces a
+   shared aspect ratio — cropping to one would gut a 2:3 portrait, and `contain` would
+   letterbox it. Every item is instead pinned to the same height with its width following
+   its own ratio, so the row stays visually even whatever the mix.
+
+   The row scrolls rather than wraps or shrinks: adding media extends it sideways and
+   leaves the existing items at full size. Bands alternate left/right down the page, which
+   brings back some of the rhythm of the research page's alternating two-column blocks. */
+.facility-media {
+  --media-h: clamp(240px, 34vw, 460px);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(20px, 2.6vw, 34px);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  /* Keeps the scrollbar clear of the mat's bottom border. */
+  padding-bottom: 6px;
+}
+
+/* Every second platform hangs its media off the right edge instead. `safe` is load-bearing:
+   plain `flex-end` on a scroll container pushes the overflow off the start side, where
+   scrollLeft cannot reach it and the first items become unreachable. `safe` drops back to
+   start-aligned exactly when the row overflows, which is also when alignment stops mattering
+   because the row already fills the width. Browsers without `safe` ignore the declaration
+   and inherit flex-start above, so the worst case is no alternation rather than lost media. */
+.facility:nth-child(even) .facility-media {
+  justify-content: safe flex-end;
+}
+
+/* Deliberately not reusing .research-media: that mat forces `aspect-ratio: 16/10` with
+   `object-fit: cover` on its images, which is right for the research page's uniform rows
+   but would crop a 2:3 portrait here. Same cream mat, without the forced ratio. */
+.facility-media-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  margin: 0;
+  background: var(--paper-soft);
+  border: 1px solid var(--line);
+  padding: clamp(8px, 1.1vw, 14px);
+}
+
+/* Fixed height with auto width is what keeps every item the same size regardless of how
+   many there are. `max-width: none` overrides the global `img { max-width: 100% }`, which
+   would otherwise shrink a wide item to fit and break the shared height; the row scrolls
+   instead. aspect-ratio:auto stops any inherited ratio cropping the image. */
+.facility-media-item img {
+  height: var(--media-h);
+  width: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  object-fit: fill;
+}
+
+.facility-media-item figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.facility-video {
+  position: relative;
+  display: block;
+  height: var(--media-h);
+  width: auto;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* The poster fills the 16:9 button, so this one is cropped on purpose. */
+.facility-video img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.facility-video-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.facility-video.is-playing img,
+.facility-video.is-playing .gallery-play-badge {
+  display: none;
 }
 
 .contact-page p,
@@ -1812,29 +1692,6 @@ h3 {
   font-weight: 500;
 }
 
-.reference-item {
-  padding: 0 0 18px 10px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid var(--line);
-}
-
-.reference-title {
-  color: var(--ink);
-  font-weight: 700;
-  margin: 0 0 4px;
-}
-
-.reference-item p {
-  margin: 4px 0;
-}
-
-.paper-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
-}
-
 .gallery-wall {
   display: flex;
   flex-wrap: wrap;
@@ -2012,7 +1869,9 @@ img.gallery-lightbox-layer {
   margin-left: 4px; /* optically centre the triangle */
 }
 
-.gallery-thumb-link:hover .gallery-play-badge {
+.gallery-thumb-link:hover .gallery-play-badge,
+.facility-video:hover .gallery-play-badge,
+.facility-video:focus-visible .gallery-play-badge {
   background: rgb(0 0 0 / 0.72);
   transform: translate(-50%, -50%) scale(1.05);
 }
@@ -2136,27 +1995,22 @@ button.gallery-play-badge {
   .nav {
     align-items: flex-start;
     flex-direction: column;
-    padding: 16px 0;
+    /* padding-block, not the `16px 0` shorthand — that would reset padding-inline to 0 and
+       wipe out the edge gutter .container-full sets. */
+    padding-block: 16px;
   }
 
   .nav-links {
     justify-content: flex-start;
   }
 
-  .hero {
-    padding-top: 48px;
-  }
-
-  .hero-stack,
   .grid.three,
   .grid.two,
   .home-overview,
   .footer-grid,
-  .platform-card,
   .research-two-column,
   .research-platform,
   .media-card,
-  .gallery-event figcaption,
   .contact-join,
   .join-intro-panel,
   .join-pathways,
@@ -2183,10 +2037,6 @@ button.gallery-play-badge {
 
   .person-dialog-photo {
     margin-bottom: 22px;
-  }
-
-  .concept-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .media-copy {
@@ -2225,26 +2075,14 @@ button.gallery-play-badge {
     order: -1;
   }
 
-  .research-copy {
+  .research-copy,
+  .facility-intro {
     max-width: 100%;
   }
 
   .news-item {
     grid-template-columns: 1fr;
     gap: 8px;
-  }
-
-  .news-archive-item {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .news-archive-thumb {
-    width: 112px;
-  }
-
-  .news-archive-thumb-placeholder {
-    display: none;
   }
 
 }
@@ -2277,10 +2115,6 @@ button.gallery-play-badge {
 
   .nav-links a {
     padding-inline: 8px;
-  }
-
-  .concept-steps {
-    grid-template-columns: 1fr;
   }
 
 }

@@ -1,0 +1,226 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/PageHeader.astro';
+import {
+  getYouTubeVideoId,
+  getYouTubeThumbnailFallbackUrl,
+  getYouTubeThumbnailUrl
+} from '@utils/youtube';
+import cappy from '@assets/images/facilities/Cappy.jpg';
+import cappy_workflow from '@assets/images/facilities/capy-workflow-horizontal.png';
+import mara from '@assets/images/facilities/Mara.jpg';
+import mara_workflow from '@assets/images/facilities/mara-workflow-horizontal.png';
+import mara_single_render from '@assets/images/facilities/ot2-single-angle.png';
+import cobra from '@assets/images/facilities/Cobra.jpg';
+import cobra_single_render from '@assets/images/facilities/arm5-single-angle.png';
+
+// A platform carries as many media items as it needs. Images are local assets so they go
+// through the image pipeline; videos are YouTube links rendered as a click-to-load facade,
+// the same approach the gallery uses. Adding media is a one-entry edit here.
+type Media =
+  | { kind: 'image'; src: ImageMetadata; alt: string; caption?: string }
+  | { kind: 'video'; url: string; title: string; caption?: string };
+
+interface Platform {
+  id: string;
+  title: string;
+  body: string;
+  media: Media[];
+}
+
+const platforms: Platform[] = [
+  {
+    id: 'crystallisation',
+    title: 'Crystallisation',
+    body: 'Cappy is a platform that runs high-throughput crystallisation experiments, including precipitation and solvothermal reactions. It is used to study phase formation, polymorphism, and crystallisation pathways.',
+    media: [{ kind: 'image', src: cappy, alt: 'Cappy crystallisation platform' }, { kind: 'image', src: cappy_workflow, alt: 'Cappy workflow' }]
+  },
+  {
+    id: 'thin-film-deposition',
+    title: 'Thin-film deposition',
+    body: 'MARA consists of a suite of automation components that prepares thin films and iteratively optimises their optoelectronic properties. It combines automated deposition, characterisation, and Bayesian optimisation.',
+    media: [{ kind: 'image', src: mara, alt: 'MARA thin-film deposition platform' }, { kind: 'image', src: mara_workflow, alt: 'MARA platform workflow' }, { kind: 'image', src: mara_single_render, alt: 'MARA liquid handler 3D render' }]
+  },
+  {
+    id: 'sample-movement',
+    title: 'Sample movement',
+    body: 'Cobra is a set of configurable robotic arms for moving samples between instruments and workstations. It connects synthesis, characterisation, and storage into automated workflows.',
+    media: [{ kind: 'image', src: cobra, alt: 'Cobra robotic sample movement platform' }, { kind: 'image', src: cobra_single_render, alt: 'Cobra robotic arm 3D render' }]
+  }
+];
+
+// Video URLs are resolved here rather than in the template. All three YouTube helpers
+// return `string | null` and all derive from the same id, so one bad URL silently produced
+// three failures at once: the id attribute omitted (leaving a play button whose handler
+// bails), an empty `src`, and the literal string "null" interpolated into `onerror`.
+// `platforms` is a build-time constant, so a bad URL is an authoring mistake that should
+// stop the build, not ship a dead button.
+type ResolvedMedia =
+  | { kind: 'image'; src: ImageMetadata; alt: string; caption?: string }
+  | { kind: 'video'; id: string; poster: string; posterFallback: string; title: string; caption?: string };
+
+function resolveMedia(item: Media, platform: string): ResolvedMedia {
+  if (item.kind === 'image') return item;
+
+  const id = getYouTubeVideoId(item.url);
+  const poster = getYouTubeThumbnailUrl(item.url);
+  const posterFallback = getYouTubeThumbnailFallbackUrl(item.url);
+
+  if (!id || !poster || !posterFallback) {
+    throw new Error(
+      `facilities: "${item.title}" on ${platform} is not a recognisable YouTube URL: ${item.url}`
+    );
+  }
+  // The id is interpolated into a JS string inside the onerror attribute, so anything
+  // outside YouTube's id alphabet could break out of that string.
+  if (!/^[\w-]+$/.test(id)) {
+    throw new Error(`facilities: unexpected characters in YouTube id "${id}" from ${item.url}`);
+  }
+
+  return { kind: 'video', id, poster, posterFallback, title: item.title, caption: item.caption };
+}
+
+const resolvedPlatforms = platforms.map((platform) => ({
+  ...platform,
+  media: platform.media.map((item) => resolveMedia(item, platform.title))
+}));
+
+const VIDEO_AR = 16 / 9;
+
+// Items in the media band are sized by height, so each one's rendered width is its own
+// aspect ratio times `--media-h: clamp(240px, 34vw, 460px)`. A single `sizes` value cannot
+// describe that — a tall portrait and a 16:9 diagram in the same row differ by ~2.7x — so
+// both `sizes` and `widths` are derived per image. These mirror the CSS; if --media-h
+// changes, change them together.
+const MEDIA_H_MIN = 240;
+const MEDIA_H_MAX = 460;
+const MEDIA_H_VW = 34;
+// The viewport widths at which the clamp stops being the min and starts being the max.
+const CLAMP_MIN_BP = Math.round((MEDIA_H_MIN / MEDIA_H_VW) * 100);
+const CLAMP_MAX_BP = Math.round((MEDIA_H_MAX / MEDIA_H_VW) * 100);
+
+const mediaSizes = (ar: number) =>
+  `(max-width: ${CLAMP_MIN_BP}px) ${Math.round(ar * MEDIA_H_MIN)}px, ` +
+  `(max-width: ${CLAMP_MAX_BP}px) ${(ar * MEDIA_H_VW).toFixed(1)}vw, ` +
+  `${Math.round(ar * MEDIA_H_MAX)}px`;
+
+// One derivative for the smallest layout, one for 1x at full size, one for 2x screens.
+// Anything wider than the source is dropped, since upscaling only wastes bytes.
+const mediaWidths = (ar: number, sourceWidth: number) => {
+  const wanted = [ar * MEDIA_H_MIN, ar * MEDIA_H_MAX, ar * MEDIA_H_MAX * 2].map(Math.round);
+  const usable = [...new Set(wanted)].filter((w) => w <= sourceWidth);
+  return usable.length > 0 ? usable : [sourceWidth];
+};
+---
+
+<BaseLayout title="Facilities" description="Autonomous laboratory platforms and robotic instrumentation at the Autonomous Materials Discovery Group Cambridge.">
+  <PageHeader
+    title="Facilities"
+    description="Our group runs the Self-driving Lab Research Facility (SRF), an open facility for autonomous materials research. We welcome enquiries about access to our high-throughput synthesis and characterisation equipment, trialling AI-driven experimental design, and collaborations to develop new autonomous workflows."
+  />
+
+  {/* No visible heading here, so the region is named with aria-label instead — dropping the
+      heading would otherwise leave the section unlabelled for screen readers. */}
+  <section class="research-platforms section" aria-label="Autonomous laboratory platforms">
+    <div class="container">
+      <div class="facility-list">
+        {
+          resolvedPlatforms.map((platform) => (
+            <article class="facility" aria-labelledby={`facility-${platform.id}-title`}>
+              <div class="facility-intro">
+                <h2 id={`facility-${platform.id}-title`}>{platform.title}</h2>
+                <p>{platform.body}</p>
+              </div>
+
+              <div class="facility-media" aria-label={`${platform.title} media`}>
+                {platform.media.map((item) =>
+                  item.kind === 'image' ? (
+                    <figure
+                      class="facility-media-item"
+                      style={`--ar:${(item.src.width / item.src.height).toFixed(4)}`}
+                    >
+                      <Image
+                        src={item.src}
+                        widths={mediaWidths(item.src.width / item.src.height, item.src.width)}
+                        sizes={mediaSizes(item.src.width / item.src.height)}
+                        format="webp"
+                        alt={item.alt}
+                        loading="lazy"
+                      />
+                      {item.caption && <figcaption>{item.caption}</figcaption>}
+                    </figure>
+                  ) : (
+                    <figure class="facility-media-item" style={`--ar:${VIDEO_AR.toFixed(4)}`}>
+                      <button
+                        class="facility-video"
+                        type="button"
+                        data-youtube-id={item.id}
+                        data-video-title={item.title}
+                        aria-label={`Play ${item.title}`}
+                      >
+                        <img
+                          src={item.poster}
+                          alt=""
+                          loading="lazy"
+                          onerror={`this.onerror=null;this.src='${item.posterFallback}'`}
+                        />
+                        <span class="gallery-play-badge" aria-hidden="true" />
+                      </button>
+                      {item.caption && <figcaption>{item.caption}</figcaption>}
+                    </figure>
+                  )
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // A scrollable region has to be reachable by keyboard, or media scrolled out of view
+  // cannot be got to without a mouse. Only bands that actually overflow become focusable,
+  // so a single-item band does not add a pointless tab stop. Re-checked on resize because
+  // whether a band overflows depends on the viewport.
+  const bands = document.querySelectorAll<HTMLElement>('.facility-media');
+
+  function syncScrollAffordance() {
+    bands.forEach((band) => {
+      const scrollable = band.scrollWidth > band.clientWidth + 1;
+      band.classList.toggle('is-scrollable', scrollable);
+      if (scrollable) {
+        band.setAttribute('tabindex', '0');
+        band.setAttribute('role', 'group');
+      } else {
+        band.removeAttribute('tabindex');
+        band.removeAttribute('role');
+      }
+    });
+  }
+
+  syncScrollAffordance();
+  window.addEventListener('resize', syncScrollAffordance);
+  window.addEventListener('load', syncScrollAffordance);
+
+  // Click-to-load facade: nothing is requested from YouTube until the poster is clicked,
+  // matching how the gallery lightbox handles video.
+  document.querySelectorAll<HTMLButtonElement>('.facility-video').forEach((box) => {
+    box.addEventListener('click', () => {
+      const id = box.dataset.youtubeId;
+      if (!id || box.classList.contains('is-playing')) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.className = 'facility-video-frame';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = box.dataset.videoTitle || 'YouTube video player';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.allowFullscreen = true;
+
+      box.appendChild(iframe);
+      box.classList.add('is-playing');
+    });
+  });
+</script>

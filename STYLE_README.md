@@ -123,6 +123,9 @@ Rules:
 The site uses a shared coordinate system.
 
 - Page container: `width: min(1200px, calc(100% - 8vw))`, centered.
+- Header and footer are the exception: they use `.container-full`, which runs the full page
+  width with only a small edge gutter, so the site chrome sits at the page edges while all
+  page content stays inside the container above.
 - Title block: centered at the top of the page, max width about `900px`.
 - Intro line: centered under the title, max width about `680px`.
 - Prose block: left aligned, max width about `760px`.
