@@ -19,7 +19,7 @@ import assembly_on_templates from '@assets/images/research/assembly-on-templates
       <figure class="research-media research-media-unframed">
         <Image
           src={researchWorkflow}
-          widths={[600, 1100]}
+          widths={[600, 1200]}
           sizes="(max-width: 900px) 100vw, 560px"
           format="webp"
           alt="Closed-loop autonomous science workflow linking humans, AI systems, robots, and data"
@@ -45,7 +45,7 @@ import assembly_on_templates from '@assets/images/research/assembly-on-templates
       <div class="research-platform-list">
         <article class="research-platform">
           <figure class="research-media">
-            <Image src={assembly_in_solution} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cappy crystallisation platform" loading="lazy" />
+            <Image src={assembly_in_solution} widths={[600, 1200]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Illustration for the Assembly in solution research theme" loading="lazy" />
           </figure>
           <div class="research-copy">
             <h3>Assembly in solution</h3>
@@ -65,7 +65,9 @@ import assembly_on_templates from '@assets/images/research/assembly-on-templates
           </div>
         </article>
 
-        <article class="research-platform media-right">
+        {/* Media sits on the right here purely by source order — the copy is written before
+            the figure, and the two-column grid does the rest. */}
+        <article class="research-platform">
           <div class="research-copy">
             <h3>Assembly at interfaces</h3>
             <p>
@@ -85,13 +87,13 @@ import assembly_on_templates from '@assets/images/research/assembly-on-templates
             </p>
           </div>
           <figure class="research-media">
-            <Image src={assembly_at_interfaces} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="MARA thin-film deposition platform" loading="lazy" />
+            <Image src={assembly_at_interfaces} widths={[600, 1200]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Illustration for the Assembly at interfaces research theme" loading="lazy" />
           </figure>
         </article>
 
         <article class="research-platform">
           <figure class="research-media">
-            <Image src={assembly_on_templates} widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Cobra robotic sample movement platform" loading="lazy" />
+            <Image src={assembly_on_templates} widths={[600, 1200]} sizes="(max-width: 900px) 100vw, 560px" format="webp" alt="Illustration for the Assembly on templates research theme" loading="lazy" />
           </figure>
           <div class="research-copy">
             <h3>Assembly on templates</h3>
@@ -99,8 +101,8 @@ import assembly_on_templates from '@assets/images/research/assembly-on-templates
               We use molecular
               templates as a bridging
               tool to direct inorganic
-              growth and enable co-
-              crystallisation of organic
+              growth and enable
+              co-crystallisation of organic
               and inorganic building
               blocks; from nanoparticles
               to layered heterostructures

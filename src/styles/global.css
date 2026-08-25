@@ -351,7 +351,7 @@ html.is-transitioning a {
 h1,
 h2,
 h3 {
-  color: var(--ink);
+  color: var(--teal-dark);
   line-height: 1.14;
   margin: 0;
   letter-spacing: 0;
@@ -365,6 +365,7 @@ blockquote {
 }
 
 h1 {
+  color: var(--ink);
   font-size: clamp(2.8rem, 5vw, 4.8rem);
   font-weight: 600;
   max-width: 900px;
